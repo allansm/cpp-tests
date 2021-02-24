@@ -44,55 +44,6 @@ string elapsedTime(int sec){
     return temp;
 }
 
-string getFirstLine(const char* file){
-    string line;
-    ifstream temp(file);
-    //int i = 0;
-    while (getline (temp,line)) {
-        return line;
-    }
-    temp.close();
-    return "";
-}
-
-int delimiterCount(string text,string delimiter){
-    int lastSize = 0;
-    int count = 0;
-    while(lastSize != text.length()){
-        string temp = text.substr(0, text.find(delimiter));
-        //cout << temp;
-        lastSize = text.length();
-        text.erase(0,text.find(delimiter)+delimiter.length());
-        count++;
-    }
-    return count;
-}
-string * split(string text, string delimiter){
-    //std::string s = "scott>=tiger";
-    //std::string delimiter = ">=";
-    //std::string token = s.substr(0, s.find(delimiter)); // token is "scott"
-    //s.erase(0, pos + delimiter.length());
-    //string[] words;
-    //int size;
-    int lastSize = 0;
-    int size = delimiterCount(text,delimiter);
-    string splited[size];
-    int i = 0;
-    while(lastSize != text.length()){
-        string temp = text.substr(0, text.find(delimiter));
-        //cout << temp;
-        lastSize = text.length();
-        splited[i++] = temp;
-        text.erase(0,text.find(delimiter)+delimiter.length());
-    }
-    cout << splited[0] << splited[1] << splited[2];
-    return splited;
-}
-
-void overrideFile(string data,string fileName){
-    string command = "echo "+data+" > "+fileName;
-    system(command.c_str());
-}
 
 int getDay(){
     time_t now = time(0);
@@ -131,22 +82,121 @@ string wt(long int start){
     return elapsedTime(toSec(elapsedTime(start)));
 }
 
+string getFirstLine(const char* file){
+    string line;
+    ifstream temp(file);
+    //int i = 0;
+    while (getline (temp,line)) {
+        return line;
+    }
+    temp.close();
+    return "";
+}
+
+int delimiterCount(string text,string delimiter){
+    int lastSize = 0;
+    int count = 0;
+    while(lastSize != text.length()){
+        string temp = text.substr(0, text.find(delimiter));
+        //cout << temp;
+        lastSize = text.length();
+        text.erase(0,text.find(delimiter)+delimiter.length());
+        count++;
+    }
+    return count;
+}
+string split(string text, string delimiter,int index){
+    int lastSize = 0;
+    int size = delimiterCount(text,delimiter);
+    string splited[size];
+    int i = 0;
+    while(lastSize != text.length()){
+        string temp = text.substr(0, text.find(delimiter));
+        lastSize = text.length();
+        splited[i++] = temp;
+        text.erase(0,text.find(delimiter)+delimiter.length());
+    }
+    return splited[index];
+}
+
+string sumTime(string elapsed1,string elapsed2){
+    stringstream ss;
+
+    int h1;
+    int m1;
+    int s1;
+
+    ss << split(elapsed1,":",0);
+    ss >> h1;
+    ss.str("");
+
+    ss << split(elapsed1,":",1);
+    ss >> m1;
+    ss.str("");
+
+    ss << split(elapsed1,":",2);
+    ss >> s1;
+    ss.str("");
+
+    int h2;
+    int m2;
+    int s2;
+
+    ss << split(elapsed2,":",0);
+    ss >> h2;
+    ss.str("");
+
+    ss << split(elapsed2,":",1);
+    ss >> m2;
+    ss.str("");
+
+    ss << split(elapsed2,";",2);
+    ss >> s2;
+    ss.str("");
+
+    cout << h1;
+    cout << h2;
+
+    string temp = "";
+
+    /*int h = (h1+h2);
+    int m = ((m1+m2) - (h1+h2)*60);
+    int s = ((s1+s2) - (m1+m2)*60);
+    ss << h << ":" << m << ":" << s;
+    ss >> temp;
+*/
+    cout << temp;
+
+    return temp;
+}
+
+void overrideFile(string data,string fileName){
+    string command = "echo "+data+" > "+fileName;
+    system(command.c_str());
+}
+
+
 void run(){
     long int start = currentTimeToMs();
     string filename = getDate("");
     string data;
+    string persistentData = getFirstLine(filename.c_str());
+    if(persistentData == ""){
+        persistentData = "0:0:0";
+    }
+    cout << persistentData << "\n";
     while(true){
-        data = wt(start);
+        data = sumTime(wt(start),persistentData);
         //cout << filename << " " << data << "\n";
-        overrideFile(data,filename);
+        //overrideFile(data,filename);
         //system("cls");
     }
 }
 
 main(){
-    //run();
-    string arr = split("0:1:2",":")[0];
-    cout << arr;
+    run();
+    //string arr = split("5:7:20",":",1);
+    //cout << arr;
     //test2();
     //test("test.txt");
 }
