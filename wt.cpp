@@ -38,7 +38,7 @@ string elapsedTime(int sec){
     stringstream ss;
     int h = toHour(toMinute(sec));
     int m = toMinute(sec) - (h*60);
-    int s = sec - (m*60);
+    int s = sec - ((m*60)+(h*60*60));
     ss << h << ":" << m << ":" << s;
     ss >> temp;
     return temp;
