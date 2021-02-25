@@ -69,23 +69,32 @@ bool generate(const char* file){
 }
 
 void deleteDownloadedFile(){
-   system("dir /B *.mp4 > mp4file");
-   string file = getFirstLine("mp4file");
+   system("dir /B *.mp4 > mp4file.txt");
+   string file = getFirstLine("mp4file.txt");
    if(file != "" && file != "Arquivo não encontrado"){
        remove(file.c_str());
    }
+}
+
+bool canDownload(){
+    system("dir /B *.mp4 > mp4file.txt");
+   string file = getFirstLine("mp4file.txt");
+   if(file != "" && file != "Arquivo não encontrado"){
+       return true;
+   }
+   return false;
 }
 
 
 void run(){
     const int WAIT_TIME = 1000*10;
     while(true){
-        if(generate("next.txt")){
+        if(generate("next.txt") || canDownload()){
             Sleep(WAIT_TIME);
             deleteDownloadedFile();
 
             string link = getRandomLine("links.txt");
-            string command = "youtube-dl.exe -f best  --merge-output-format mp4 "+link+" -4";
+            string command = "youtube-dl.exe "+link+" -4";
 
             system(command.c_str());
 
