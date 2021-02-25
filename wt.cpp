@@ -54,7 +54,12 @@ int getDay(){
 int getMonth(){
     time_t now = time(0);
     tm *ltm = localtime(&now);
-    return ltm->tm_mon;
+
+    int mon = ltm->tm_mon;
+
+    // +1 fix unkno error!!
+    mon+=1;
+    return mon;
 }
 
 int getYear(){
@@ -76,10 +81,6 @@ string getDate(string sep){
     ss << getDay() << sep << getMonth() << sep << getYear();
     ss >> temp;
     return temp;
-}
-
-string wt(long int start){
-    return elapsedTime(toSec(elapsedTime(start)));
 }
 
 string getFirstLine(const char* file){
@@ -125,37 +126,21 @@ int parseInt(string number){
     return n;
 }
 
-string sumTime(string elapsed1,string elapsed2){
-    stringstream ss;
-
-    int h1 = parseInt(split(elapsed1,":",0));
-    int m1 = parseInt(split(elapsed1,":",1));
-    int s1 = parseInt(split(elapsed1,":",2));
-
-
-    int h2 = parseInt(split(elapsed2,":",0));
-    int m2 = parseInt(split(elapsed2,":",1));
-    int s2 = parseInt(split(elapsed2,":",2));
-
-    string temp;
-
-    int s = s1+s2;
-    int m = toMinute(s);
-    int h = toHour(toMinute(s));
-
-    h = h+h1+h2;
-    m = m+m1+m2;
-
-    m = m - (h*60);
-    s = s - (m*60);
-
-    ss << h << ":" << m << ":" << s;
-    ss >> temp;
-
-    return temp;
+string wt(long int start){
+    return elapsedTime(toSec(elapsedTime(start)));
+}
+string wt(string sec){
+    return elapsedTime(parseInt(sec));
 }
 
-
+string sumTime(long int start,string persistentData){
+    int sec = toSec(elapsedTime(start));
+    stringstream ss;
+    string temp;
+    ss <<  (sec + parseInt(persistentData));
+    ss >> temp;
+    return temp;
+}
 
 void overrideFile(string data,string fileName){
     string command = "echo "+data+" > "+fileName;
@@ -169,11 +154,11 @@ void run(){
     string data;
     string persistentData = getFirstLine(filename.c_str());
     if(persistentData == ""){
-        persistentData = "0:0:0";
+        persistentData = "0";
     }
     while(true){
-        data = sumTime(wt(start),persistentData);
-        cout << data << "\n";
+        data = sumTime(start,persistentData);
+        cout << filename << " " << wt(data) << "\n";
         overrideFile(data,filename);
         system("cls");
     }
