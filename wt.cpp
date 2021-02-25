@@ -85,7 +85,6 @@ string wt(long int start){
 string getFirstLine(const char* file){
     string line;
     ifstream temp(file);
-    //int i = 0;
     while (getline (temp,line)) {
         return line;
     }
@@ -98,7 +97,6 @@ int delimiterCount(string text,string delimiter){
     int count = 0;
     while(lastSize != text.length()){
         string temp = text.substr(0, text.find(delimiter));
-        //cout << temp;
         lastSize = text.length();
         text.erase(0,text.find(delimiter)+delimiter.length());
         count++;
@@ -119,56 +117,45 @@ string split(string text, string delimiter,int index){
     return splited[index];
 }
 
+int parseInt(string number){
+    stringstream ss;
+    int n = 0;
+    ss.str(number);
+    ss >> n;
+    return n;
+}
+
 string sumTime(string elapsed1,string elapsed2){
     stringstream ss;
 
-    int h1;
-    int m1;
-    int s1;
+    int h1 = parseInt(split(elapsed1,":",0));
+    int m1 = parseInt(split(elapsed1,":",1));
+    int s1 = parseInt(split(elapsed1,":",2));
 
-    ss << split(elapsed1,":",0);
-    ss >> h1;
-    ss.str("");
 
-    ss << split(elapsed1,":",1);
-    ss >> m1;
-    ss.str("");
+    int h2 = parseInt(split(elapsed2,":",0));
+    int m2 = parseInt(split(elapsed2,":",1));
+    int s2 = parseInt(split(elapsed2,":",2));
 
-    ss << split(elapsed1,":",2);
-    ss >> s1;
-    ss.str("");
+    string temp;
 
-    int h2;
-    int m2;
-    int s2;
+    int s = s1+s2;
+    int m = toMinute(s);
+    int h = toHour(toMinute(s));
 
-    ss << split(elapsed2,":",0);
-    ss >> h2;
-    ss.str("");
+    h = h+h1+h2;
+    m = m+m1+m2;
 
-    ss << split(elapsed2,":",1);
-    ss >> m2;
-    ss.str("");
+    m = m - (h*60);
+    s = s - (m*60);
 
-    ss << split(elapsed2,";",2);
-    ss >> s2;
-    ss.str("");
-
-    cout << h1;
-    cout << h2;
-
-    string temp = "";
-
-    /*int h = (h1+h2);
-    int m = ((m1+m2) - (h1+h2)*60);
-    int s = ((s1+s2) - (m1+m2)*60);
     ss << h << ":" << m << ":" << s;
     ss >> temp;
-*/
-    cout << temp;
 
     return temp;
 }
+
+
 
 void overrideFile(string data,string fileName){
     string command = "echo "+data+" > "+fileName;
@@ -184,19 +171,14 @@ void run(){
     if(persistentData == ""){
         persistentData = "0:0:0";
     }
-    cout << persistentData << "\n";
     while(true){
         data = sumTime(wt(start),persistentData);
-        //cout << filename << " " << data << "\n";
-        //overrideFile(data,filename);
-        //system("cls");
+        cout << data << "\n";
+        overrideFile(data,filename);
+        system("cls");
     }
 }
 
 main(){
     run();
-    //string arr = split("5:7:20",":",1);
-    //cout << arr;
-    //test2();
-    //test("test.txt");
 }
