@@ -38,6 +38,7 @@ void deleteBy(string extension){
     temp.close();
 
     for(int i=0;i<size;i++){
+        cout << "deleting : "+lines[i]+"\n";
         remove(lines[i].c_str());
     }
 
