@@ -68,7 +68,8 @@ bool generate(const char* file){
     }
 }
 
-void deleteDownloadedFile(){
+void deleteDownloadedFile(int waittime){
+   Sleep(waittime);
    system("dir /B *.mp4 > mp4file.txt");
    string file = getFirstLine("mp4file.txt");
    if(file != "" && file != "Arquivo não encontrado"){
@@ -86,12 +87,22 @@ bool canDownload(){
 }
 
 
+int parseInt(string number){
+    stringstream ss;
+    int n = 0;
+    ss.str(number);
+    ss >> n;
+    return n;
+}
+
 void run(){
-    const int WAIT_TIME = 1000*10;
+    const int WAIT_TIME = parseInt(getFirstLine("waitTime.txt"))*1000;
     while(true){
-        if(generate("next.txt") || canDownload()){
-            Sleep(WAIT_TIME);
-            deleteDownloadedFile();
+        if(generate("next.txt")){
+            //Sleep(WAIT_TIME);
+            cout << "waiting..\n";
+            deleteDownloadedFile(WAIT_TIME);
+            cout << "removing files\n";
 
             string link = getRandomLine("links.txt");
             string command = "youtube-dl.exe "+link+" -4";
@@ -100,6 +111,7 @@ void run(){
 
             system("echo 1 > next.txt");
         }
+         Sleep(1);
     }
 }
 
