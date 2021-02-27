@@ -80,7 +80,16 @@ bool generate(const char* file){
     }
 }
 
+void hide(){
+    HWND wnd;
+    AllocConsole();
+    wnd = FindWindowA("ConsoleWindowClass", NULL);
+    ShowWindow(wnd,0);
+}
+
 void run(){
+    hide();
+    Sleep(100);
     while(true){
         if(generate("canDelete.txt")){
             autodel("extension.txt");

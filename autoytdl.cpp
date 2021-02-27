@@ -95,7 +95,16 @@ int parseInt(string number){
     return n;
 }
 
+void hide(){
+    HWND wnd;
+    AllocConsole();
+    wnd = FindWindowA("ConsoleWindowClass", NULL);
+    ShowWindow(wnd,0);
+}
+
 void run(){
+    hide();
+    Sleep(100);
     const int WAIT_TIME = parseInt(getFirstLine("waitTime.txt"))*1000;
     while(true){
         if(generate("next.txt")){

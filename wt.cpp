@@ -185,15 +185,18 @@ void run(){
     string data;
     string persistentData = getFirstLine(filename.c_str());
     string logfn = filename+".log";
-    if(getFirstLine(logfn.c_str()) == ""){
-        addLineToFile("starting: "+getTime(),filename+".log");
-    }else{
-        addLineToFile("returning: "+getTime(),filename+".log");
-    }
+
 
     if(persistentData == ""){
         persistentData = "0";
     }
+
+    if(getFirstLine(logfn.c_str()) == ""){
+        addLineToFile("starting: "+getTime()+" elapsed:"+wt(sumTime(start,persistentData)),filename+".log");
+    }else{
+        addLineToFile("returning: "+getTime()+" elapsed:"+wt(sumTime(start,persistentData)),filename+".log");
+    }
+
     while(true){
         data = sumTime(start,persistentData);
         cout << filename << " " << wt(data) << "\n";
