@@ -44,6 +44,24 @@ string elapsedTime(int sec){
     return temp;
 }
 
+int getSec(){
+    time_t now = time(0);
+    tm *ltm = localtime(&now);
+    return ltm->tm_sec;
+}
+
+int getMin(){
+    time_t now = time(0);
+    tm *ltm = localtime(&now);
+    return ltm->tm_min;
+}
+
+int getHour(){
+    time_t now = time(0);
+    tm *ltm = localtime(&now);
+    return ltm->tm_hour;
+}
+
 
 int getDay(){
     time_t now = time(0);
@@ -66,6 +84,14 @@ int getYear(){
     time_t now = time(0);
     tm *ltm = localtime(&now);
     return 1900 + ltm->tm_year;
+}
+
+string getTime(){
+    string temp;
+    stringstream ss;
+    ss << getHour() << ":" << getMin() <<":" << getSec();
+    ss >> temp;
+    return temp;
 }
 
 string getDate(){
@@ -147,12 +173,24 @@ void overrideFile(string data,string fileName){
     system(command.c_str());
 }
 
+void addLineToFile(string data,string fileName){
+    string command = "echo "+data+" >> "+fileName;
+    system(command.c_str());
+}
+
 
 void run(){
     long int start = currentTimeToMs();
     string filename = getDate("");
     string data;
     string persistentData = getFirstLine(filename.c_str());
+    string logfn = filename+".log";
+    if(getFirstLine(logfn.c_str()) == ""){
+        addLineToFile("starting: "+getTime(),filename+".log");
+    }else{
+        addLineToFile("returning: "+getTime(),filename+".log");
+    }
+
     if(persistentData == ""){
         persistentData = "0";
     }
@@ -160,6 +198,7 @@ void run(){
         data = sumTime(start,persistentData);
         cout << filename << " " << wt(data) << "\n";
         overrideFile(data,filename);
+
         system("cls");
     }
 }

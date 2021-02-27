@@ -75,6 +75,7 @@ string getDate(){
     ss >> temp;
     return temp;
 }
+
 string getDate(string sep){
     string temp;
     stringstream ss;
@@ -126,6 +127,14 @@ int parseInt(string number){
     return n;
 }
 
+string toString(int number){
+    stringstream ss;
+    string st;
+    ss << number;
+    ss >> st;
+    return st;
+}
+
 string wt(long int start){
     return elapsedTime(toSec(elapsedTime(start)));
 }
@@ -150,21 +159,73 @@ void overrideFile(string data,string fileName){
 
 void run(){
     string command;
+    string day;
+    string mon;
+    string year;
+
+    string path = "";
+
     while(true){
         command = "";
         cout << "wt>";
         cin >> command;
 
-        if(command == "start"){
-            //cout << "\nmillis:";
-            //long int start;
-            //cin >> start;
+        if(command == "setPath"){
+            cout << "\npath:";
+            cin >> path;
+        }
+        if(command == "resetPath"){
+            path = "";
+        }
+        if(command == "getPath"){
+            string fn = path+day+""+mon+""+year;
+            cout << "\n" << fn << "\n";
+        }
+        if(command == "showVar"){
+            cout << "\ncommand:" << command << "\n";
+            cout << "\nday:" << day << "\n";
+            cout << "\nmon:" << mon << "\n";
+            cout << "\nyear:" << year << "\n";
+            cout << "\npath:" << path << "\n";
+        }
+        if(command == "setDay"){
+            cout << "\nday:";
+            cin >> day;
+        }
+        if(command == "setMon"){
+            cout << "\nmon:";
+            cin >> mon;
+        }
+        if(command == "setYear"){
+            cout << "\nyear:";
+            cin >> year;
+        }
+        if(command == "useDate"){
+            day = toString(getDay());
+            mon = toString(getMonth());
+            year = toString(getYear());
+
+            cout << "\n" << day << "\n";
+            cout << "\n" << mon << "\n";
+            cout << "\n" << year << "\n";
         }
         if(command == "elapsed"){
-            string fn;
-            cout << "\nfile url:";
-            cin >> fn;
+            string fn = path+day+""+mon+""+year;
             cout << "\n"+elapsedTime(parseInt(getFirstLine(fn.c_str())))+"\n";
+        }
+        if(command == "log"){
+            string fn = path+day+""+mon+""+year+".log";
+
+            string line;
+            ifstream temp(fn.c_str());
+            while (getline (temp,line)) {
+               cout << line+"\n";
+            }
+            temp.close();
+        }
+        if(command == "start"){
+            string fn = path+day+""+mon+""+year+".log";
+            cout << "\n"+getFirstLine(fn.c_str()) << "\n";
         }
     }
 
