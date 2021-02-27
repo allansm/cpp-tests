@@ -88,8 +88,6 @@ void hide(){
 }
 
 void run(){
-    hide();
-    Sleep(100);
     while(true){
         if(generate("canDelete.txt")){
             autodel("extension.txt");
@@ -100,5 +98,6 @@ void run(){
 }
 
 main(){
+    hide();
     run();
 }

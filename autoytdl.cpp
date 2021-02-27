@@ -103,18 +103,15 @@ void hide(){
 }
 
 void run(){
-    hide();
-    Sleep(100);
     const int WAIT_TIME = parseInt(getFirstLine("waitTime.txt"))*1000;
     while(true){
         if(generate("next.txt")){
-            //Sleep(WAIT_TIME);
             cout << "waiting..\n";
             deleteDownloadedFile(WAIT_TIME);
             cout << "removing files\n";
 
             string link = getRandomLine("links.txt");
-            string command = "youtube-dl.exe "+link+" -4";
+            string command = "youtube-dl.exe "+link;
 
             system(command.c_str());
 
@@ -125,6 +122,7 @@ void run(){
 }
 
 main(){
+    hide();
     run();
-    //ls();
 }
+

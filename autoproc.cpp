@@ -40,7 +40,7 @@ int countLines(const char* file){
     return i;
 }
 
-void tProc(const char* file,string command){
+void tProc(const char* file,string command,int t){
     ifstream temp(file);
     string text;
     int size = countLines(file);
@@ -55,15 +55,16 @@ void tProc(const char* file,string command){
     for(int i=0;i<size;i++){
         string cmd = command+lines[i];
         system(cmd.c_str());
+        Sleep(t);
     }
 }
 
 void run(){
      while(true){
         if(generate("error.txt")){
-            tProc("cProc.txt","taskkill /f /im ");
+            tProc("cProc.txt","taskkill /f /im ",1);
             Sleep(100);
-            tProc("sProc.txt","start ");
+            tProc("sProc.txt","start ",1000);
             system("echo 1 > error.txt");
         }
         Sleep(1000);
