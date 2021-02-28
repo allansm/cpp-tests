@@ -16,7 +16,11 @@ void run(){
     string d2 = Files::getLine(deli.c_str(),1);
     string d3 = Files::getLine(deli.c_str(),2);
     string site = Files::getFirstLine(file.c_str());
-    string command = "wget -O "+dump+" "+site;
+    string param =  Files::getLine(file.c_str(),1);
+
+    cout << param << "\n";
+
+    string command = "wget -O "+dump+" \""+site+param+"\"";
 
     system(command.c_str());
 
@@ -36,6 +40,7 @@ void run(){
             cout << url << "\n";
         }
         catch (const exception &exc){
+
         }
     }
 
