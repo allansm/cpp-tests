@@ -64,7 +64,7 @@ void run(){
         if(generate("error.txt")){
             tProc("cProc.txt","taskkill /f /im ",1);
             Sleep(100);
-            tProc("sProc.txt","start ",1000);
+            tProc("sProc.txt","start /B ",1000);
             system("echo 1 > error.txt");
         }
         Sleep(1000);

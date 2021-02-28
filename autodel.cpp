@@ -98,6 +98,6 @@ void run(){
 }
 
 main(){
-    hide();
+    //hide();
     run();
 }
