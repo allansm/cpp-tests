@@ -40,7 +40,8 @@ int countLines(const char* file){
     return i;
 }
 
-void tProc(const char* file,string command,int t){
+void tProc(const char* file,string command,int t,string cmend){
+    cout << "executing:" << command << "\n";
     ifstream temp(file);
     string text;
     int size = countLines(file);
@@ -53,7 +54,7 @@ void tProc(const char* file,string command,int t){
     temp.close();
 
     for(int i=0;i<size;i++){
-        string cmd = command+lines[i];
+        string cmd = command+lines[i]+cmend;
         system(cmd.c_str());
         Sleep(t);
     }
@@ -62,9 +63,9 @@ void tProc(const char* file,string command,int t){
 void run(){
      while(true){
         if(generate("error.txt")){
-            tProc("cProc.txt","taskkill /f /im ",1);
+            tProc("cProc.txt","taskkill /f /im ",1,"");
             Sleep(100);
-            tProc("sProc.txt","start /B ",1000);
+            tProc("sProc.txt","start /B ",1000,"");
             system("echo 1 > error.txt");
         }
         Sleep(1000);

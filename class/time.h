@@ -45,6 +45,24 @@ class Time{
         return temp;
     }
 
+    int getSec(){
+        time_t now = time(0);
+        tm *ltm = localtime(&now);
+        return ltm->tm_sec;
+    }
+
+    int getMin(){
+        time_t now = time(0);
+        tm *ltm = localtime(&now);
+        return ltm->tm_min;
+    }
+
+    int getHour(){
+        time_t now = time(0);
+        tm *ltm = localtime(&now);
+        return ltm->tm_hour;
+    }
+
 
     int getDay(){
         time_t now = time(0);
@@ -95,7 +113,7 @@ class Time{
         return "";
     }
 
-    int delimiterCount(string text,string delimiter){
+    /*int delimiterCount(string text,string delimiter){
         int lastSize = 0;
         int count = 0;
         while(lastSize != text.length()){
@@ -134,5 +152,5 @@ class Time{
         ss << number;
         ss >> st;
         return st;
-    }
+    }*/
 };
