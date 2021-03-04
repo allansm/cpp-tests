@@ -144,7 +144,7 @@ void run(){
     while(true){
         if(generate("next.txt")){
             cout << "waiting..\n";
-            deleteDownloadedFile(WAIT_TIME);
+            //deleteDownloadedFile(WAIT_TIME);
             cout << "removing files\n";
 
             string link = getRandomLine("links.txt");
