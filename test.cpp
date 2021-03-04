@@ -52,7 +52,7 @@ main(){
                  }
                  if(op == "showLines"){
                     for(int i=0;i<size;i++){
-                        cout << lines[i] << "\n\n";
+                        cout << i << " : " <<lines[i] << "\n\n";
                     }
                  }
                  if(op == "storeLines"){
@@ -63,6 +63,25 @@ main(){
                        cmd = "echo "+lines[i]+" >> "+fname;
                        system(cmd.c_str());
                     }
+                 }
+                 if(op == "addToLines"){
+                    string add;
+                    cout << "start or end(s/e)?";
+                    string o;
+                    cin >> o;
+                    cout << "text>";
+                    cin >> add;
+                    if(o == "s"){
+                        for(int i=0;i<size;i++){
+                          lines[i] = add+lines[i];
+                        }
+                    }else{
+                        for(int i=0;i<size;i++){
+                          lines[i] = lines[i]+add;
+                        }
+                    }
+
+
                  }
                  if(op == "find"){
                     cout << "start>";
