@@ -32,7 +32,7 @@ void run(){
 
 
         try{
-           string splited = Util::test(lines[i],d1,d2);
+           string splited = Util::find(lines[i],d1,d2);
 
             string url = site+d3+splited;
             string command =  "echo "+url+" >> get.txt";

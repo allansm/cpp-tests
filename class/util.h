@@ -1,6 +1,10 @@
 #ifndef UTIL_H_INCLUDED
 #define UTIL_H_INCLUDED
 
+#include <iostream>
+
+using namespace std;
+
 class Util{
     public : static int delimiterCount(string text,string delimiter){
         int lastSize = 0;
@@ -43,12 +47,74 @@ class Util{
         return st;
     }
 
-    public : static string test(const string &s,const string &start_delim,const string &stop_delim){
+    public : static string find(const string &s,const string &start_delim,const string &stop_delim){
         unsigned first_delim_pos = s.find(start_delim);
         unsigned end_pos_of_first_delim = first_delim_pos + start_delim.length();
         unsigned last_delim_pos = s.find_first_of(stop_delim, end_pos_of_first_delim);
 
         return s.substr(end_pos_of_first_delim,last_delim_pos - end_pos_of_first_delim);
+    }
+
+    string replace(string txt,string toReplace,string newTxt){
+        int start = txt.find(toReplace);
+        int end = toReplace.length();
+        return txt.replace(start,end,newTxt);
+    }
+
+    public : static void findAll(string txt,string deli1, string deli2){
+        while(txt != ""){
+            string found = Util::find(txt,deli1,deli2);
+            cout << found << "\n";
+            string complete = deli1+found+deli2;
+            int start = txt.find(complete);
+            int end = start+complete.length();
+            txt.replace(start,end,"");
+        }
+    }
+
+    public : static int countDeliO(string txt,string deli1, string deli2){
+        int i=0;
+        while(txt != ""){
+            string found = Util::find(txt,deli1,deli2);
+            i++;
+            string complete = deli1+found+deli2;
+            int start = txt.find(complete);
+            int end = start+complete.length();
+            txt.replace(start,end,"");
+        }
+        return i;
+    }
+
+    public : string findAt(string txt,string deli1, string deli2,int i){
+        int size = countDeliO(txt,deli1,deli2);
+        string temp[size];
+        int ind =0;
+        while(txt != ""){
+            string found = Util::find(txt,deli1,deli2);
+            temp[ind++] = found;
+            string complete = deli1+found+deli2;
+            int start = txt.find(complete);
+            int end = start+complete.length();
+            txt.replace(start,end,"");
+        }
+        return temp[i];
+    }
+    public : static string findAllInOne(string txt,string deli1, string deli2){
+        string temp = "";
+        while(txt != ""){
+            try{
+                string found = Util::find(txt,deli1,deli2);
+                //cout << found << "\n";
+                temp += found+"\n";
+                string complete = deli1+found+deli2;
+                int start = txt.find(complete);
+                int end = start+complete.length();
+                txt.replace(start,end,"");
+            }catch (const exception &exc){
+                break;
+            }
+        }
+        return temp;
     }
 };
 
