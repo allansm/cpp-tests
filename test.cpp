@@ -8,8 +8,9 @@
 string dump = "dump.txt";
 
 
-void storeDumpLines(){
-
+void download(string url){
+    string command = "wget "+url;
+    system(command.c_str());
 }
 
 void getPage(string url){
@@ -130,8 +131,11 @@ main(){
 
                         }
                     }
-                    string cmd = "echo "+all+" > "+fname;
-                    system(cmd.c_str());
+                    cout << all << "\n";
+                    //system(cmd.c_str());
+                    ofstream temp2(dump.c_str());
+                    temp2.write(all.c_str(),all.length());
+                    temp2.close();
                  }
                  if(op == "storeAllToDump"){
                    cout << "start>";
@@ -153,6 +157,13 @@ main(){
                     ofstream temp2(dump.c_str());
                     temp2.write(all.c_str(),all.length());
                     temp2.close();
+                 }
+                 if(op == "download"){
+                    int index;
+                    cout << "line>";
+                    cin >> index;
+
+                    download(lines[index]);
                  }
                  if(op == "addToLines"){
                     string add;
