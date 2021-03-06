@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include <iostream>
 
+
 string replace(string txt,string toReplace,string newTxt){
     int start = txt.find(toReplace);
     int end = toReplace.length();
@@ -53,6 +54,6 @@ string findAt(string txt,string deli1, string deli2,int i){
 }
 
 main(){
-    string ts = "123abc1234123abcd1234123abcde1234";
-    cout << findAt(ts,"123","1234",2);
+    //string ts = "123abc1234123abcd1234123abcde1234";
+    //cout << findAt(ts,"123","1234",2);
 }
