@@ -23,6 +23,7 @@ void play(){
 }
 
 main(){
+	system("start /B autoytdl");
 	while(true){
 		play();
 	}

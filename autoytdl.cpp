@@ -154,22 +154,26 @@ string getParameters(){
 void run(){
     const int WAIT_TIME = parseInt(getFirstLine("waitTime.txt"))*1000;
     while(true){
-        if(generate("next.txt")){
-            cout << "waiting..\n";
-            //deleteDownloadedFile(WAIT_TIME);
-            cout << "removing files\n";
+		try{
+			if(generate("next.txt")){
+				cout << "waiting..\n";
+				//deleteDownloadedFile(WAIT_TIME);
+				cout << "removing files\n";
 
-            string link = getRandomLine("links.txt");
-            removeLine("links.txt",link);
-            cout << "remove link :" << link << "\n";
+				string link = getRandomLine("links.txt");
+				removeLine("links.txt",link);
+				cout << "remove link :" << link << "\n";
 
-            string command = "youtube-dl.exe "+getParameters()+link;
-			cout << command << "\n";
-            system(command.c_str());
+				string command = "youtube-dl.exe "+getParameters()+link;
+				cout << command << "\n";
+				system(command.c_str());
 
-            system("echo 1 > next.txt");
-        }
-         Sleep(1);
+				system("echo 1 > next.txt");
+			}
+			Sleep(1);
+		}catch (const exception &exc){
+			
+		}
     }
 }
 
