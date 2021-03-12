@@ -98,7 +98,7 @@ string getFirstLine(const char* file){
 
 
 bool generate(const char* file){
-    if(getFirstLine(file) == "0"){
+    if(getFirstLine(file).at(0) == '0'){
         return true;
     }else{
         return false;
@@ -139,6 +139,18 @@ void hide(){
     ShowWindow(wnd,0);
 }
 
+bool fileExist(const char *fileName){
+    ifstream infile(fileName);
+    return infile.good();
+}
+
+string getParameters(){
+	if(fileExist("parameters.txt")){
+		return getFirstLine("parameters.txt")+" ";
+	}
+	return "";
+} 
+
 void run(){
     const int WAIT_TIME = parseInt(getFirstLine("waitTime.txt"))*1000;
     while(true){
@@ -151,8 +163,8 @@ void run(){
             removeLine("links.txt",link);
             cout << "remove link :" << link << "\n";
 
-            string command = "youtube-dl.exe "+link;
-
+            string command = "youtube-dl.exe "+getParameters()+link;
+			cout << command << "\n";
             system(command.c_str());
 
             system("echo 1 > next.txt");
