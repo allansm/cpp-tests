@@ -9,9 +9,10 @@ using namespace std;
 void play(){
 	string ext =  Files::getFirstLine("extensions.txt");
 	string command = "dir /B "+ext+" > currentfiles";
+	ext = Files::getFirstLine("extension.txt");
     system(command.c_str());
 	string file = Files::getFirstLine("currentfiles");
-	int i = file.find(".opus");
+	int i = file.find(ext);
 	system("echo 0 > next.txt");
 	if(i > 0){
 		Sleep(100);
