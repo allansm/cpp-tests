@@ -78,7 +78,7 @@ class Files{
         ifstream temp(file);
         string text;
         int size = countLines(file);
-        string lines[size];
+        string* lines = new string[size];
         int count = 0;
 
         while (getline (temp, text)) {

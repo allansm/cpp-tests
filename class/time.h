@@ -103,7 +103,7 @@ class Time{
         return temp;
     }
 
-    string getFirstLine(const char* file){
+    /*string getFirstLine(const char* file){
         string line;
         ifstream temp(file);
         while (getline (temp,line)) {
@@ -111,7 +111,7 @@ class Time{
         }
         temp.close();
         return "";
-    }
+    }*/
 
     /*int delimiterCount(string text,string delimiter){
         int lastSize = 0;

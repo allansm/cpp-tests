@@ -6,7 +6,7 @@
 #include <iostream>
 
 
-string replace(string txt,string toReplace,string newTxt){
+/*string replace(string txt,string toReplace,string newTxt){
     int start = txt.find(toReplace);
     int end = toReplace.length();
     return txt.replace(start,end,newTxt);
@@ -51,9 +51,24 @@ string findAt(string txt,string deli1, string deli2,int i){
         txt.replace(start,end,"");
     }
     return temp[i];
-}
+}*/
 
 main(){
-    //string ts = "123abc1234123abcd1234123abcde1234";
+    string ts = "123abc1234123abcd1234123abcde1234";
     //cout << findAt(ts,"123","1234",2);
+	
+	//string* test = Files::getLines("test.txt");
+	
+	string test2 = "a;b;c;d;e;f;g;h;i;j;k";
+	
+	//string* test = Util::split(test2,";");
+	
+	string* test = Util::findAll(ts,"123","1234");
+	
+	try{
+		int i = 0;
+		while(true){
+			cout << test[i++] << "\n";
+		}
+	}catch(const exception &e){}
 }

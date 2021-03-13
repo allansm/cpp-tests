@@ -30,6 +30,20 @@ class Util{
         }
         return splited[index];
     }
+	
+	public : static string* split(string text, string delimiter){
+        int lastSize = 0;
+        int size = delimiterCount(text,delimiter);
+        string* splited = new string[size];
+        int i = 0;
+        while(lastSize != text.length()){
+            string temp = text.substr(0, text.find(delimiter));
+            lastSize = text.length();
+            splited[i++] = temp;
+            text.erase(0,text.find(delimiter)+delimiter.length());
+        }
+        return splited;
+    }
 
     public : static int parseInt(string number){
         stringstream ss;
@@ -61,7 +75,7 @@ class Util{
         return txt.replace(start,end,newTxt);
     }
 
-    public : static void findAll(string txt,string deli1, string deli2){
+    /*public : static void findAll(string txt,string deli1, string deli2){
         while(txt != ""){
             string found = Util::find(txt,deli1,deli2);
             cout << found << "\n";
@@ -70,7 +84,9 @@ class Util{
             int end = start+complete.length();
             txt.replace(start,end,"");
         }
-    }
+    }*/
+	
+	
 
     public : static int countDeliO(string txt,string deli1, string deli2){
         int i=0;
@@ -83,6 +99,22 @@ class Util{
             txt.replace(start,end,"");
         }
         return i;
+    }
+	
+	public : static string* findAll(string txt,string deli1, string deli2){
+		int size = countDeliO(txt,deli1,deli2);
+		string* all = new string[size];
+		int i = 0;
+        while(txt != ""){
+            string found = Util::find(txt,deli1,deli2);
+            //cout << found << "\n";
+			all[i++] = found;
+            string complete = deli1+found+deli2;
+            int start = txt.find(complete);
+            int end = start+complete.length();
+            txt.replace(start,end,"");
+        }
+		return all;
     }
 
     public : string findAt(string txt,string deli1, string deli2,int i){

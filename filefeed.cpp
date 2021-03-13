@@ -15,9 +15,6 @@ void feed(){
 	if(Files::getFirstLine(b.c_str()) == ""){
 	
 		string line;
-		//int size = Files::countLines(b.c_str());
-		//string lines[size];
-		//int count = 0;
 		
 		ifstream temp(a.c_str());
 		while (getline (temp,line)) {
