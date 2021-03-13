@@ -14,15 +14,18 @@ void play(){
 	int i = file.find(".opus");
 	system("echo 0 > next.txt");
 	if(i > 0){
+		Sleep(100);
+		system("echo 0 > next.txt");
 		string cmd = "ffplay -autoexit -nodisp \""+file;
 		system(cmd.c_str());
 		remove(file.c_str());
 	}
 	cout << "waiting file" << "\n";
-	system("cls");
+	//system("cls");
 }
 
 main(){
+	system("start /B filefeed");
 	system("start /B autoytdl");
 	while(true){
 		play();

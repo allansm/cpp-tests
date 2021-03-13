@@ -33,6 +33,24 @@ int toHour(int minute){
     return minute/60;
 }
 
+int getSec(){
+    time_t now = time(0);
+    tm *ltm = localtime(&now);
+    return ltm->tm_sec;
+}
+
+int getMin(){
+    time_t now = time(0);
+    tm *ltm = localtime(&now);
+    return ltm->tm_min;
+}
+
+int getHour(){
+    time_t now = time(0);
+    tm *ltm = localtime(&now);
+    return ltm->tm_hour;
+}
+
 string elapsedTime(int sec){
     string temp;
     stringstream ss;
@@ -156,6 +174,46 @@ void overrideFile(string data,string fileName){
     system(command.c_str());
 }
 
+void addLineToFile(string data,string fileName){
+    string command = "echo "+data+" >> "+fileName;
+    system(command.c_str());
+}
+
+string getTime(){
+    string temp;
+    stringstream ss;
+    ss << getHour() << ":" << getMin() <<":" << getSec();
+    ss >> temp;
+    return temp;
+}
+
+void elapse(string filename){
+    long int start = currentTimeToMs();
+    //string filename = getDate("");
+    string data;
+    string persistentData = getFirstLine(filename.c_str());
+    string logfn = filename+".log";
+
+
+    if(persistentData == ""){
+        persistentData = "0";
+    }
+
+    if(getFirstLine(logfn.c_str()) == ""){
+        addLineToFile("starting: "+getTime()+" elapsed:"+wt(sumTime(start,persistentData)),filename+".log");
+    }else{
+        addLineToFile("returning: "+getTime()+" elapsed:"+wt(sumTime(start,persistentData)),filename+".log");
+    }
+
+    while(true){
+        data = sumTime(start,persistentData);
+        cout << filename << " " << wt(data) << "\n";
+        overrideFile(data,filename);
+
+        system("cls");
+    }
+}
+
 
 void run(){
     string command;
@@ -227,6 +285,15 @@ void run(){
             string fn = path+day+""+mon+""+year+".log";
             cout << "\n"+getFirstLine(fn.c_str()) << "\n";
         }
+		if(command == "elapse"){
+			if(day.empty()){
+				day = toString(getDay());
+				mon = toString(getMonth());
+				year = toString(getYear());
+			}
+			string filename = day+""+mon+""+year;
+			elapse(filename);
+		}
     }
 
 }
