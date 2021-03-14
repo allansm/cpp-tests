@@ -60,7 +60,7 @@ bool store(string file,string op,bool redirect,string help){
 		 cout << url << ">";
 		 cin >> op;
 		 if(op == "exitPage"){
-			
+			delete[] lines;
 			return redirect;
 		 }
 		 if(op == "showLines"){
@@ -195,7 +195,7 @@ bool store(string file,string op,bool redirect,string help){
 			//system("pause");
 			lines = Util::findAll(merged,d1,d2);
 			cout << "store lines\n";
-			size = lines->size();//Util::sizeOf(lines);//lines->size();
+			size = Util::sizeOf(lines);//lines->size();
 			startline = 0;
 			endline = size;
 			cout << size << "\n";
@@ -232,8 +232,8 @@ bool store(string file,string op,bool redirect,string help){
 	}
 }
 
-main(){
-    string help = "commands:\nsetUrl\ngetPage\nstoreDump\n   exitPage\n   showLines\n   resetRange\n   setRange\n   storeLines\n    storeRange\n   addToLines\n   find";
+void run(){
+	string help = "commands:\nsetUrl\ngetPage\nstoreDump\n   exitPage\n   showLines\n   resetRange\n   setRange\n   storeLines\n    storeRange\n   addToLines\n   find";
 
     string op;
     bool redirect;
@@ -274,4 +274,49 @@ main(){
             redirect = store(fname,op,redirect,help);
         }
     }
+}
+
+main(){
+	run();
+    /*string help = "commands:\nsetUrl\ngetPage\nstoreDump\n   exitPage\n   showLines\n   resetRange\n   setRange\n   storeLines\n    storeRange\n   addToLines\n   find";
+
+    string op;
+    bool redirect;
+   
+    while(true){
+        if(!redirect){
+            cout << "@>";
+            cin >> op;
+        }else{
+            getPage(url);
+            op = "storeDump";
+            redirect = false;
+        }
+        if(op == "help"){
+            cout << help << "\n";
+        }
+        if(op == "setUrl"){
+
+            cin >> url;
+        }
+
+        if(op == "getPage"){
+           getPage(url);
+        }
+        if(op == "storeDump"){
+			if(url == ""){
+				url = dump;
+			}
+			
+            redirect = store(dump,op,redirect,help);
+        }
+		if(op == "store"){
+			string fname;
+			cout << "filename>";
+			cin >> fname;
+			url = fname;
+			
+            redirect = store(fname,op,redirect,help);
+        }
+    }*/
 }
