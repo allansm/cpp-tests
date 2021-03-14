@@ -43,7 +43,7 @@ bool store(string file,string op,bool redirect,string help){
     int startline,endline;
 	int size = Files::countLines(file.c_str());
 
-	string lines[size];
+	string* lines = new string[size];
 
 	startline = 0;
 	endline = size;
@@ -66,6 +66,7 @@ bool store(string file,string op,bool redirect,string help){
 		 if(op == "showLines"){
 			for(int i=startline;i<endline;i++){
 				cout << i << " : " <<lines[i] << "\n\n";
+				//break;
 			}
 		 }
 		 if(op == "showLine"){
@@ -179,14 +180,26 @@ bool store(string file,string op,bool redirect,string help){
 			cin >> d1;
 			cout << "end>";
 			cin >> d2;
-			string found[size];
+			/*string found[size];
 			for(int i=0;i<size;i++){
 				try{
 					lines[i] = Util::find(lines[i],d1,d2);
 				}catch (const exception &exc){
 
 				}
-			}
+			}*/
+			cout << "reach this\n";
+			string merged = Util::mergeString(lines,size);
+			//cout << merged << "\n";
+			cout << "merged\n";
+			//system("pause");
+			lines = Util::findAll(merged,d1,d2);
+			cout << "store lines\n";
+			size = lines->size();//Util::sizeOf(lines);//lines->size();
+			startline = 0;
+			endline = size;
+			cout << size << "\n";
+			//cout << "ok\n";
 		 }
 		 if(op == "findAll"){
 			cout << "start>";

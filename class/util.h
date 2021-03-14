@@ -6,6 +6,11 @@
 using namespace std;
 
 class Util{
+	
+	Util(){
+		
+	}
+	
     public : static int delimiterCount(string text,string delimiter){
         int lastSize = 0;
         int count = 0;
@@ -90,14 +95,17 @@ class Util{
 
     public : static int countDeliO(string txt,string deli1, string deli2){
         int i=0;
-        while(txt != ""){
-            string found = Util::find(txt,deli1,deli2);
-            i++;
-            string complete = deli1+found+deli2;
-            int start = txt.find(complete);
-            int end = start+complete.length();
-            txt.replace(start,end,"");
-        }
+		try{
+			while(txt != ""){
+				string found = Util::find(txt,deli1,deli2);
+				i++;
+				string complete = deli1+found+deli2;
+				int start = txt.find(complete);
+				int end = start+complete.length();
+				txt.replace(start,end,"");
+			}
+		}catch(const exception &e){}
+		
         return i;
     }
 	
@@ -105,17 +113,44 @@ class Util{
 		int size = countDeliO(txt,deli1,deli2);
 		string* all = new string[size];
 		int i = 0;
-        while(txt != ""){
-            string found = Util::find(txt,deli1,deli2);
-            //cout << found << "\n";
-			all[i++] = found;
-            string complete = deli1+found+deli2;
-            int start = txt.find(complete);
-            int end = start+complete.length();
-            txt.replace(start,end,"");
-        }
+		try{
+			while(txt != ""){
+				string found = Util::find(txt,deli1,deli2);
+				//cout << found << "\n";
+				all[i++] = found;
+				string complete = deli1+found+deli2;
+				int start = txt.find(complete);
+				int end = start+complete.length();
+				txt.replace(start,end,"");
+			}
+		}catch(const exception &e){}
 		return all;
     }
+	
+	public : static int sizeOf(string* arr){
+		int i = 0;
+		string tmp = "";
+		try{
+			while(true){
+				try{
+					tmp = arr[i++];
+					cout << "reach this sizeof\n";
+				}catch(const exception e){
+					cerr << "error!!\n";
+					break;
+				}
+			}
+		}catch(const exception &e){
+			
+		}
+		
+		//fix unkno error -2	
+		if(i != 0){
+			i-=2;
+		}
+		cout << i << "\n";
+		return i;
+	}
 
     public : string findAt(string txt,string deli1, string deli2,int i){
         int size = countDeliO(txt,deli1,deli2);
@@ -149,14 +184,16 @@ class Util{
         return temp;
     }
 	
-	public : static string mergeString(string* arr){
+	public : static string mergeString(string* arr,int size){
 		string temp = "";
-		try{
-			int i =0;
-			while(true){
-				temp += arr[i++];
-			}
-		}catch(const exception &e){}
+		
+		//int size = arr->size();
+		for(int i=0;i<size;i++){
+			try{
+				temp += arr[i];
+			}catch(const exception &e){}
+		}
+		
 		
 		return temp;
 	}
