@@ -14,16 +14,32 @@ void download(string url){
     system(command.c_str());
 }
 
-void getPage(string url){
+/*void getPage(string url){
     string command = "wget -O "+dump+" "+url;
+    system(command.c_str());
+}*/
+
+void getPage(string url){
+	if(Files::exists("phantom.txt")){
+		remove("phantom.txt");
+	}
+	string* phantom = Files::getLines("phantom");
+	phantom[1] = Util::replace(phantom[1],"$url","'"+url+"'");
+	//cout << phantom[1] << "\n";
+	try{
+		int i =0;
+		while(true){
+			string echo = "echo "+phantom[i++]+" >> "+"phantom.txt";
+			system(echo.c_str());
+		}
+	}catch(const exception &e){}
+    
+	string command = "phantomjs phantom.txt";
     system(command.c_str());
 }
 
 bool store(string file,string op,bool redirect,string help){
 	
-	/*string op;
-    string url = "";
-    bool redirect;*/
     int startline,endline;
 	int size = Files::countLines(file.c_str());
 
@@ -44,8 +60,7 @@ bool store(string file,string op,bool redirect,string help){
 		 cout << url << ">";
 		 cin >> op;
 		 if(op == "exitPage"){
-			//remove(dump.c_str());
-			//break;
+			
 			return redirect;
 		 }
 		 if(op == "showLines"){
@@ -57,9 +72,7 @@ bool store(string file,string op,bool redirect,string help){
 			int i;
 			cout << "line>";
 			cin >> i;
-			//for(int i=startline;i<endline;i++){
-				cout << i << " : " <<lines[i] << "\n\n";
-			//}
+			cout << i << " : " <<lines[i] << "\n\n";
 		 }
 		 if(op == "resetRange"){
 			startline = 0;
@@ -105,14 +118,9 @@ bool store(string file,string op,bool redirect,string help){
 			cin >> d2;
 			string all = "";
 			for(int i=0;i<size;i++){
-				// try{
-					all += Util::findAllInOne(lines[i],d1,d2);
-				//}catch (const exception &exc){
-
-				//}
+				all += Util::findAllInOne(lines[i],d1,d2);
 			}
 			cout << all << "\n";
-			//system(cmd.c_str());
 			ofstream temp2(fname.c_str());
 			temp2.write(all.c_str(),all.length());
 			temp2.close();
@@ -125,15 +133,11 @@ bool store(string file,string op,bool redirect,string help){
 			cin >> d2;
 			string all = "";
 			for(int i=0;i<size;i++){
-			   // try{
-					all += Util::findAllInOne(lines[i],d1,d2);
-				//}catch (const exception &exc){
-
-				//}
+				all += Util::findAllInOne(lines[i],d1,d2);
 			}
-			//string cmd = "echo "+all+" > "+dump;
+			
 			cout << all << "\n";
-			//system(cmd.c_str());
+			
 			ofstream temp2(dump.c_str());
 			temp2.write(all.c_str(),all.length());
 			temp2.close();
@@ -193,7 +197,7 @@ bool store(string file,string op,bool redirect,string help){
 			string found[size];
 			for(int i=0;i<size;i++){
 				try{
-					Util::findAll(lines[i],d1,d2);
+					Util::showAll(lines[i],d1,d2);
 				}catch (const exception &exc){
 
 				}
@@ -206,7 +210,7 @@ bool store(string file,string op,bool redirect,string help){
 
 			url = lines[index];
 			redirect = true;
-			//break;
+			
 			return redirect;
 		 }
 		 if(op == "help"){
@@ -220,7 +224,7 @@ main(){
 
     string op;
     bool redirect;
-    //int startline,endline;
+   
     while(true){
         if(!redirect){
             cout << "@>";
@@ -252,10 +256,7 @@ main(){
 			string fname;
 			cout << "filename>";
 			cin >> fname;
-			
-			//if(url == ""){
-				url = fname;
-			//}
+			url = fname;
 			
             redirect = store(fname,op,redirect,help);
         }

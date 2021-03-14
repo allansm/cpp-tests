@@ -89,6 +89,11 @@ class Files{
 
         return lines;
     }
+	
+	public : static bool exists(const char *fileName){
+		ifstream infile(fileName);
+		return infile.good();
+	}
 
 };
 

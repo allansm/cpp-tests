@@ -69,13 +69,13 @@ class Util{
         return s.substr(end_pos_of_first_delim,last_delim_pos - end_pos_of_first_delim);
     }
 
-    string replace(string txt,string toReplace,string newTxt){
+    public : static string replace(string txt,string toReplace,string newTxt){
         int start = txt.find(toReplace);
         int end = toReplace.length();
         return txt.replace(start,end,newTxt);
     }
 
-    /*public : static void findAll(string txt,string deli1, string deli2){
+    public : static void showAll(string txt,string deli1, string deli2){
         while(txt != ""){
             string found = Util::find(txt,deli1,deli2);
             cout << found << "\n";
@@ -84,7 +84,7 @@ class Util{
             int end = start+complete.length();
             txt.replace(start,end,"");
         }
-    }*/
+    }
 	
 	
 
@@ -148,6 +148,18 @@ class Util{
         }
         return temp;
     }
+	
+	public : static string mergeString(string* arr){
+		string temp = "";
+		try{
+			int i =0;
+			while(true){
+				temp += arr[i++];
+			}
+		}catch(const exception &e){}
+		
+		return temp;
+	}
 };
 
 #endif // UTIL_H_INCLUDED

@@ -54,6 +54,7 @@ string findAt(string txt,string deli1, string deli2,int i){
 }*/
 
 main(){
+	string code = "<html><body><div><a><p></p></a></div></body></html>";
     string ts = "123abc1234123abcd1234123abcde1234";
     //cout << findAt(ts,"123","1234",2);
 	
@@ -65,10 +66,14 @@ main(){
 	
 	string* test = Util::findAll(ts,"123","1234");
 	
-	try{
+	cout << test ;
+	
+	system("pause");
+	
+	/*try{
 		int i = 0;
 		while(true){
 			cout << test[i++] << "\n";
 		}
-	}catch(const exception &e){}
+	}catch(const exception &e){}*/
 }
