@@ -15,8 +15,10 @@ void play(){
 	int i = file.find(ext);
 	system("echo 0 > next.txt");
 	if(i > 0){
-		Sleep(100);
+		Sleep(1);
 		system("echo 0 > next.txt");
+		string log = "echo "+file+" >> .log";
+		system(log.c_str());
 		string cmd = "ffplay -autoexit -nodisp \""+file;
 		system(cmd.c_str());
 		remove(file.c_str());

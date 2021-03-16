@@ -94,6 +94,25 @@ class Files{
 		ifstream infile(fileName);
 		return infile.good();
 	}
+	
+	public : static void removeLine(const char* file,string line){
+		ifstream temp(file);
+		string text;
+		int size = countLines(file);
+		string lines[size];
+		int count = 0;
+		string txt = "";
+		while (getline (temp, text)) {
+		  if(text != line){
+			txt += text+"\n";
+		  }
+		}
+		remove(file);
+		ofstream output(file);
+		output.write(txt.c_str(),txt.length());
+		output.close();
+		temp.close();
+	}
 
 };
 
