@@ -190,15 +190,16 @@ bool store(string file,string op,bool redirect,string help){
 			}*/
 			cout << "reach this\n";
 			string merged = Util::mergeString(lines,size);
-			//cout << merged << "\n";
+			cout << merged << "\n";
 			cout << "merged\n";
 			//system("pause");
 			lines = Util::findAll(merged,d1,d2);
 			cout << "store lines\n";
-			size = Util::sizeOf(lines);//lines->size();
+			size = lines->size();//Util::sizeOf(lines);//lines->size();
 			startline = 0;
 			endline = size;
 			cout << size << "\n";
+			cout << lines[0] << endl;
 			//cout << "ok\n";
 		 }
 		 if(op == "findAll"){

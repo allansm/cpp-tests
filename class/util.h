@@ -76,17 +76,19 @@ class Util{
 	
 	public : static string find(string txt,string a,string b){
 		string code = "<html><body><div><a><p></p></a></div></body></html>";
+		string found = "";
+		try{
 		
-		int d1 = txt.find(a);
-		int d2 = txt.find(b);
-		
-		int d1e = d1+a.length();
-		
-		int d2e = d2 - d1e;
-		//string temp = "<a>";
-		
-		string found = txt.substr(d1e,d2e);
-		
+			int d1 = txt.find(a);
+			int d2 = txt.find(b);
+			
+			int d1e = d1+a.length();
+			
+			int d2e = d2 - d1e;
+			//string temp = "<a>";
+			
+			found = txt.substr(d1e,d2e);
+		}catch(const exception &e){}
 		//string found = Util::find(code,"<html>","</html>");
 		//cout << found << endl;
 		return found;
@@ -131,17 +133,23 @@ class Util{
 		int size = countDeliO(txt,deli1,deli2);
 		string* all = new string[size];
 		int i = 0;
-		try{
+		//try{
 			while(txt != ""){
 				string found = Util::find(txt,deli1,deli2);
-				//cout << found << "\n";
-				all[i++] = found;
-				string complete = deli1+found+deli2;
-				int start = txt.find(complete);
-				int end = start+complete.length();
-				txt.replace(start,end,"");
+				if(found != "" && found != " "){
+					//cout << found << "\n";
+					
+					string complete = deli1+found+deli2;
+					int start = txt.find(complete);
+					int end = start+complete.length();
+					try{
+						txt.replace(start,end,"");
+						all[i++] = found;
+					}catch(const exception &e){break;}
+				}else{break;}
 			}
-		}catch(const exception &e){}
+		//}catch(const exception &e){}
+		
 		return all;
     }
 	

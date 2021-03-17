@@ -24,7 +24,8 @@ void run(){
 				bool isHere = !(file.find("\\") > 0);
 				if(isHere){
 					cmd = "echo "+file+" >> deleted.txt";
-					system(cmd.c_str());
+					//system(cmd.c_str());
+					remove(file.c_str());
 				}
 			}
 		}

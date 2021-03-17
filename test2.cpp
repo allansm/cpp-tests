@@ -77,16 +77,9 @@ void test(string txt,string a,string b){
 	cout << found << endl;
 }
 main(){
-	string code = "<html><body><div><a><p></p></a></div></body></html>";
-	code = code+code+code+code;
-	string* all = Util::findAll(code,"<div>","</div>");
-	int size = all->size();//Util::sizeOf(all);
-	cout << size << endl;
-	//int i = 0;
-	//while(true){
-	for(int i=0;i<size;i++){
-		cout << i << all[i] << endl;
-	}
-	//}
-	//test("<a>","</a>");
+	string p = "test/cbrowser/dump.txt";
+	string* lines = Files::getLines(p.c_str());
+	int size = lines->size();//Util::sizeOf(lines);
+	string merged = Util::mergeString(lines,10);
+	cout << merged << endl;
 }
