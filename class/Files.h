@@ -113,6 +113,28 @@ class Files{
 		output.close();
 		temp.close();
 	}
+	
+	public : static void deleteBy(string extension){
+		string command = "dir /B *."+extension+" > filesToDelete.txt";
+		system(command.c_str());
+
+		ifstream temp("filesToDelete.txt");
+		string text;
+		int size = countLines("filesToDelete.txt");
+		string lines[size];
+		int count = 0;
+
+		while (getline (temp, text)) {
+		  lines[count++] = text;
+		}
+		temp.close();
+
+		for(int i=0;i<size;i++){
+			//cout << "deleting : "+lines[i]+"\n";
+			remove(lines[i].c_str());
+		}
+
+	}
 
 };
 

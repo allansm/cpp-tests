@@ -84,7 +84,7 @@ main(){
 	cout << size << endl;
 	//int i = 0;
 	//while(true){
-	for(int i=0;i<size-2;i++){
+	for(int i=0;i<size;i++){
 		cout << i << all[i] << endl;
 	}
 	//}
