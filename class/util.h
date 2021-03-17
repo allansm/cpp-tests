@@ -74,6 +74,7 @@ class Util{
         return s.substr(end_pos_of_first_delim,last_delim_pos - end_pos_of_first_delim);
     }*/
 	
+	//need fix
 	public : static string find(string txt,string a,string b){
 		string code = "<html><body><div><a><p></p></a></div></body></html>";
 		string found = "";
@@ -112,7 +113,7 @@ class Util{
     }
 	
 	
-
+	//need fix
     public : static int countDeliO(string txt,string deli1, string deli2){
         int i=0;
 		try{
@@ -153,6 +154,7 @@ class Util{
 		return all;
     }
 	
+	//need fix
 	public : static int sizeOf(string* arr){
 		int i = 0;
 		string tmp = "";

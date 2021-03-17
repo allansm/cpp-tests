@@ -8,6 +8,8 @@
 #include <ctime>
 #include <fstream>
 
+#include <windows.h>
+
 using namespace std;
 
 long int currentTimeToMs(){
@@ -203,6 +205,7 @@ void run(){
         overrideFile(data,filename);
 
         system("cls");
+		Sleep(1000);
     }
 }
 
