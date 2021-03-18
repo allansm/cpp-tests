@@ -78,10 +78,11 @@ class Util{
 	public : static string find(string txt,string a,string b){
 		string code = "<html><body><div><a><p></p></a></div></body></html>";
 		string found = "";
-		try{
+		//try{
 		
 			int d1 = txt.find(a);
-			int d2 = txt.find(b);
+			txt.erase(0,d1+a.length());
+			int d2 = d1+txt.find(b);
 			
 			int d1e = d1+a.length();
 			
@@ -89,7 +90,7 @@ class Util{
 			//string temp = "<a>";
 			
 			found = txt.substr(d1e,d2e);
-		}catch(const exception &e){}
+		//}catch(const exception &e){}
 		//string found = Util::find(code,"<html>","</html>");
 		//cout << found << endl;
 		return found;
@@ -116,20 +117,23 @@ class Util{
 	//need fix
     public : static int countDeliO(string txt,string deli1, string deli2){
         int i=0;
-		try{
+		//try{
 			while(txt != ""){
+				//cout << txt << endl << endl;
 				string found = Util::find(txt,deli1,deli2);
+				//cout << found << endl << endl;
 				i++;
 				string complete = deli1+found+deli2;
+				cout << complete << endl;
 				int start = txt.find(complete);
 				int end = start+complete.length();
-				txt.replace(start,end,"");
+				txt.erase(0,end);
 			}
-		}catch(const exception &e){}
+		//}catch(const exception &e){}
 		
         return i;
     }
-	
+	//this is wrong
 	public : static string* findAll(string txt,string deli1, string deli2){
 		int size = countDeliO(txt,deli1,deli2);
 		string* all = new string[size];
@@ -137,17 +141,17 @@ class Util{
 		//try{
 			while(txt != ""){
 				string found = Util::find(txt,deli1,deli2);
-				if(found != "" && found != " "){
+				//if(found != "" && found != " "){
 					//cout << found << "\n";
 					
 					string complete = deli1+found+deli2;
 					int start = txt.find(complete);
 					int end = start+complete.length();
-					try{
-						txt.replace(start,end,"");
+					//try{
+						txt.erase(0,end);
 						all[i++] = found;
-					}catch(const exception &e){break;}
-				}else{break;}
+					//}catch(const exception &e){break;}
+				//}else{break;}
 			}
 		//}catch(const exception &e){}
 		
@@ -162,7 +166,7 @@ class Util{
 			while(true){
 				//try{
 					tmp += arr[i++];
-					//cout << "reach this sizeof\n";
+					cout << "reach this sizeof\n";
 				//}catch(const exception e){
 					//cerr << "error!!\n";
 					//break;
@@ -178,7 +182,7 @@ class Util{
 		//}
 		//cout << i << "\n";
 		tmp = "";
-		return i-2;
+		return i;
 	}
 
     public : string findAt(string txt,string deli1, string deli2,int i){
@@ -216,11 +220,13 @@ class Util{
 	public : static string mergeString(string* arr,int size){
 		string temp = "";
 		
+		
 		//int size = arr->size();
 		for(int i=0;i<size;i++){
-			try{
-				temp += arr[i];
-			}catch(const exception &e){}
+			//try{
+				temp+=arr[i];
+				//cout << arr[i];
+			//}catch(const exception &e){}
 		}
 		
 		
