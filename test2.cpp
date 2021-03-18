@@ -64,17 +64,20 @@ void test(string txt,string a,string b){
 	string code = "<html><body><div><a><p></p></a></div></body></html>";
 	code = "<a class=\"myclass\" href=\"http://localhost\"></a>";
 	string found = "";
-	txt = code;
+	//txt = code;
+	//cout << txt << endl;
 	int d1 = txt.find(a);
+	//cout << "d1:"<< d1 << endl;
 	txt.erase(0,d1+a.length());
+	//cout << txt << endl;
 	int d2 = d1+a.length()+txt.find(b);
-	
+	//cout << "d2:"<< d2 << endl;
 	int d1e = d1+a.length();
 	
 	int d2e = d2 - d1e;
 	//string temp = "<a>";
 	
-	found = txt.substr(d1e,d2e);
+	found = code.substr(d1e,d2e);
 	
 	//string found = Util::find(code,"<html>","</html>");
 	cout << found << endl;
@@ -94,12 +97,32 @@ void removed2(){
 	//cout << merged << endl;
 	string* all = Util::findAll(merged,"<div>","</div>");
 	
-	size = Util::countDeliO(merged,"<div>","</div>");
+	int i =0;
+	
+	while(true){
+		cout << all[i] << endl;
+	}
+	
+	/*size = Util::countDeliO(merged,"<div>","</div>");
 	cout << size << endl;
 	for(int i=0;i<size;i++){
-		//cout << all[i] << endl;
-	}
+		cout << all[i] << endl;
+	}*/
+}
+
+test3(){
+	string p = "test/cbrowser/dump.txt";
+	string* lines = Files::getLines(p.c_str());
+	int size = Files::countLines(p.c_str());//Util::sizeOf(lines);
+	cout << size << endl;
+	string merged = Util::mergeString(lines,size);
+	
+	string t = Util::find(merged,"<div","</div>");
+	
+	cout << t << endl;
 }
 main(){
-	test("","href=\"","\"");
+	//test("<a class=\"myclass\" href=\"http://localhost\"></a>","href=\"","\"");
+	//removed2();
+	test3();
 }

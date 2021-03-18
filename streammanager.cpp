@@ -27,16 +27,18 @@ void run(){
 			system(command.c_str());
 			string file = Files::getFirstLine("currentfiles");
 			int i = file.find(ext);
-			system("echo 0 > next.txt");
+			//system("echo 0 > next.txt");
 			if(i > 0){
 				Sleep(1);
-				//system("echo 0 > next.txt");
-				string cmd = "echo "+file+" > file";
+				string cmd = "echo \""+file+"\" > file";
+				//cout << "writing:" << cmd << endl;
 				system(cmd.c_str());
 			}else{
+				system("echo 0 > next.txt");
 				string random = Files::getRandomLine("url.txt");
 				Files::removeLine("url.txt",random);
-				string cmd = "echo "+random+" > file";
+				string cmd = "echo \""+random+"\" > file";
+				//cout << "writing:" << cmd << endl;
 				system(cmd.c_str());
 			}
 		}

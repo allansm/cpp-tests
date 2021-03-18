@@ -77,22 +77,27 @@ class Util{
 	//need fix
 	public : static string find(string txt,string a,string b){
 		string code = "<html><body><div><a><p></p></a></div></body></html>";
+		code = "<a class=\"myclass\" href=\"http://localhost\"></a>";
 		string found = "";
-		//try{
+		//txt = code;
+		//cout << txt << endl;
+		int d1 = txt.find(a);
+		cout << "d1:"<< d1 << endl;
+		txt.erase(0,d1+a.length());
+		//cout << txt << endl;
+		int d2 = d1+a.length()+txt.find(b)+b.length();
+		cout << "d2:"<< d2 << endl;
+		int d1e = d1+a.length();
+
+		int d2e = d2 - d1e;
+		//string temp = "<a>";
 		
-			int d1 = txt.find(a);
-			txt.erase(0,d1+a.length());
-			int d2 = d1+txt.find(b);
-			
-			int d1e = d1+a.length();
-			
-			int d2e = d2 - d1e;
-			//string temp = "<a>";
-			
-			found = txt.substr(d1e,d2e);
-		//}catch(const exception &e){}
+		cout << "d1e:"<< d1e << endl;
+		cout << "d2e:"<< d2e << endl;
+		found = code.substr(d1e,d2);
+
 		//string found = Util::find(code,"<html>","</html>");
-		//cout << found << endl;
+		cout << found << endl;
 		return found;
 	}
 
@@ -121,7 +126,7 @@ class Util{
 			while(txt != ""){
 				//cout << txt << endl << endl;
 				string found = Util::find(txt,deli1,deli2);
-				//cout << found << endl << endl;
+				cout << found << endl << endl;
 				i++;
 				string complete = deli1+found+deli2;
 				cout << complete << endl;
@@ -140,9 +145,10 @@ class Util{
 		int i = 0;
 		//try{
 			while(txt != ""){
+				cout << "reach this\n";
 				string found = Util::find(txt,deli1,deli2);
 				//if(found != "" && found != " "){
-					//cout << found << "\n";
+					cout << found << "\n";
 					
 					string complete = deli1+found+deli2;
 					int start = txt.find(complete);

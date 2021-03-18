@@ -182,6 +182,7 @@ void run(){
 				string command = "youtube-dl.exe "+getParameters()+link;
 				//cout << command << "\n";
 				//system(command.c_str());
+				system("taskkill /f /im you*");
 				startThread(command);
 
 				system("echo 1 > next.txt");
