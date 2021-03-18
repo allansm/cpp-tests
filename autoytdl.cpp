@@ -11,6 +11,8 @@
 #include <algorithm>
 #include <cctype>
 
+#include <pthread.h>
+
 using namespace std;
 
 
@@ -149,7 +151,20 @@ string getParameters(){
 		return getFirstLine("parameters.txt")+" ";
 	}
 	return "";
-} 
+}
+
+void *thread(void *command){
+    string c =  *(static_cast<std::string*>(command));
+	
+	cout << c << "\n";
+	cout << "thread started";
+	system(c.c_str());
+}
+
+void startThread(string command){
+	pthread_create(NULL, NULL, thread,  static_cast<void*>(&command));
+	cout << "starting thread\n";
+}
 
 void run(){
     const int WAIT_TIME = parseInt(getFirstLine("waitTime.txt"))*1000;
@@ -165,8 +180,9 @@ void run(){
 				cout << "remove link :" << link << "\n";
 
 				string command = "youtube-dl.exe "+getParameters()+link;
-				cout << command << "\n";
-				system(command.c_str());
+				//cout << command << "\n";
+				//system(command.c_str());
+				startThread(command);
 
 				system("echo 1 > next.txt");
 			}
