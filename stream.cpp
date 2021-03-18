@@ -23,6 +23,7 @@ void stream(string file,string ip,string port,string protocol,string bitrate){
 }
 
 void vlcStream(string file,string ip,string port){
+	system("taskkill /f /im vlc*");
 	//temp remove 
 	string vlc = "start /wait \"\" \"c:/program files (x86)/videolan/vlc/vlc.exe\" -I dummy --dummy-quiet -vvv \""+file+"\" :sout=#http{dst="+ip+",port="+port+",mux=ts,ttl=1} :sout-all :sout-keep vlc://quit";
 	cout << vlc << endl;

@@ -13,22 +13,29 @@ void genUrl(){
 	}catch(const exception &e){}
 }
 
+bool isAvaible(string file){
+	string ext =  Files::getFirstLine("extensions.txt");
+	string command = "dir /B "+ext+" > currentfiles";
+	ext = Files::getFirstLine("extension.txt");
+	system(command.c_str());
+	//string file = Files::getFirstLine("currentfiles");
+	int i = file.find(ext);
+	
+	return i > 0;
+}
+
 void run(){
 	cout << "starting manager...\n";
 	while(true){
 		if(Files::getFirstLine("url.txt") == ""){
 			genUrl();
 		}
+		string file = Files::getFirstLine("currentfiles");
 		if(Files::getFirstLine("file") == ""){
 			cout << "setting file...\n";
-			string ext =  Files::getFirstLine("extensions.txt");
-			string command = "dir /B "+ext+" > currentfiles";
-			ext = Files::getFirstLine("extension.txt");
-			system(command.c_str());
-			string file = Files::getFirstLine("currentfiles");
-			int i = file.find(ext);
+			
 			//system("echo 0 > next.txt");
-			if(i > 0){
+			if(isAvaible(file)){
 				Sleep(1);
 				string cmd = "echo \""+file+"\" > file";
 				//cout << "writing:" << cmd << endl;
@@ -41,6 +48,11 @@ void run(){
 				//cout << "writing:" << cmd << endl;
 				system(cmd.c_str());
 			}
+		}else if(isAvaible(file)){
+			Sleep(1);
+			string cmd = "echo \""+file+"\" > file";
+			//cout << "writing:" << cmd << endl;
+			system(cmd.c_str());
 		}
 		Sleep(100);
 	}

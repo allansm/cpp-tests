@@ -75,7 +75,7 @@ class Util{
     }*/
 	
 	//need fix
-	public : static string find(string txt,string a,string b){
+	/*public : static string find(string txt,string a,string b){
 		string code = "<html><body><div><a><p></p></a></div></body></html>";
 		code = "<a class=\"myclass\" href=\"http://localhost\"></a>";
 		string found = "";
@@ -99,7 +99,52 @@ class Util{
 		//string found = Util::find(code,"<html>","</html>");
 		cout << found << endl;
 		return found;
+	}*/
+	
+	public : static string find(string txt,string a,string b){
+		
+		string found = "";
+		
+		int d1 = txt.find(a);
+		
+		txt.erase(0,d1+a.length());
+	
+		found = txt.substr(0,txt.find(b));
+		
+		return found;
 	}
+	public : static int delimiterCount(string txt,string a,string b){
+		int i = 0;
+		string prev = txt;
+		string original = txt;
+		while(txt != ""){
+			string temp = find(txt,a,b);
+			string erase = a+temp+b;
+			txt.erase(0,txt.find(erase)+erase.length());
+			if(original.find(erase) != -1){
+				i++;
+			}
+		}
+		return i;
+	}
+
+	public : static string* findAll(string txt,string a,string b){
+		int size = delimiterCount(txt,a,b);
+		string* arr = new string[size];
+		string prev = txt;
+		string original = txt;
+		int i=0;
+		while(txt != ""){
+			string temp = find(txt,a,b);
+			string erase = a+temp+b;
+			txt.erase(0,txt.find(erase)+erase.length());
+			if(original.find(erase) != -1){
+				arr[i++] = erase;
+			}
+		}
+		return arr;
+	}
+
 
     public : static string replace(string txt,string toReplace,string newTxt){
         int start = txt.find(toReplace);
@@ -120,7 +165,7 @@ class Util{
 	
 	
 	//need fix
-    public : static int countDeliO(string txt,string deli1, string deli2){
+    /*public : static int countDeliO(string txt,string deli1, string deli2){
         int i=0;
 		//try{
 			while(txt != ""){
@@ -137,9 +182,9 @@ class Util{
 		//}catch(const exception &e){}
 		
         return i;
-    }
+    }*/
 	//this is wrong
-	public : static string* findAll(string txt,string deli1, string deli2){
+	/*public : static string* findAll(string txt,string deli1, string deli2){
 		int size = countDeliO(txt,deli1,deli2);
 		string* all = new string[size];
 		int i = 0;
@@ -162,7 +207,7 @@ class Util{
 		//}catch(const exception &e){}
 		
 		return all;
-    }
+    }*/
 	
 	//need fix
 	public : static int sizeOf(string* arr){
