@@ -25,14 +25,17 @@ void getPage(string url){
 	}
 	string* phantom = Files::getLines("phantom");
 	phantom[1] = Util::replace(phantom[1],"$url","'"+url+"'");
+	int lsz = Files::countLines("phantom");
 	//cout << phantom[1] << "\n";
-	try{
-		int i =0;
-		while(true){
-			string echo = "echo "+phantom[i++]+" >> "+"phantom.txt";
-			system(echo.c_str());
-		}
-	}catch(const exception &e){}
+	//try{
+		//int i =0;
+		//while(true){
+			for(int i = 0;i<lsz;i++){
+				string echo = "echo "+phantom[i]+" >> "+"phantom.txt";
+				system(echo.c_str());
+			}
+		//}
+	//}catch(const exception &e){}
     
 	string command = "phantomjs phantom.txt";
     system(command.c_str());

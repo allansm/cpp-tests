@@ -5,61 +5,6 @@
 #include <stdlib.h>
 #include <iostream>
 
-void removed(){
-	string code = "<html><body><div><a><p></p></a></div></body></html>";
-    string ts = "123abc1234123abcd1234123abcde1234";
-    //cout << findAt(ts,"123","1234",2);
-	string a = "<a href=\"http://www.google.com\">link</a>";
-	string* all = Files::getLines("test/dump.txt");
-	
-	/*all[0] = a;
-	all[1] = a;
-	all[2] = a;
-	all[3] = "<a href=\"http://www.github.com\">link</a>";
-	all[4] = a;
-	*/
-	int size = Util::sizeOf(all);
-	string test = Util::mergeString(all,size);
-	//int c = Util::countDeliO(test,"href=\"","\"");
-	//cout << c << "\n";
-	//return 0;
-	
-	//cout << "reach this\n";
-	
-	string* test2 = Util::findAll(code,"<a","</a>");
-	
-	//cout << "reach this\n";
-	
-	size = Util::sizeOf(test2);//Util::sizeOf(test2);
-	
-	//cout << "reach this\n";
-	cout << size << endl;
-	
-	cout << test2[0] << endl;
-	
-	for(int i = 0;i<size;i++){
-		cout << test2[i] << "\n";
-	}
-	
-	//string s = Util::find(test,"href=\"","\"");
-	
-	//cout << s << "\n";
-	
-	//system("pause");
-	
-	//return 0;
-	/*try{
-		int i = 0;
-		while(true){
-			cout << test2[i++] << "\n";
-		}
-	}catch(const exception &e){}
-	
-	cout << test ;
-	
-	system("pause");*/
-	
-}
 string find(string txt,string a,string b){
 	
 	string found = "";
@@ -122,32 +67,6 @@ string* findAll(string txt,string a,string b){
 	}
 	return arr;
 }
-void removed2(){
-	string p = "test/cbrowser/dump.txt";
-	string* lines = Files::getLines(p.c_str());
-	int size = Files::countLines(p.c_str());//Util::sizeOf(lines);
-	cout << size << endl;
-	string merged = Util::mergeString(lines,size);
-	/*string temp = merged;
-	int t1 = "href=\"";
-	int start = temp.find(t1);
-	temp.erase(0,start+t1.length());
-	int end = merged.find("")*/
-	//cout << merged << endl;
-	string* all = Util::findAll(merged,"<div>","</div>");
-	
-	int i =0;
-	
-	while(true){
-		cout << all[i] << endl;
-	}
-	
-	/*size = Util::countDeliO(merged,"<div>","</div>");
-	cout << size << endl;
-	for(int i=0;i<size;i++){
-		cout << all[i] << endl;
-	}*/
-}
 
 test3(){
 	string p = "test/cbrowser/dump.txt";
@@ -161,10 +80,10 @@ test3(){
 	//cout << t << endl;
 	//cout << "found:" << test(merged,"href=\"","\"") << endl;
 	string* arr = findAll(merged,"<a","</a>");
-	size = delimiterCount(merged,"<a","</a>");
+	//size = delimiterCount(merged,"<a","</a>");
 	int sz = Util::sizeOf(arr);
 	cout << "size:" << size << "sz:" << sz << endl << endl;
-	for(int i=0;i<size;i++){
+	for(int i=0;i<sz;i++){
 		cout << find(arr[i],">","</a>") << endl << endl;
 	}
 }

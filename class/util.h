@@ -139,7 +139,7 @@ class Util{
 			string erase = a+temp+b;
 			txt.erase(0,txt.find(erase)+erase.length());
 			if(original.find(erase) != -1){
-				arr[i++] = erase;
+				arr[i++] = temp;
 			}
 		}
 		return arr;
@@ -211,7 +211,7 @@ class Util{
 	
 	//need fix
 	public : static int sizeOf(string* arr){
-		int i = 0;
+		/*int i = 0;
 		string tmp = "";
 		try{
 			while(true){
@@ -232,12 +232,13 @@ class Util{
 			//i-=2;
 		//}
 		//cout << i << "\n";
-		tmp = "";
+		tmp = "";*/
+		int i = arr->size();
 		return i;
 	}
 
     public : string findAt(string txt,string deli1, string deli2,int i){
-        int size = countDeliO(txt,deli1,deli2);
+        int size = delimiterCount(txt,deli1,deli2);//countDeliO(txt,deli1,deli2);
         string temp[size];
         int ind =0;
         while(txt != ""){
