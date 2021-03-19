@@ -57,6 +57,14 @@ class Util{
         ss >> n;
         return n;
     }
+	
+	public : static float parseFloat(string number){
+		stringstream ss;
+		float n = 0.0f;
+		ss.str(number);
+		ss >> n;
+		return n;
+	}
 
     public : static string toString(int number){
         stringstream ss;
