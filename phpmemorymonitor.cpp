@@ -33,20 +33,29 @@ void doActionsElse(){
 }
 
 void monitorate(float percent){
+	bool flag = true;
 	system("cls");
 	float ram = getRam();
+	float rpercent = (ram*percent);
 	cout << getAvaibleMemory() << "mb\n";
-	if(getAvaibleMemory() < (ram*percent)){
-		doActionsIf();
+	cout << getAvaibleMemory() << " " << rpercent << endl;
+	if(getAvaibleMemory() < rpercent){
+		if(flag){
+			flag = false;
+			doActionsIf();
+		}
 	}else{
-		doActionsElse();
+		if(!flag){
+			flag = true;
+			doActionsElse();
+		}
 	}
 }
 
 void run(){
-	float percent;
-	cout << "percent:";
-	cin >> percent;
+	float percent = Util::parseFloat(Files::getFirstLine("percent.txt"));
+	//cout << "percent:";
+	//cin >> percent;
 	while(true){
 		monitorate(percent);
 		Sleep(1000);

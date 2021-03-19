@@ -1,6 +1,8 @@
 #include "class/files.h"
 #include "class/io.h"
 
+string lastfile = "";
+
 void genUrl(){
 	string* paths = Files::getLines("localfiles.txt");
 	int i =0;
@@ -14,14 +16,20 @@ void genUrl(){
 }
 
 bool isAvaible(string file){
-	string ext =  Files::getFirstLine("extensions.txt");
-	string command = "dir /B "+ext+" > currentfiles";
-	ext = Files::getFirstLine("extension.txt");
-	system(command.c_str());
-	//string file = Files::getFirstLine("currentfiles");
-	int i = file.find(ext);
-	
-	return i > 0;
+	if(file != lastfile){
+		lastfile = file;
+		string ext =  Files::getFirstLine("extensions.txt");
+		string command = "dir /B "+ext+" > currentfiles";
+		ext = Files::getFirstLine("extension.txt");
+		system(command.c_str());
+		//string file = Files::getFirstLine("currentfiles");
+		int i = file.find(ext);
+		
+		return i > 0;
+	}else{
+		remove(file.c_str());
+		return false;
+	}
 }
 
 void run(){

@@ -200,11 +200,12 @@ void run(){
     }
 
     while(true){
+		system("cls");
         data = sumTime(start,persistentData);
         cout << filename << " " << wt(data) << "\n";
         overrideFile(data,filename);
 
-        system("cls");
+        
 		Sleep(1000);
     }
 }
