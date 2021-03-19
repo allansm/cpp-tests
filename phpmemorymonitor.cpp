@@ -19,6 +19,7 @@ void doActionsIf(){
 	int size = Files::countLines("if.txt");
 	
 	for(int i=0;i<size;i++){
+		cout << "executing:" << lines[i] << endl;
 		system(lines[i].c_str());
 	}
 }
@@ -28,17 +29,18 @@ void doActionsElse(){
 	int size = Files::countLines("else.txt");
 	
 	for(int i=0;i<size;i++){
+		cout << "executing:" << lines[i] << endl;
 		system(lines[i].c_str());
 	}
 }
+bool flag = true;
 
-void monitorate(float percent){
-	bool flag = true;
+void monitorate(float percent){	
 	system("cls");
 	float ram = getRam();
 	float rpercent = (ram*percent);
-	cout << getAvaibleMemory() << "mb\n";
-	cout << getAvaibleMemory() << " " << rpercent << endl;
+	cout << "avaible:" <<getAvaibleMemory() << "mb\n";
+	cout << "min:" <<rpercent << "mb\n";
 	if(getAvaibleMemory() < rpercent){
 		if(flag){
 			flag = false;
@@ -53,12 +55,10 @@ void monitorate(float percent){
 }
 
 void run(){
-	float percent = Util::parseFloat(Files::getFirstLine("percent.txt"));
-	//cout << "percent:";
-	//cin >> percent;
 	while(true){
+		float percent = Util::parseFloat(Files::getFirstLine("percent.txt"));
 		monitorate(percent);
-		Sleep(1000);
+		Sleep(5000);
 	}
 }
 

@@ -1,7 +1,7 @@
 #include "class/files.h"
 #include "class/io.h"
 
-string lastfile = "";
+string lastfile = "nofile";
 
 void genUrl(){
 	string* paths = Files::getLines("localfiles.txt");
@@ -16,6 +16,7 @@ void genUrl(){
 }
 
 bool isAvaible(string file){
+	cout << file << " " << lastfile << endl;
 	if(file != lastfile){
 		lastfile = file;
 		string ext =  Files::getFirstLine("extensions.txt");
