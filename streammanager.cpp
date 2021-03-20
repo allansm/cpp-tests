@@ -16,7 +16,7 @@ void genUrl(){
 }
 
 bool isAvaible(string file){
-	cout << file << " " << lastfile << endl;
+	//cout << file << " " << lastfile << endl;
 	if(file != lastfile){
 		lastfile = file;
 		string ext =  Files::getFirstLine("extensions.txt");

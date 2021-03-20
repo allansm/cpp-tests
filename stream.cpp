@@ -44,8 +44,9 @@ void run(){
 		if(file != ""){
 			Files::removeLine("file",line);
 			if(Files::exists(file.c_str())){
-				string time = Time::getHour()+" "+Time::getMinute();
+				string time = Time::getHour()+" "+Time::getMin();
 				string cmd = "echo "+file+" "+Time::getDate()+" "+time+" >> .log";
+				cout << cmd << endl;
 				system(cmd.c_str());
 				
 				vlcStream(file,config[0],config[1]);

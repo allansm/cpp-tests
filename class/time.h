@@ -64,13 +64,13 @@ class Time{
     }
 
 
-    int getDay(){
+    public : static int getDay(){
         time_t now = time(0);
         tm *ltm = localtime(&now);
         return ltm->tm_mday;
     }
 
-    int getMonth(){
+    public : static int getMonth(){
         time_t now = time(0);
         tm *ltm = localtime(&now);
 
@@ -81,7 +81,7 @@ class Time{
         return mon;
     }
 
-    int getYear(){
+    public : static int getYear(){
         time_t now = time(0);
         tm *ltm = localtime(&now);
         return 1900 + ltm->tm_year;
