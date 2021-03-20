@@ -33,6 +33,15 @@ bool isAvaible(){
 	}*/
 }
 
+bool isNotTemp(){
+	string file = Files::getFirstLine("currentfiles");
+	int i = file.find("temp");
+	if(i != -1){
+		remove(file.c_str());
+	}
+	return i == -1;
+}
+
 void run(){
 	cout << "starting manager...\n";
 	while(true){
@@ -44,7 +53,8 @@ void run(){
 			cout << "setting file...\n";
 			
 			//system("echo 0 > next.txt");
-			if(isAvaible()){
+			if(isAvaible() && isNotTemp()){
+				system("echo 0 > next.txt");
 				Sleep(1);
 				string file = Files::getFirstLine("currentfiles");
 				string cmd = "echo \""+file+"\" > file";
@@ -58,7 +68,8 @@ void run(){
 				//cout << "writing:" << cmd << endl;
 				system(cmd.c_str());
 			}
-		}else if(isAvaible()){
+		}else if(isAvaible() && isNotTemp()){
+			//system("echo 0 > next.txt");
 			Sleep(1);
 			string file = Files::getFirstLine("currentfiles");
 			string cmd = "echo \""+file+"\" > file";

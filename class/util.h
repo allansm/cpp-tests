@@ -292,6 +292,27 @@ class Util{
 		
 		return temp;
 	}
+	string removeBlank(string str){
+		int size = str.length();
+		string ret = "";
+		for(int i=0;i<size;i++){
+			if(str.at(i) != ' '){
+				ret+=str.at(i);
+			}
+		}
+		return ret;
+	}
+
+	string getDigits(string str){
+		int size = str.length();
+		string ret = "";
+		for(int i=0;i<size;i++){
+			if(isdigit(str.at(i))){
+				ret+=str.at(i);
+			}
+		}
+		return ret;
+	}
 };
 
 #endif // UTIL_H_INCLUDED
