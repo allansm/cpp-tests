@@ -51,13 +51,13 @@ class Time{
         return ltm->tm_sec;
     }
 
-    int getMin(){
+    public : static int getMin(){
         time_t now = time(0);
         tm *ltm = localtime(&now);
         return ltm->tm_min;
     }
 
-    int getHour(){
+    public : static int getHour(){
         time_t now = time(0);
         tm *ltm = localtime(&now);
         return ltm->tm_hour;
@@ -87,7 +87,7 @@ class Time{
         return 1900 + ltm->tm_year;
     }
 
-    string getDate(){
+    public : static string getDate(){
         string temp;
         stringstream ss;
         ss << getDay() << "/" << getMonth() <<"/" << getYear();
