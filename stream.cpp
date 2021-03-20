@@ -41,22 +41,25 @@ void run(){
 		string line = file;
 		file = Util::split(file,"\"",1);
 		cout << "file:"<< file << endl;
+		Files::removeLine("file",line);
 		if(file != ""){
-			Files::removeLine("file",line);
 			if(Files::exists(file.c_str())){
-				string time = Time::getHour()+" "+Time::getMin();
-				string cmd = "echo "+file+" "+Time::getDate()+" "+time+" >> .log";
+				/*string log = Time::getHour()+" "+Time::getMin();
+				log = Time::getDate()+" "+log;
+				log = file+" "+log;
+				log = "\""+log+"\"";
+				string cmd = "echo "+log+" >> .log";
 				cout << cmd << endl;
 				system(cmd.c_str());
-				
+				Sleep(10);*/
 				vlcStream(file,config[0],config[1]);
 				
 				int i = file.find("\\");
 				bool isHere = !(i>0);
 				if(isHere){
 					cout << "file is here" << endl;
-					cmd = "echo \""+file+"\" >> deleted.txt";
-					system(cmd.c_str());
+					//cmd = "echo \""+file+"\" >> deleted.txt";
+					//system(cmd.c_str());
 					remove(file.c_str());
 				}
 			}

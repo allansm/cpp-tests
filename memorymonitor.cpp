@@ -4,9 +4,9 @@
 #include <string.h>
 
 float getAvaibleMemory(){
-	string cmd = "php \"php/avaibleMemory.php\" > avaible.txt";
+	string cmd = "wmic OS get FreePhysicalMemory > avaible.txt";
 	system(cmd.c_str());
-	string avaible = Files::getFirstLine("avaible.txt");
+	string avaible = Files::getLines("avaible.txt")[1];
 	return Util::parseFloat(avaible);
 }
 
