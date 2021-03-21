@@ -43,22 +43,16 @@ void run(){
 		Files::removeLine("file",line);
 		if(file != ""){
 			if(Files::exists(file.c_str())){
-				/*string log = Time::getHour()+" "+Time::getMin();
-				log = Time::getDate()+" "+log;
-				log = file+" "+log;
-				log = "\""+log+"\"";
-				string cmd = "echo "+log+" >> .log";
-				cout << cmd << endl;
-				system(cmd.c_str());
-				Sleep(10);*/
+				string log = "echo \""+file+" "+Time::getCurrent()+"\" >> .log";
+				system(log.c_str());
 				vlcStream(file,config[0],config[1]);
 				
 				int i = file.find("\\");
 				bool isHere = !(i>0);
 				if(isHere){
 					cout << "file is here" << endl;
-					//cmd = "echo \""+file+"\" >> deleted.txt";
-					//system(cmd.c_str());
+					string cmd = "echo \""+file+" "+Time::getCurrent()+"\" >> deleted.txt";
+					system(cmd.c_str());
 					remove(file.c_str());
 				}
 			}
@@ -68,6 +62,5 @@ void run(){
 }
 
 main(){
-	//Files::deleteBy("mp4");
 	run();
 }

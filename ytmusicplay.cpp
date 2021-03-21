@@ -3,6 +3,7 @@
 #include <iostream>
 #include "class/files.h"
 #include <string.h>
+#include "class/time.h"
 
 using namespace std;
 
@@ -17,20 +18,20 @@ void play(){
 	if(i > 0){
 		Sleep(1);
 		system("echo 0 > next.txt");
-		string log = "echo "+file+" >> .log";
+		string log = "echo \""+file+" "+Time::getCurrent()+"\" >> .log";
 		system(log.c_str());
 		string cmd = "ffplay -autoexit -nodisp \""+file;
 		system(cmd.c_str());
 		remove(file.c_str());
 	}
 	cout << "waiting file" << "\n";
-	//system("cls");
 }
 
 main(){
 	system("start /B filefeed");
 	system("start /B autoytdl");
 	while(true){
+		system("cls");
 		play();
 	}
 }

@@ -102,6 +102,14 @@ class Time{
         ss >> temp;
         return temp;
     }
+	
+	public : static string getCurrent(){
+		string temp;
+		stringstream ss;
+		ss <<  getDate() << "," << getHour() << ":" << getMin();
+		ss >> temp;
+		return temp;
+	}
 
     /*string getFirstLine(const char* file){
         string line;

@@ -31,6 +31,7 @@ bool isAvaible(){
 }
 int nfile(){
 	int lines = Files::countLines("currentFiles");
+	cout << lines << endl;
 	return lines;
 }
 
@@ -66,7 +67,7 @@ void run(){
 			
 			//system("echo 0 > next.txt");
 			if(isAvaible() && isNotTemp()){
-				if((nfile() < 1)){
+				if((nfile() < 2)){
 					system("echo 0 > next.txt");
 				}
 				start = Time::currentTimeToMs();
@@ -76,7 +77,7 @@ void run(){
 				//cout << "writing:" << cmd << endl;
 				system(cmd.c_str());
 			}else{
-				if((nfile() < 1)){
+				if((nfile() < 2)){
 					system("echo 0 > next.txt");
 				}
 				start = Time::currentTimeToMs();
@@ -94,7 +95,7 @@ void run(){
 			//cout << "writing:" << cmd << endl;
 			system(cmd.c_str());
 		}
-		if(isStuck() && (nfile() < 1)){
+		if(isStuck() && (nfile() < 2)){
 			system("echo 0 > next.txt");
 			start = Time::currentTimeToMs();
 		}
