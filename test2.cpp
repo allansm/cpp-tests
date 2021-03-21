@@ -51,18 +51,22 @@ string* findAll(string txt,string a,string b){
 	int i=0;
 	while(txt != ""){
 		//cout << txt << endl;
-		string temp = find(txt,a,b);
-		//cout << temp << endl << endl << endl;
-		string erase = a+temp+b;
-		//cout << erase << endl;
-		txt.erase(0,txt.find(erase)+erase.length());
-		/*if(prev == txt){
-			break;
+		if(find(txt,a,b)!=-1){
+			string temp = find(txt,a,b);
+			//cout << temp << endl << endl << endl;
+			string erase = a+temp+b;
+			//cout << erase << endl;
+			txt.erase(0,txt.find(erase)+erase.length());
+			/*if(prev == txt){
+				break;
+			}else{
+				prev = txt;
+			}*/
+			if(original.find(erase) != -1){
+				arr[i++] = erase;
+			}
 		}else{
-			prev = txt;
-		}*/
-		if(original.find(erase) != -1){
-			arr[i++] = erase;
+			txt.erase(0,1);
 		}
 	}
 	return arr;
@@ -79,12 +83,13 @@ test3(){
 	
 	//cout << t << endl;
 	//cout << "found:" << test(merged,"href=\"","\"") << endl;
-	string* arr = findAll(merged,"<a","</a>");
+	string* arr = findAll(merged,"\"","\"");
 	//size = delimiterCount(merged,"<a","</a>");
 	int sz = Util::sizeOf(arr);
 	cout << "size:" << size << "sz:" << sz << endl << endl;
 	for(int i=0;i<sz;i++){
-		cout << find(arr[i],">","</a>") << endl << endl;
+		//cout << find(arr[i],">","</a>") << endl << endl;
+		cout << arr[i] << endl << endl;
 	}
 }
 main(){

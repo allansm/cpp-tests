@@ -1,5 +1,6 @@
 #include "class/files.h"
 #include "class/io.h"
+#include "class/time.h"
 
 string lastfile = "nofile";
 
@@ -16,21 +17,21 @@ void genUrl(){
 }
 
 bool isAvaible(){
-	//cout << file << " " << lastfile << endl;
-	//if(file != lastfile){
-		//lastfile = file;
-		string ext =  Files::getFirstLine("extensions.txt");
-		string command = "dir /B "+ext+" > currentfiles";
-		ext = Files::getFirstLine("extension.txt");
-		system(command.c_str());
-		string file = Files::getFirstLine("currentfiles");
+	string ext =  Files::getFirstLine("extensions.txt");
+	string command = "dir /B "+ext+" > currentfiles";
+	ext = Files::getFirstLine("extension.txt");
+	system(command.c_str());
+	string file = Files::getFirstLine("currentfiles");
+	if(file != Files::getFirstLine("file")){
 		int i = file.find(ext);
 		
 		return i != -1;
-	/*}else{
-		remove(file.c_str());
-		return false;
-	}*/
+	}
+	return false;
+}
+int nfile(){
+	int lines = Files::countLines("currentFiles");
+	return lines;
 }
 
 bool isNotTemp(){
@@ -42,7 +43,18 @@ bool isNotTemp(){
 	return i == -1;
 }
 
+long int start;
+
+bool isStuck(){
+	int elapsed = Time::toSec(Time::elapsedTime(start));
+	if(elapsed > 300){
+		return true;
+	}
+	return false;
+}
+
 void run(){
+	start = Time::currentTimeToMs();
 	cout << "starting manager...\n";
 	while(true){
 		if(Files::getFirstLine("url.txt") == ""){
@@ -54,14 +66,20 @@ void run(){
 			
 			//system("echo 0 > next.txt");
 			if(isAvaible() && isNotTemp()){
-				system("echo 0 > next.txt");
+				if((nfile() < 1)){
+					system("echo 0 > next.txt");
+				}
+				start = Time::currentTimeToMs();
 				Sleep(1);
 				string file = Files::getFirstLine("currentfiles");
 				string cmd = "echo \""+file+"\" > file";
 				//cout << "writing:" << cmd << endl;
 				system(cmd.c_str());
 			}else{
-				system("echo 0 > next.txt");
+				if((nfile() < 1)){
+					system("echo 0 > next.txt");
+				}
+				start = Time::currentTimeToMs();
 				string random = Files::getRandomLine("url.txt");
 				Files::removeLine("url.txt",random);
 				string cmd = "echo \""+random+"\" > file";
@@ -75,6 +93,10 @@ void run(){
 			string cmd = "echo \""+file+"\" > file";
 			//cout << "writing:" << cmd << endl;
 			system(cmd.c_str());
+		}
+		if(isStuck() && (nfile() < 1)){
+			system("echo 0 > next.txt");
+			start = Time::currentTimeToMs();
 		}
 		Sleep(100);
 	}

@@ -11,18 +11,18 @@ using namespace std;
 
 
 class Time{
-    long int currentTimeToMs(){
+    public : static long int currentTimeToMs(){
         struct timeval tp;
         gettimeofday(&tp, NULL);
         long int ms = tp.tv_sec * 1000 + tp.tv_usec / 1000;
         return ms;
     }
 
-    long int elapsedTime(long int start){
+    public : static long int elapsedTime(long int start){
         return currentTimeToMs() - start;
     }
 
-    int toSec(long int ms){
+    public : static int toSec(long int ms){
         return ms /1000;
     }
 

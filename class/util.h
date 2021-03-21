@@ -145,7 +145,7 @@ class Util{
 		while(txt != ""){
 			string temp = find(txt,a,b);
 			string erase = a+temp+b;
-			txt.erase(0,txt.find(erase)+erase.length());
+			txt.erase(0,(txt.find(erase)+erase.length()));
 			if(original.find(erase) != -1){
 				arr[i++] = temp;
 			}
@@ -292,7 +292,7 @@ class Util{
 		
 		return temp;
 	}
-	string removeBlank(string str){
+	public : static string removeBlank(string str){
 		int size = str.length();
 		string ret = "";
 		for(int i=0;i<size;i++){
@@ -303,7 +303,7 @@ class Util{
 		return ret;
 	}
 
-	string getDigits(string str){
+	public : static string getDigits(string str){
 		int size = str.length();
 		string ret = "";
 		for(int i=0;i<size;i++){
