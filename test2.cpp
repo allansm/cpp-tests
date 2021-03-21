@@ -5,7 +5,7 @@
 #include <stdlib.h>
 #include <iostream>
 
-string find(string txt,string a,string b){
+/*string find(string txt,string a,string b){
 	
 	string found = "";
 	
@@ -39,7 +39,7 @@ int delimiterCount(string txt,string a,string b){
 		}else{
 			prev = txt;
 		}*/
-	}
+	/*}
 	return i;
 }
 
@@ -61,7 +61,7 @@ string* findAll(string txt,string a,string b){
 				break;
 			}else{
 				prev = txt;
-			}*/
+			}*//*
 			if(original.find(erase) != -1){
 				arr[i++] = erase;
 			}
@@ -70,9 +70,34 @@ string* findAll(string txt,string a,string b){
 		}
 	}
 	return arr;
+}*/
+
+string finalboss(string txt,string a){
+	string found = "";
+	string temp = "";
+	for(int i=0;i<txt.length();i++){
+		if(txt.at(i) == a.at(0)){
+			try{
+				temp = "";
+				for(int ii=0;ii<a.length();ii++){
+					if(txt.at(i+ii) == a.at(ii)){
+						temp+= txt.at(i+ii);
+						if(temp == a){
+							cout << i << endl;
+							found+=i+",";
+						}
+					}
+				}
+			}catch(const exception &e){
+				break;
+			}
+		}
+	}
+	cout << found;
+	return found;
 }
 
-test3(){
+/*test3(){
 	string p = "test/cbrowser/dump.txt";
 	string* lines = Files::getLines(p.c_str());
 	int size = Files::countLines(p.c_str());//Util::sizeOf(lines);
@@ -91,9 +116,11 @@ test3(){
 		//cout << find(arr[i],">","</a>") << endl << endl;
 		cout << arr[i] << endl << endl;
 	}
-}
+}*/
 main(){
 	//test("<a class=\"myclass\" href=\"http://localhost\"></a>","href=\"","\"");
 	//removed2();
-	test3();
+	//test3();
+	
+	cout << finalboss("<html><body><div><a>link</a></div><div></div></body></html>","<div>");
 }

