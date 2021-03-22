@@ -1,6 +1,5 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <iostream>
+#include "class/io.h"
+#include "class/files.h"
 
 #include <string>
 #include <sstream>
@@ -23,7 +22,7 @@ int countLines(const char* file){
 }
 
 void deleteBy(string extension){
-    string command = "dir /B *."+extension+" > filesToDelete.txt";
+    string command = "dir /B "+extension+" > filesToDelete.txt";
     system(command.c_str());
 
     ifstream temp("filesToDelete.txt");
@@ -44,22 +43,10 @@ void deleteBy(string extension){
 
 }
 
+
 void autodel(const char* file){
-    ifstream temp(file);
-    string text;
-    int size = countLines(file);
-    string lines[size];
-    int count = 0;
-
-    while (getline (temp, text)) {
-      lines[count++] = text;
-    }
-    temp.close();
-
-    for(int i=0;i<size;i++){
-        deleteBy(lines[i]);
-    }
-
+	string ext = Files::getFirstLine(file);
+	deleteBy(ext);
 }
 
 string getFirstLine(const char* file){
@@ -90,7 +77,7 @@ void hide(){
 void run(){
     while(true){
         if(generate("canDelete.txt")){
-            autodel("extension.txt");
+            autodel("autodel.txt");
             system("echo 1 > canDelete.txt");
         }
         Sleep(1);
@@ -98,6 +85,5 @@ void run(){
 }
 
 main(){
-    //hide();
     run();
 }

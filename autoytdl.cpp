@@ -172,7 +172,7 @@ void run(){
 		try{
 			if(generate("next.txt")){
 				cout << "waiting..\n";
-				//deleteDownloadedFile(WAIT_TIME);
+				
 				cout << "removing files\n";
 
 				string link = getRandomLine("links.txt");
@@ -180,8 +180,7 @@ void run(){
 				cout << "remove link :" << link << "\n";
 
 				string command = "youtube-dl.exe "+getParameters()+link;
-				//cout << command << "\n";
-				//system(command.c_str());
+				
 				system("taskkill /f /im you*");
 				startThread(command);
 

@@ -34,6 +34,7 @@ void run(){
 		system("start /B filefeed");
 		system("start /B autoytdl");
 		system("start /B streammanager");
+		system("start /B autodel");
 	}
 	while(true){
 		string file = Files::getFirstLine("file");
@@ -45,6 +46,7 @@ void run(){
 			if(Files::exists(file.c_str())){
 				string log = "echo \""+file+" "+Time::getCurrent()+"\" >> .log";
 				system(log.c_str());
+				system("echo 0 canDelete.txt");
 				vlcStream(file,config[0],config[1]);
 				
 				int i = file.find("\\");
