@@ -31,7 +31,7 @@ bool isAvaible(){
 }
 int nfile(){
 	int lines = Files::countLines("currentFiles");
-	cout << lines << endl;
+	//cout << lines << endl;
 	return lines;
 }
 

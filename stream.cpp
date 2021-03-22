@@ -46,7 +46,7 @@ void run(){
 			if(Files::exists(file.c_str())){
 				string log = "echo \""+file+" "+Time::getCurrent()+"\" >> .log";
 				system(log.c_str());
-				system("echo 0 canDelete.txt");
+				system("echo 0 > canDelete.txt");
 				vlcStream(file,config[0],config[1]);
 				
 				int i = file.find("\\");

@@ -60,7 +60,7 @@ string getFirstLine(const char* file){
 }
 
 bool generate(const char* file){
-    if(getFirstLine(file) == "0"){
+    if(getFirstLine(file).at(0) == '0'){
         return true;
     }else{
         return false;
