@@ -1,5 +1,6 @@
 #include "class/io.h"
 #include "class/files.h"
+#include "class/util.h"
 
 #include <string>
 #include <sstream>
@@ -75,12 +76,13 @@ void hide(){
 }
 
 void run(){
+	int time = Util::parseInt(Files::getFirstLine("waitTime.txt"));
     while(true){
-        if(generate("canDelete.txt")){
+        //if(generate("canDelete.txt")){
             autodel("autodel.txt");
-            system("echo 1 > canDelete.txt");
-        }
-        Sleep(1);
+            //system("echo 1 > canDelete.txt");
+        //}
+        Sleep(time);
     }
 }
 

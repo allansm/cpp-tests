@@ -3,6 +3,8 @@
 
 void ring(){
 	while(true){
+		system("cls");
+		cout << "time reached\n";
 		cout << "\a";
 		Sleep(500);
 	}
