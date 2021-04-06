@@ -19,10 +19,10 @@ void stream(string file,string ip,string port,string protocol,string bitrate){
 	system(test.c_str());
 }
 
-void vlcStream(string file,string ip,string port){
+void vlcStream(string file,string ip,string port,string vlcexe){
 	system("taskkill /f /im vlc*");
  
-	string vlc = "start /wait \"\" \"c:/program files (x86)/videolan/vlc/vlc.exe\" -I dummy --dummy-quiet -vvv \""+file+"\" :sout=#http{dst="+ip+",port="+port+",mux=ts,ttl=1} :sout-all :sout-keep vlc://quit";
+	string vlc = "start /wait \"\" \""+vlcexe+"\" -I dummy --dummy-quiet -vvv \""+file+"\" :sout=#http{dst="+ip+",port="+port+",mux=ts,ttl=1} :sout-all :sout-keep vlc://quit";
 	cout << vlc << endl;
 	system(vlc.c_str());
 }
@@ -47,7 +47,7 @@ void run(){
 				string log = "echo \""+file+" "+Time::getCurrent()+"\" >> .log";
 				system(log.c_str());
 				system("echo 0 > canDelete.txt");
-				vlcStream(file,config[0],config[1]);
+				vlcStream(file,config[0],config[1],config[5]);
 				
 				int i = file.find("\\");
 				bool isHere = !(i>0);
