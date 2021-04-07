@@ -1,5 +1,7 @@
+.gitignore
 *.exe
 *.o
 *.txt
 /test
 /import
+.config
