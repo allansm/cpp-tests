@@ -1,5 +1,7 @@
 #include "class/io.h"
 #include "class/files.h"
+#include "class/util.h"
+
 #include <windows.h>
 #include <tchar.h>
 #include <tlhelp32.h>
@@ -39,6 +41,10 @@ bool isFocused(HWND hwnd,string name){
 	}
 	return false;
 }
+bool isFocused(string name){
+	HWND hwnd = GetForegroundWindow();
+	return isFocused(hwnd,name);
+}
 
 string getAppname(HWND hwnd){
 	DWORD dwPID;
@@ -73,9 +79,6 @@ int n(){
 			int length = GetWindowTextLength(hwnd);
 			if (length == 0)
 				continue;
-			        //char* title = new char[length+1];
-				//GetWindowText(hwnd, title, length+1);
-				//cout << getAppname(hwnd) << endl;
 				size++;
 	}
 
@@ -92,33 +95,79 @@ HWND* getVisible(){
 			if (length == 0)
 				continue;
 				list[i++] = hwnd;
-			        //char* title = new char[length+1];
-				//GetWindowText(hwnd, title, length+1);
-				//cout << getAppname(hwnd) << endl;
-				//size++;
 	}
 	return list;
 }
 
+bool isRunning(string name){
+	for(HWND hwnd = GetTopWindow(NULL); hwnd != NULL; hwnd = GetNextWindow(hwnd, GW_HWNDNEXT)){
+		if(getAppname(hwnd) == name){
+			return true;
+		}
+	}
+	return false;
+}
+
+
+string* split(string line){
+	return Util::split(line," : ");
+}
+
+void execute(string fname){
+	string* lines = Files::getLines(fname.c_str());
+	
+	for(int i=0;i<Files::countLines(fname.c_str());i++){
+		system(lines[i].c_str());
+	}
+}
+
+
+bool execute(string name,string cond){
+	if(cond == "focused"){
+		if(isFocused(name)){
+			return true;
+		}
+	}else if(cond == "running"){
+		if(isRunning(name)){
+			return true;
+		}
+	}else if(cond == "maximized"){
+	
+	}else if(cond == "minimized"){
+
+	}
+	return false;
+}
+
 
 main(){
-	//string command = Files::getFirstLine(".config");
+	bool canExecute = false;
+	bool swtch = true;
 
-	string* lines = Files::getLines(".config");
+	while(true){
+		string* lines = Files::getLines(".config");
 
-	for(int i=2;i<Files::countLines(".config");i++){
-		cout << lines[i] << endl;
-	}
-
-	system(lines[0].c_str());
-	system(lines[1].c_str());
-
-	//HWND hwnd = GetForegroundWindow();
-	
-	/*HWND* list = getVisible();
-
-	for(int i= 0;i<n();i++){
-		cout << getAppname(list[i]) << endl;
-	}*/
+		for(int i=1;i<Files::countLines(".config");i++){
+			
+			string* args = split(lines[i]);
+			if(execute(args[0],args[1])){
+				canExecute = true;
+				break;
+			}
+		}
+		if(canExecute){
+			if(swtch){
+				cout << "executing if" << endl;
+				swtch = false;
+				execute("if.txt");
+			}
+			canExecute = false;
+		}else{
+			cout << "executing else" << endl;
+			swtch = true;
+			execute("else.txt");
+		}
+		Sleep(Util::parseInt(lines[0]));
+	}	
 }
 
