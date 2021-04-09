@@ -163,9 +163,11 @@ main(){
 			}
 			canExecute = false;
 		}else{
-			cout << "executing else" << endl;
-			swtch = true;
-			execute("else.txt");
+			if(!swtch){
+				cout << "executing else" << endl;
+				swtch = true;
+				execute("else.txt");
+			}
 		}
 		Sleep(Util::parseInt(lines[0]));
 	}	
