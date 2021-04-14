@@ -26,9 +26,9 @@ string getDigits(string str){
 }
 
 float getAvaibleMemory(){
-	string cmd = "wmic OS get FreePhysicalMemory > avaible.txt";
+	string cmd = "wmic OS get FreePhysicalMemory > .ram";
 	system(cmd.c_str());
-	string avaible = Files::getLines("avaible.txt")[1];
+	string avaible = Files::getLines(".ram")[1];
 	avaible = getDigits(avaible);
 	return Util::parseFloat(avaible)/1000;
 }
@@ -38,5 +38,6 @@ float getRam(){
 }
 
 main(){
-	cout << getAvaibleMemory();	
+	cout << getAvaibleMemory();
+	remove(".ram");
 }
