@@ -1,10 +1,6 @@
 #ifndef FILES_H
 #define FILES_H
 
-/*#include <stdio.h>
-#include <stdlib.h>
-#include <iostream>*/
-
 #include <string>
 #include <sstream>
 #include <fstream>
@@ -114,6 +110,7 @@ class Files{
 		temp.close();
 	}
 	
+	//windows only
 	public : static void deleteBy(string extension){
 		string command = "dir /B *."+extension+" > filesToDelete.txt";
 		system(command.c_str());
