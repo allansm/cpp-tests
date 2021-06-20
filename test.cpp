@@ -1,4 +1,5 @@
 #include "class/io.h"
+#include "class/files.h"
 
 bool has(string line,string text){
 	if(line.find(text) == -1){
@@ -74,33 +75,5 @@ string replace(string txt,string oldtxt,string newtxt){
 		txt = replaceFirst(txt,oldtxt,newtxt);
 	}
 	return txt;
-}
-
-//why don't work?
-int size(string* array){
-	int i = 0;
-
-	try{
-		while(true){
-			string tmp = array[i];
-			i++;	
-		}
-	}catch(const exception e){return i;}
-
-	return i;
-}
-
-
-main(){
-	string test = "n1;n2;n3;n4;n5;n6";
-	string test2 = ",";
-	
-	test = replace(test,";",",");
-
-	string* array = explode(test,test2);
-
-	print_r(array);
-	print(size(array));
-	print("\n");
 }
 
