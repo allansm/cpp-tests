@@ -1,5 +1,4 @@
 #include "class/io.h"
-#include "class/files.h"
 
 bool has(string line,string text){
 	if(line.find(text) == -1){
@@ -9,7 +8,7 @@ bool has(string line,string text){
 	}
 }
 
-int ocurrences(string line,string text){
+int n(string line,string text){
 	int count = 0;
 	while(has(line,text)){
 		line.erase(0,line.find(text)+text.length());
@@ -20,7 +19,7 @@ int ocurrences(string line,string text){
 }
 
 string* explode(string line,string deli){
-	string* exp = new string[ocurrences(line,deli)+1];
+	string* exp = new string[n(line,deli)+1];
 	int i = 0;
 	while(has(line,deli)){
 		string temp = line.substr(0,line.find(deli));
@@ -64,6 +63,18 @@ void println(string txt){
 	cout << txt << endl;
 }
 
+void println(int val){
+	cout << val << endl;
+}
+
+void println(float val){
+	cout << val << endl;
+}
+
+void println(double val){
+	cout << val << endl;
+}
+
 string replaceFirst(string txt,string oldtxt,string newtxt){
         int start = txt.find(oldtxt);
         int end = oldtxt.length();
@@ -77,3 +88,24 @@ string replace(string txt,string oldtxt,string newtxt){
 	return txt;
 }
 
+
+main(){
+	int test = 0;
+
+	string* arr = new string[2];
+	arr[0] = "a";
+	arr[1] = "b";
+	arr[2] = "c";
+	
+	do{
+		try{
+			string tmp = arr[50];
+			print(tmp);
+		}catch(const exception &e){
+			break;
+		}
+	}while(true);
+
+	println("catched error!!");
+
+}
