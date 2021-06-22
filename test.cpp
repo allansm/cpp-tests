@@ -97,15 +97,7 @@ main(){
 	arr[1] = "b";
 	arr[2] = "c";
 	
-	do{
-		try{
-			string tmp = arr[50];
-			print(tmp);
-		}catch(const exception &e){
-			break;
-		}
-	}while(true);
-
-	println("catched error!!");
-
+	for(auto test:arr){
+		print(test);
+	}
 }
