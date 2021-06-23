@@ -1,4 +1,5 @@
 #include "class/io.h"
+#include <vector>
 
 bool has(string line,string text){
 	if(line.find(text) == -1){
@@ -17,7 +18,7 @@ int n(string line,string text){
 
 	return count;
 }
-
+/*
 string* explode(string line,string deli){
 	string* exp = new string[n(line,deli)+1];
 	int i = 0;
@@ -30,6 +31,20 @@ string* explode(string line,string deli){
 	exp[i++] = line;
 	return exp;
 }
+*/
+vector<string> explode(string line,string deli){
+	vector<string> exp;
+	while(has(line,deli)){
+		string temp = line.substr(0,line.find(deli));
+		line.erase(0,line.find(deli)+deli.length());
+
+		exp.push_back(temp);
+	}
+	
+	exp.push_back(line);
+
+	return exp;
+}
 
 void print_r(string* array){
 	int i = 0;
@@ -40,6 +55,14 @@ void print_r(string* array){
 		}catch(const exception e){
 			break;
 		}
+	}
+}
+
+void print_r(vector<string> array){
+	int i = 0;
+	for(string tmp : array){
+		cout << i << " => " << tmp << "\n";
+		i++;
 	}
 }
 
@@ -88,4 +111,6 @@ string replace(string txt,string oldtxt,string newtxt){
 	return txt;
 }
 
-
+main(){
+	print_r(explode("a;b;c",";"));
+}
