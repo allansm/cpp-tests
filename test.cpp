@@ -18,20 +18,7 @@ int n(string line,string text){
 
 	return count;
 }
-/*
-string* explode(string line,string deli){
-	string* exp = new string[n(line,deli)+1];
-	int i = 0;
-	while(has(line,deli)){
-		string temp = line.substr(0,line.find(deli));
-		line.erase(0,line.find(deli)+deli.length());
 
-		exp[i++] = temp;
-	}
-	exp[i++] = line;
-	return exp;
-}
-*/
 vector<string> explode(string line,string deli){
 	vector<string> exp;
 	while(has(line,deli)){
@@ -109,8 +96,4 @@ string replace(string txt,string oldtxt,string newtxt){
 		txt = replaceFirst(txt,oldtxt,newtxt);
 	}
 	return txt;
-}
-
-main(){
-	print_r(explode("a;b;c",";"));
 }
