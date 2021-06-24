@@ -6,11 +6,7 @@ main(){
 	Util util;
 	Files files;
 	
-	vector<string> lines = files.getLines("test.cpp");
-
-	for(string line : lines){
-		if(util.has(line,"util.has")){
-			cout << line;
-		}
-	}
+	string fn = "test.txt";
+	string text = "helloworld";	
+	files.writeFile(fn,text);	
 }
