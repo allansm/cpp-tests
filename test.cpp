@@ -7,6 +7,7 @@ main(){
 	Files files;
 	
 	string fn = "test.txt";
-	string text = "helloworld";	
-	files.writeFile(fn,text);	
+	string text = "helloworld";
+	files.writeFile(fn.c_str(),text.c_str());
+	files.addLine(fn.c_str(),text.c_str());
 }
