@@ -1,7 +1,21 @@
 #include "class/io.h"
 #include <vector>
 
-bool has(string line,string text){
+class Util2{
+	public:
+		Util2();
+		string replace(string txt,string oldtxt,string newtxt);
+		vector<string> explode(string line,string deli);
+		bool has(string line,string text);
+};
+
+
+Util2::Util2(){
+
+}
+
+
+bool Util2::has(string line,string text){
 	if(line.find(text) == -1){
 		return false;
 	}else{
@@ -9,7 +23,7 @@ bool has(string line,string text){
 	}
 }
 
-int n(string line,string text){
+int Util2::n(string line,string text){
 	int count = 0;
 	while(has(line,text)){
 		line.erase(0,line.find(text)+text.length());
@@ -19,7 +33,7 @@ int n(string line,string text){
 	return count;
 }
 
-vector<string> explode(string line,string deli){
+vector<string> Util2::explode(string line,string deli){
 	vector<string> exp;
 	while(has(line,deli)){
 		string temp = line.substr(0,line.find(deli));
@@ -33,7 +47,7 @@ vector<string> explode(string line,string deli){
 	return exp;
 }
 
-void print_r(string* array){
+void Util2::print_r(string* array){
 	int i = 0;
 	while(true){
 		try{
@@ -45,7 +59,7 @@ void print_r(string* array){
 	}
 }
 
-void print_r(vector<string> array){
+void Util2::print_r(vector<string> array){
 	int i = 0;
 	for(string tmp : array){
 		cout << i << " => " << tmp << "\n";
@@ -53,35 +67,35 @@ void print_r(vector<string> array){
 	}
 }
 
-void print(string txt){
+void Util2::print(string txt){
 	cout << txt;
 }
 
-void print(int val){
+void Util2::print(int val){
 	cout << val;
 }
 
-void print(float val){
+void Util2::print(float val){
 	cout << val;
 }
 
-void print(double val){
+void Util2::print(double val){
 	cout << val;
 }
 
-void println(string txt){
+void Util2::println(string txt){
 	cout << txt << endl;
 }
 
-void println(int val){
+void Util2::println(int val){
 	cout << val << endl;
 }
 
-void println(float val){
+void Util2::println(float val){
 	cout << val << endl;
 }
 
-void println(double val){
+void Util2::println(double val){
 	cout << val << endl;
 }
 
@@ -91,7 +105,7 @@ string replaceFirst(string txt,string oldtxt,string newtxt){
         return txt.replace(start,end,newtxt);
 }
 
-string replace(string txt,string oldtxt,string newtxt){
+string Util2::replace(string txt,string oldtxt,string newtxt){
 	while(has(txt,oldtxt)){
 		txt = replaceFirst(txt,oldtxt,newtxt);
 	}
