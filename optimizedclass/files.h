@@ -6,18 +6,18 @@
 
 using namespace std;
 
-class Files2{
+class Files{
 	public:
-		Files2();
+		Files();
 		vector<string> getLines(const char* file);
 		bool exists(const char* file);
 };
 
-Files2::Files2(){
+Files::Files(){
 
 }
 
-vector<string> Files2::getLines(const char* file){
+vector<string> Files::getLines(const char* file){
 	ifstream temp(file);
 	string text;
 
@@ -33,7 +33,7 @@ vector<string> Files2::getLines(const char* file){
 	return lines;
 }
 
-bool Files2::exists(const char *fileName){
+bool Files::exists(const char *fileName){
 	ifstream infile(fileName);
 	return infile.good();
 }

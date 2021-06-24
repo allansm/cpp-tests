@@ -1,21 +1,33 @@
-#include "class/io.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <iostream>
+#include <string.h>
 #include <vector>
 
-class Util2{
+using namespace std;
+
+class Util{
 	public:
-		Util2();
+		Util();
 		string replace(string txt,string oldtxt,string newtxt);
 		vector<string> explode(string line,string deli);
 		bool has(string line,string text);
 };
 
 
-Util2::Util2(){
+Util::Util(){
 
 }
 
 
-bool Util2::has(string line,string text){
+bool has(string line,string text){
+	if(line.find(text) == -1){
+		return false;
+	}else{
+		return true;
+	}
+}
+bool Util::has(string line,string text){
 	if(line.find(text) == -1){
 		return false;
 	}else{
@@ -23,7 +35,7 @@ bool Util2::has(string line,string text){
 	}
 }
 
-int Util2::n(string line,string text){
+int n(string line,string text){
 	int count = 0;
 	while(has(line,text)){
 		line.erase(0,line.find(text)+text.length());
@@ -33,7 +45,7 @@ int Util2::n(string line,string text){
 	return count;
 }
 
-vector<string> Util2::explode(string line,string deli){
+vector<string> Util::explode(string line,string deli){
 	vector<string> exp;
 	while(has(line,deli)){
 		string temp = line.substr(0,line.find(deli));
@@ -47,7 +59,7 @@ vector<string> Util2::explode(string line,string deli){
 	return exp;
 }
 
-void Util2::print_r(string* array){
+void print_r(string* array){
 	int i = 0;
 	while(true){
 		try{
@@ -59,7 +71,7 @@ void Util2::print_r(string* array){
 	}
 }
 
-void Util2::print_r(vector<string> array){
+void print_r(vector<string> array){
 	int i = 0;
 	for(string tmp : array){
 		cout << i << " => " << tmp << "\n";
@@ -67,35 +79,35 @@ void Util2::print_r(vector<string> array){
 	}
 }
 
-void Util2::print(string txt){
+void print(string txt){
 	cout << txt;
 }
 
-void Util2::print(int val){
+void print(int val){
 	cout << val;
 }
 
-void Util2::print(float val){
+void print(float val){
 	cout << val;
 }
 
-void Util2::print(double val){
+void print(double val){
 	cout << val;
 }
 
-void Util2::println(string txt){
+void println(string txt){
 	cout << txt << endl;
 }
 
-void Util2::println(int val){
+void println(int val){
 	cout << val << endl;
 }
 
-void Util2::println(float val){
+void println(float val){
 	cout << val << endl;
 }
 
-void Util2::println(double val){
+void println(double val){
 	cout << val << endl;
 }
 
@@ -105,7 +117,7 @@ string replaceFirst(string txt,string oldtxt,string newtxt){
         return txt.replace(start,end,newtxt);
 }
 
-string Util2::replace(string txt,string oldtxt,string newtxt){
+string Util::replace(string txt,string oldtxt,string newtxt){
 	while(has(txt,oldtxt)){
 		txt = replaceFirst(txt,oldtxt,newtxt);
 	}
