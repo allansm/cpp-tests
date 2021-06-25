@@ -9,9 +9,24 @@ using namespace std;
 class Util{
 	public:
 		Util();
+		
 		string replace(string txt,string oldtxt,string newtxt);
 		vector<string> explode(string line,string deli);
 		bool has(string line,string text);
+		
+		void print_r(vector<string> array);
+		void print_r(string* array);
+		
+		void print(string txt);
+		void print(int txt);
+		void print(float txt);
+		void print(double txt);
+
+		void println(string txt);
+		void println(int txt);
+		void println(float txt);
+		void println(double txt);
+
 };
 
 
@@ -59,7 +74,7 @@ vector<string> Util::explode(string line,string deli){
 	return exp;
 }
 
-void print_r(string* array){
+void Util::print_r(string* array){
 	int i = 0;
 	while(true){
 		try{
@@ -71,7 +86,7 @@ void print_r(string* array){
 	}
 }
 
-void print_r(vector<string> array){
+void Util::print_r(vector<string> array){
 	int i = 0;
 	for(string tmp : array){
 		cout << i << " => " << tmp << "\n";
@@ -79,35 +94,35 @@ void print_r(vector<string> array){
 	}
 }
 
-void print(string txt){
+void Util::print(string txt){
 	cout << txt;
 }
 
-void print(int val){
+void Util::print(int val){
 	cout << val;
 }
 
-void print(float val){
+void Util::print(float val){
 	cout << val;
 }
 
-void print(double val){
+void Util::print(double val){
 	cout << val;
 }
 
-void println(string txt){
+void Util::println(string txt){
 	cout << txt << endl;
 }
 
-void println(int val){
+void Util::println(int val){
 	cout << val << endl;
 }
 
-void println(float val){
+void Util::println(float val){
 	cout << val << endl;
 }
 
-void println(double val){
+void Util::println(double val){
 	cout << val << endl;
 }
 

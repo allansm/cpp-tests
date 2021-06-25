@@ -37,6 +37,7 @@ class Proc{
 		}
 		return false;
 	}
+
 	public : static bool isFocused(string name){
 		HWND hwnd = GetForegroundWindow();
 		return isFocused(hwnd,name);
