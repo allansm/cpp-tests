@@ -72,7 +72,7 @@ void Files::addLine(const char *filename,const char *newline){
 	vector<string> lines = getLines(filename);
 	ofstream file(filename);
 	for(string line : lines){
-		file << line;
+		file << line << endl;
 	}
 	file << newline;
 	file.close();
