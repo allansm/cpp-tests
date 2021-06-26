@@ -27,6 +27,8 @@ class Util{
 		void println(float txt);
 		void println(double txt);
 
+		string input(string message);
+
 };
 
 
@@ -137,4 +139,12 @@ string Util::replace(string txt,string oldtxt,string newtxt){
 		txt = replaceFirst(txt,oldtxt,newtxt);
 	}
 	return txt;
+}
+
+string Util::input(string message){
+	string user_input;
+	cout << message;
+	getline(cin,user_input);
+
+	return user_input;
 }
