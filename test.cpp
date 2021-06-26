@@ -1,26 +1,13 @@
-#include "optimizedclass/proc.h"
+#include "optimizedclass/win.h"
 #include "optimizedclass/util.h"
 #include "class/io.h"
 
 main(){
-	/*Proc p;
-	vector<HWND> procs = p.getVisible();
-
-	for(HWND tmp : procs){
-		cout << p.getAppname(tmp) << endl;
-	}*/
-	
-	/*string text;
-	
-	cout << "input:";
-	getline(cin,text);
-
-	cout << text;*/
-
+	Win p;
 	Util u;
-
-	string name = u.input("name:");
-	string message = "your name is "+name;
-	
-	u.print(message);
+	for(HWND win : p.getAll()){
+		string app = p.getAppname(win);
+		if(app != "" && p.isFocused(app))
+			u.println(app+".exe");
+	}
 }
