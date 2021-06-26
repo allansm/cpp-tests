@@ -3,6 +3,7 @@
 #include <iostream>
 #include <string.h>
 #include <vector>
+#include <sys/time.h>
 
 using namespace std;
 
@@ -28,14 +29,13 @@ class Util{
 		void println(double txt);
 
 		string input(string message);
-
+		string getRandomValue(vector<string> list);
 };
 
 
 Util::Util(){
 
 }
-
 
 bool has(string line,string text){
 	if(line.find(text) == -1){
@@ -44,6 +44,7 @@ bool has(string line,string text){
 		return true;
 	}
 }
+
 bool Util::has(string line,string text){
 	if(line.find(text) == -1){
 		return false;
@@ -147,4 +148,24 @@ string Util::input(string message){
 	getline(cin,user_input);
 
 	return user_input;
+}
+
+int arraySize(vector<string> arr){
+	int i = 0;
+	
+	for(string value : arr){
+		i++;
+	}
+
+	return i;
+}
+
+string Util::getRandomValue(vector<string> arr){
+	srand (time(NULL));
+
+	int iSecret;
+
+        iSecret = rand() % arraySize(arr) + 0;
+
+        return arr[iSecret];
 }
