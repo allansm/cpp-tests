@@ -82,7 +82,7 @@ void Util::print_r(string* array){
 	while(true){
 		try{
 			string tmp = array[i++]; 
-			cout << i-1 << " => " << tmp << "\n";
+			cout << "[" << i-1 << "] => " << tmp << "\n";
 		}catch(const exception e){
 			break;
 		}
@@ -92,7 +92,7 @@ void Util::print_r(string* array){
 void Util::print_r(vector<string> array){
 	int i = 0;
 	for(string tmp : array){
-		cout << i << " => " << tmp << "\n";
+		cout << "[" << i << "] => " << tmp << "\n";
 		i++;
 	}
 }

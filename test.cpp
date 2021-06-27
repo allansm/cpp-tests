@@ -9,6 +9,7 @@ main(){
 	long int start = time.currentTimeToMs();
 	while(true){
 		system("cls");
-		util.println(time.elapsedTime(time.toSec(time.elapsedTime(start))));
+		string clock = time.elapsedTime(time.toSec(time.elapsedTime(start)));
+		util.print_r(util.explode(clock,":"));
 	}
 }
