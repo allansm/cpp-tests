@@ -4,12 +4,18 @@
 #include <windows.h>
 
 main(){
-	Time time;
-	Util util;
-	long int start = time.currentTimeToMs();
-	while(true){
-		system("cls");
-		string clock = time.elapsedTime(time.toSec(time.elapsedTime(start)));
-		util.print_r(util.explode(clock,":"));
+	string mysql = "C:\\xampp\\mysql\\bin\\mysql.exe -u root";
+	char buffer[256];
+
+	FILE* pipe = popen(mysql.c_str(),"w");
+
+	if(!feof(pipe)){
+		fputs("use allan;",pipe);
+		fflush(pipe);
+
+		fputs("insert into test (nome) values ('c++');",pipe);
+		fflush(pipe);
+
 	}
+	pclose(pipe);
 }
