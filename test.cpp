@@ -44,27 +44,6 @@ string Mysql::query(string q){
 	return result;
 }
 
-void test(){
-	string mysql = "C:\\xampp\\mysql\\bin\\mysql.exe -u root";
-	char buffer[256];
-
-	FILE* pipe = popen(mysql.c_str(),"w");
-
-	if(!feof(pipe)){
-		fputs("use allan;",pipe);
-		fflush(pipe);
-
-		fputs("insert into test (nome) values ('c++');",pipe);
-		fflush(pipe);
-
-	}
-	pclose(pipe);
-}
-
-void test2(string mysql,string user,string password,string database){
-
-}
-
 main(){
 
 	Util util;
