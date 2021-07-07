@@ -30,6 +30,8 @@ class Util{
 
 		string input(string message);
 		string getRandomValue(vector<string> list);
+
+		string exec(string command);
 };
 
 
@@ -168,4 +170,16 @@ string Util::getRandomValue(vector<string> arr){
         iSecret = rand() % arraySize(arr) + 0;
 
         return arr[iSecret];
+}
+
+string Util::exec(string command){
+	FILE* pipe = popen(command.c_str(),"r");
+	char buffer[256];
+	string result = "";
+	while(fgets(buffer,256,pipe)){
+		result+=buffer;		
+	}
+	pclose(pipe);
+
+	return result;
 }
