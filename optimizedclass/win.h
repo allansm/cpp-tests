@@ -22,6 +22,9 @@ class Win{
 		bool isFocused(HWND hwnd,string name);
 		bool isMaximized(HWND hwnd);
 		bool isMinimized(HWND hwnd);
+
+		void topmost(HWND wnd);
+		void removeBorders(HWND wnd);
 };
 
 Win::Win(){
@@ -162,4 +165,14 @@ bool Win::isRunning(HWND proc){
 		}
 	}
 	return false;
+}
+
+void Win::topmost(HWND wnd){
+	SetWindowPos(wnd, HWND_TOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE);
+}
+
+void Win::removeBorders(HWND wnd){
+	LONG lStyle = GetWindowLong(wnd, GWL_STYLE);
+	lStyle &= ~(WS_CAPTION | WS_THICKFRAME | WS_MINIMIZEBOX | WS_MAXIMIZEBOX | WS_SYSMENU);
+	SetWindowLong(wnd, GWL_STYLE, lStyle);
 }
