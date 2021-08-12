@@ -25,6 +25,7 @@ class Win{
 
 		void topmost(HWND wnd);
 		void removeBorders(HWND wnd);
+		void hideScrollbar(HWND wnd);
 };
 
 Win::Win(){
@@ -175,4 +176,8 @@ void Win::removeBorders(HWND wnd){
 	LONG lStyle = GetWindowLong(wnd, GWL_STYLE);
 	lStyle &= ~(WS_CAPTION | WS_THICKFRAME | WS_MINIMIZEBOX | WS_MAXIMIZEBOX | WS_SYSMENU);
 	SetWindowLong(wnd, GWL_STYLE, lStyle);
+}
+
+void Win::hideScrollbar(HWND wnd){
+	ShowScrollBar(wnd, SB_BOTH, FALSE);	
 }
