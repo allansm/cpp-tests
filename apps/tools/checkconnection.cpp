@@ -8,6 +8,7 @@ main(){
 			Util().println("connection ok");
 			break;
 		}else{
+			system("cls");
 			Util().println("has no connection");
 		}
 	}
