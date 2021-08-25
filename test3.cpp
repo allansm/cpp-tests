@@ -1,10 +1,10 @@
-#include <windows.h>
-#include <iostream>
+#include <optimizedclass/win.h>
+#include <optimizedclass/util.h>
 
-using namespace std;
-
-main(){
-	HWND wnd;
-	wnd = GetConsoleWindow();	
-	ShowWindow(wnd,SW_MINIMIZE);
+main(int argc,char *argv[]){
+	for(HWND win : Win().getAll()){
+		if(Win().getAppname(win) == argv[1]){
+			Win().minimize(win);
+		}
+	}
 }
