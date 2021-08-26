@@ -22,12 +22,13 @@ class Win{
 		bool isFocused(HWND hwnd,string name);
 		bool isMaximized(HWND hwnd);
 		bool isMinimized(HWND hwnd);
+		bool isTopmost(HWND wnd);
 
 		void topmost(HWND wnd);
 		void removeBorders(HWND wnd);
 		void hideScrollbar(HWND wnd);
 		void maximize(HWND wnd);
-		void minimize(HWND wnd);
+		void minimize(HWND wnd);		
 };
 
 Win::Win(){
@@ -168,6 +169,15 @@ bool Win::isRunning(HWND proc){
 		}
 	}
 	return false;
+}
+
+bool Win::isTopmost(HWND wnd){
+	if (::GetWindowLong(wnd, GWL_EXSTYLE) & WS_EX_TOPMOST){
+		return true;
+	}else{
+		return false;
+	}
+	
 }
 
 void Win::topmost(HWND wnd){
