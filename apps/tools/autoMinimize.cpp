@@ -8,11 +8,13 @@ main(int argc,char *argv[]){
 			if(!Win().isFocused(Win().getAppname(win))){
 				if(!Win().isTopmost(win)){
 					if(!Win().isMinimized(win)){
-						Win().minimize(win);
+						if(!Win().isMaximized(win)){
+							Win().minimize(win);
+						}
 					}
 				}
 			}
 		}
-		Sleep(60000);
+		Sleep(10000);
 	}
 }
