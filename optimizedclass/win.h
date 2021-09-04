@@ -28,7 +28,8 @@ class Win{
 		void removeBorders(HWND wnd);
 		void hideScrollbar(HWND wnd);
 		void maximize(HWND wnd);
-		void minimize(HWND wnd);		
+		void minimize(HWND wnd);
+		void changeOpacity(HWND wnd,int opacity);
 };
 
 Win::Win(){
@@ -206,3 +207,9 @@ void Win::maximize(HWND wnd){
 void Win::minimize(HWND wnd){
 	ShowWindow(wnd,SW_MINIMIZE);
 }
+
+void Win::changeOpacity(HWND wnd,int opacity){
+	SetWindowLong(wnd, GWL_EXSTYLE, GetWindowLong(wnd, GWL_EXSTYLE) & WS_EX_LAYERED);
+	SetLayeredWindowAttributes(wnd, RGB(154,255,214), opacity, LWA_ALPHA);	
+}
+
