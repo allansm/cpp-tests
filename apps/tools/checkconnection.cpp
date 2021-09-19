@@ -1,6 +1,6 @@
-#include <optimizedclass/util.h>
+#include <cpp-lib/util.h>
 
-main(){
+main(int argc,char *argv[]){
 	while(true){
 		string headers = Util().exec("curl -s -I www.google.com");
 	
@@ -12,4 +12,6 @@ main(){
 			Util().println("has no connection");
 		}
 	}
+
+	system(argv[1]);
 }
