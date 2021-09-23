@@ -1,16 +1,42 @@
 #include <cpp-lib/basic.h>
 #include <cpp-lib/util.h>
 #include <cpp-lib/json.h>
+#include <cpp-lib/request.h>
 
 Util util = Util();
 Json jsn = Json();
 
-main(){
-	string res = util.exec("curl -s \"http://worldtimeapi.org/api/timezone/America/Sao_Paulo\"");
-	json time = jsn.toJson(res);
+Request request = Request();
 
-	int weekday = time["day_of_week"].get<int>();
-	int epoch = time["unixtime"].get<long>();
-	util.println(epoch);
-	util.println(weekday);
+
+json getApiTime(){
+	return jsn.toJson(request.get("http://worldtimeapi.org/api/timezone/America/Sao_Paulo"));
+}
+
+string getDate(json time){
+	return util.explode(time["datetime"].get<string>(),"T")[0];
+}
+
+string getTime(json time){
+	string tmp = util.explode(time["datetime"].get<string>(),"T")[1];
+	
+	return util.explode(tmp,".")[0];
+}
+
+long getUnixTime(json time){
+	return time["unixtime"].get<long>();
+}
+
+string getWeekDay(json time){
+	vector<string> wday{"dom","seg","ter","qua","qui","sex","sab"};
+	
+	return wday[time["day_of_week"].get<int>()];	
+}
+
+main(){
+	json time = getApiTime();
+
+	util.println("date:"+getDate(time));
+	util.println("time:"+getTime(time));
+	util.println("week day:"+getWeekDay(time));
 }
