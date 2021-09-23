@@ -1,16 +1,12 @@
-#include <cpp-lib/basic.h>
-#include <cpp-lib/util.h>
+#include <cpp-lib/output.hpp>
+#include <cpp-lib/util.hpp>
 #include <cpp-lib/json.h>
-#include <cpp-lib/request.h>
 
 Util util = Util();
 Json jsn = Json();
 
-Request request = Request();
-
-
 json getApiTime(){
-	return jsn.toJson(request.get("http://worldtimeapi.org/api/timezone/America/Sao_Paulo"));
+	return jsn.toJson(util.exec("curl -s http://worldtimeapi.org/api/timezone/America/Sao_Paulo"));
 }
 
 string getDate(json time){
@@ -36,7 +32,7 @@ string getWeekDay(json time){
 main(){
 	json time = getApiTime();
 
-	util.println("date:"+getDate(time));
-	util.println("time:"+getTime(time));
-	util.println("week day:"+getWeekDay(time));
+	println("date:"+getDate(time));
+	println("time:"+getTime(time));
+	println("week day:"+getWeekDay(time));
 }
