@@ -1,12 +1,14 @@
 #include <cpp-lib/output.hpp>
 #include <cpp-lib/util.hpp>
 #include <cpp-lib/json.h>
+#include <cpp-lib/curl.hpp>
 
 Util util = Util();
 Json jsn = Json();
+Curl curl = Curl();
 
 json getApiTime(){
-	return jsn.toJson(util.exec("curl -s http://worldtimeapi.org/api/timezone/America/Sao_Paulo"));
+	return jsn.toJson(curl.getContent("http://worldtimeapi.org/api/timezone/America/Sao_Paulo"));
 }
 
 string getDate(json time){
