@@ -68,7 +68,11 @@ map<string,string> test2(string json){
 			if(field != "" && value != ""){
 				tmp[field] = value;
 				
-				tmp["_"] += field+";";
+				if(tmp["_"] != ""){
+					tmp["_"] += ";";
+				}
+
+				tmp["_"] +=field;
 
 				field = "";
 				value = ""; 
@@ -111,7 +115,11 @@ map<string,string> test2(string json){
 	if(field != "" && value != ""){
 		tmp[field] = value;
 		
-		tmp["_"] += field+";";
+		if(tmp["_"] != ""){
+			tmp["_"] += ";";
+		}
+
+		tmp["_"] +=field;
 
 		field = "";
 		value = "";
@@ -127,27 +135,39 @@ vector<string> test3(string jsonArray){
 	return util.explode(jsonArray,",");
 }
 
-main(){
-	//string json = "{'text':'helloworld',\"n\":0,\"son\":{\"a\":1,'message':'helloworld'},'arr':['a','b','c'],\"arr2\":['d','e']}";	
-	
-	string json = "";
+string test4(map<string,string> json){
 	bool flag = false;
-	for(string n : files.getLines("../test.json")){
+
+	string tmp = "{";
+	for(string n : util.explode(json["_"],";")){
 		if(flag){
-			json+="\n";
-		}else{
+			tmp+=",";
+		}
+
+		tmp+= "\""+n+"\":"+json[n];
+
+		if(!flag){
 			flag = true;
 		}
-		json+=n;
 	}
+
+	tmp += "}";
+	//println(tmp);
+	return tmp;
+}
+
+main(){
+	//string json = "{'text':'helloworld',\"n\":0,\"son\":{\"a\":1,'message':'helloworld'},'arr':['a','b','c'],\"arr2\":['d','e']}";	
+		
+	string json = files.readFile("../test.json");
 	
-	println(json+"\n");
+	//println(json+"\n");
 
 	auto tmp = test2(json);
 	
 	auto fields = util.explode(tmp["_"],";");
 
-	println(fields[0]+":"+tmp["msg"]);
+	/*println(fields[0]+":"+tmp["msg"]);
 	println(fields[1]+":"+tmp["letters"]);
 	println(fields[2]+":"+tmp["user"]);
 	
@@ -155,12 +175,14 @@ main(){
 	
 	print_r(test3(tmp["letters"]));
 
-	println("");
+	println("");*/
 
 	auto user = test2(tmp["user"]);
 	
-	auto fd = util.explode(user["_"],";");
+	println(test4(tmp));
 
-	println(fd[0]+":"+user["name"]);
-	println(fd[1]+":"+user["username"]);	
+	//auto fd = util.explode(user["_"],";");
+
+	/*println(fd[0]+":"+user["name"]);
+	println(fd[1]+":"+user["username"]);	*/
 }

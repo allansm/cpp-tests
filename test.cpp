@@ -1,52 +1,79 @@
 #include <iostream>
 #include <map>
-#include <any>
+#include <utility>
 
 using namespace std;
 
-//template<typename T>
-/*map<string,any> test(){
-	map<string,any> tmp;
+class Test2{
+	public:
+//		template <typename T>
+//		T val = "";
+		int integer;
+		float real;
+		string text;
 
-	tmp["val"] = 2;
-	tmp["txt"] = "helloworld";
+		string type;
+		//Test data;
 
-	return tmp;
-}*/
-
-/*T test(T x){
-	return x+y;
-}*/
-
-struct aa{
-	T val;	
+		
+		/*template <typename T>
+		T test(){
+			if(type == "text"){
+				return this->text;	
+			}else if(type == "integer"){
+				return this->integer;
+			}else{
+				return this->real;
+			}
+		}*/
 };
 
+struct n{
+	template<typename T>
+	T val;
+};
+
+/*T a(T x){
+	return x;
+}*/
+
 main(){
-	//any x = 2;
-	//
-	std::any test;
-	test = "helloworld";
-
-	cout << test;
-
-	//cout << x.type().name();
-	/*dat<string> tes;
-	tes.test = "helloworld";
-	*/
-	/*aa<int> a;
-	a.val = 2;
-
-	map<string,aa<string>> ta;
-
-	ta["val"] = a;*/
+	/*auto lamb = [](){
+		return "aaa";
+	};*/
 	
-//	map<string,any> arr = test();
+	//n t;
 
-/*
-	map<string,dat> test;
-	test["val"] = t;
+	//t.val<int> = 2;
 
-	cout << test["val"].test;*/
+	cout << "hello";//t.val;
+
+	//t2.val<string> = "helloworld";
+
+	/*t2.text = "hello";
+	t2.type = "text";	
+	
+	map<string,Test2> test;
+
+	test["text"] = t2;
+
+	cout << test["text"].test();*/
+
+	/*t.text = "hello";
+
+	map<string,Test> test;
+	
+	test["msg"] = t;
+	
+	t.text = "";
+	t.integer = 2;
+
+	test["n"] = t;
+	
+	//test["n"] = t;
+
+	cout << test["msg"].text << endl;
+	cout << test["n"].integer;	
+*/
 }
 
