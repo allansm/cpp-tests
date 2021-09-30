@@ -104,20 +104,18 @@ map<string,string> test2(string json){
 
 			if(tok == ':'){
 				val = util.replace(val,"\t","");
-				val = util.replace(val,"\"","");//val.substr(0, val.size()-1); 
-				val = util.replace(val,"'","");//val.substr(1, val.size());
+				val = util.replace(val,"\"","");
+				val = util.replace(val,"'","");
 				val = util.replace(val,"\n","");
 
 				field = val;
-
-				//println(field);
 			}
-	
-			/*if(tok == ':'){
-				field = val;	
-			}*/
 
 			if(tok == ','){
+				if(has(val,"{") && has(val,"}") || has(val,"[") && has(val,"]")){
+					val = util.replace(val,"\t","");
+					val = util.replace(val,"\n","");
+				}
 				value = val;
 			}
 			
@@ -138,20 +136,29 @@ map<string,string> test2(string json){
 			}else if(tok == ','){
 				tok = ':';
 			}
-//println(val);
 		}else{
 			buff[n++] = json.at(i);
 		}
 	}
 	
 	val = buff;
-	//println(val);
+	memset(buff,'\0',255);
 
 	if(tok == ':'){
-		field = val;	
+		val = util.replace(val,"\t","");
+		val = util.replace(val,"\"","");
+		val = util.replace(val,"'","");
+		val = util.replace(val,"\n","");
+
+		field = val;
+
 	}
 
 	if(tok == ','){
+		if(has(val,"{") && has(val,"}") || has(val,"[") && has(val,"]")){
+			val = util.replace(val,"\t","");
+			val = util.replace(val,"\n","");
+		}
 		value = val;
 	}
 	
@@ -174,27 +181,7 @@ vector<string> test3(string jsonArray){
 	return util.explode(jsonArray,",");
 }
 
-main(){
-	//string json = "{'text':'helloworld',\"n\":0,\"son\":{\"a\":1,'message':'helloworld'},'arr':['a','b','c'],\"arr2\":['d','e']}";
-	//string json = "{'test'}";
-	/*auto tmp = test2(json);
-	println(tmp["arr2"]);
-	println(tmp["son"]);
-	
-	auto tmp2 = test2(tmp["son"]);
-
-	println(tmp2["a"]);
-	println(tmp2["message"]);
-
-	print_r(test3(tmp["arr"]));
-	println("");
-	print_r(test3(tmp["arr2"]));*/
-
-	/*string json = util.exec("curl -s http://worldtimeapi.org/api/timezone/America/Sao_Paulo");
-	auto tmp = test2(json);
-	
-	println(tmp["datetime"]);
-	println(tmp["unixtime"]);*/
+/*void test4(){
 	string json = "";
 	bool flag = false;
 	for(string n : files.getLines("../test.json")){
@@ -206,12 +193,96 @@ main(){
 		json+=n;
 	}
 
-	auto tmp = test2(json);
-	println(tmp["_"]);
-	println(tmp["msg"]);
-	println(tmp["letters"]);
-	println(tmp["user"]);
+	//println(json);
 	
-	auto tmp2 = test2(tmp["user"]);
-	print(tmp2["_"]);
+
+	char buff[255];
+	bool start = false;
+
+	string field = "";
+	string val = "";
+	bool captureField = false;
+	bool captureVal = false;
+	int n = 0;
+	for(int i = 0; i < json.length();i++){
+		if(start){
+			if(captureField){
+				if(json.at(i) == '\"' or json.at(i) == '\''){
+					string txt = buff;
+					println(txt);
+					n = 0;
+					memset(buff,'\0',255);
+					captureField = false;
+				}else{
+					buff[n++] += json.at(i);
+				}
+			}else if(captureVal){
+				if(json.at(i) == ','){
+					n = 0;
+					memset(buff,'\0',255);
+					captureVal = false;	
+				}else{
+					buff[n++] += json.at(i);
+				}
+
+			}
+
+
+			if(json.at(i) == ':'){
+				if(!captureVal && !captureField){
+					captureVal = true;
+				}
+			}
+
+			if(json.at(i) == '\"' or json.at(i) == '\''){
+				if(!captureField && !captureVal){
+					captureField = true;
+					println("starting capture");
+				}
+			}
+
+		}
+		
+		if(json.at(i) == '{' && !start){
+			start = true;
+		}
+	}
+}*/
+
+main(){
+	//string json = "{'text':'helloworld',\"n\":0,\"son\":{\"a\":1,'message':'helloworld'},'arr':['a','b','c'],\"arr2\":['d','e']}";	
+	
+	string json = "";
+	bool flag = false;
+	for(string n : files.getLines("../test.json")){
+		if(flag){
+			json+="\n";
+		}else{
+			flag = true;
+		}
+		json+=n;
+	}
+	
+	println(json+"\n");
+
+	auto tmp = test2(json);
+	
+	auto fields = util.explode(tmp["_"],";");
+
+	println(fields[0]+":"+tmp["msg"]);
+	println(fields[1]+":"+tmp["letters"]);
+	println(fields[2]+":"+tmp["user"]);
+	
+	println("");	
+	
+	print_r(test3(tmp["letters"]));
+
+	println("");
+
+	auto user = test2(tmp["user"]);
+	
+	auto fd = util.explode(user["_"],";");
+
+	println(fd[0]+":"+user["name"]);
+	println(fd[1]+":"+user["username"]);	
 }
