@@ -1,29 +1,30 @@
 #include <iostream>
-#include <map>
-#include <utility>
 
+#include <utility>
+#include <test4.cpp>
 using namespace std;
 
-template<typename T>
-using Array = map<string,T>;
-/*struct Array{
-	typedef map<string,T> test;		
-};*/
-
 struct arr{
-	map<string,string> _string;
-	map<string,int> _int;
-	map<string,float> _float;
+	Array<string> _string;
+	Array<int> _int;
+	Array<float> _float;
+
+	template<typename T> 
+	T get(Array<T> x,string n){
+		return x[n];
+	}
 };
 
 //typedef map<string,string> arr;
 
-main(){
-	//typedef Array::test test2;
+main(){	
+	//Array<string> test;
+
+	//test["name"] = "allansm";
 	
-	Array<string> test;
+	arr test;
+	
+	test._string["name"] = "allan";
 
-	test["name"] = "allansm";
-
-	cout << test["name"];
+	cout << test.get(test._string,"name");
 }
