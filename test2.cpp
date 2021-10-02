@@ -2,9 +2,7 @@
 #include <sstream>
 using namespace std;
 
-
-
-int x = 123;
+/*int x = 123;
 string y = "hello";
 float z = 2.5;
 
@@ -46,10 +44,22 @@ float toFloat(T n){
 	ss >> tmp;
 
 	return tmp;
-}
+}*/
+
+template<typename T,typename U>
+T to(U x){
+	T y;
+	stringstream ss;
+
+	ss << x;
+
+	ss >> y;
+
+	return y;
+} 
 
 main(){
-	string val = "2";
+	/*string val = "2";
 
 	int x = toInt(val);
 	
@@ -73,5 +83,7 @@ main(){
 
 	val = "val:"+val;
 
-	cout << val;
+	cout << val;*/
+	string two = "2";
+	cout << to<float>(two)+3.5;
 }

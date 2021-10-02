@@ -16,13 +16,16 @@ struct test{
 		T x;
 
 		this->ss >> x;
-
-		//this->ss << x;
+	
 		this->ss.seekg(0);
 
 		return x;
 	}	
 };
+
+//template<typename T>
+//auto (*po)();
+
 
 main(){
 	test a = test("123");
@@ -30,6 +33,13 @@ main(){
 	int val = a.val<int>();
 	string txt = a.val<string>();
 	float val2 = a.val<float>();
+	
+	
+	
+	//po = &a.val;
+	
+	//cout << "po:" << po();
+
 	cout << val+1;
 
 	cout << endl << txt+"b";
