@@ -1,15 +1,8 @@
-#include <iostream>
-using namespace std;
-
-class n{
-	public:
-	int val(){
-		return 7;
-	}
-};
-
-using n::val;
+#include <cpp-lib/parser.hpp>
+#include <cpp-lib/output.hpp>
 
 main(){
-	val();
+	string n = to<string>(2);
+	
+	print(to<int>(n)+2);
 }
