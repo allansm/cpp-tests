@@ -1,30 +1,28 @@
-#include <iostream>
+//#include <cpp-lib/parser.hpp>
+//#include <cpp-lib/output.hpp>
+//#include <cpp-lib/array.hpp>
 
-#include <utility>
-#include <test4.cpp>
 using namespace std;
 
-struct arr{
-	Array<string> _string;
-	Array<int> _int;
-	Array<float> _float;
+struct undefined{
+	string val;
 
-	template<typename T> 
-	T get(Array<T> x,string n){
-		return x[n];
+	template<typename T>
+	T get(){
+		return to<T>(this->val);
+	}
+
+	template<typename T>
+	undefined get(T val){
+		return {to<string>(val)};
 	}
 };
 
-//typedef map<string,string> arr;
-
-main(){	
-	//Array<string> test;
-
-	//test["name"] = "allansm";
+main(){
+	Array<undefined> arr;
 	
-	arr test;
+	arr["x"] = undefined().get(2);
+	arr["y"] = undefined().get("2.25");
 	
-	test._string["name"] = "allan";
-
-	cout << test.get(test._string,"name");
+	print(arr["x"].get<int>()+arr["y"].get<float>());
 }
