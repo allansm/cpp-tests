@@ -1,28 +1,45 @@
-//#include <cpp-lib/parser.hpp>
-//#include <cpp-lib/output.hpp>
-//#include <cpp-lib/array.hpp>
+#include <cpp-lib/parser.hpp>
+#include <cpp-lib/output.hpp>
+#include <cpp-lib/array.hpp>
 
 using namespace std;
 
-struct undefined{
-	string val;
+template<typename T>
+undefined unk(T x){
+	return undefined().get(x);
+}
 
-	template<typename T>
-	T get(){
-		return to<T>(this->val);
-	}
+Array<undefined> test(){
+	Array<undefined> arr;
+	
+	arr["x"] = unk(2);
+	arr["y"] = unk("2.25");
+	
+	return arr;
+}
 
-	template<typename T>
-	undefined get(T val){
-		return {to<string>(val)};
+template<typename T>
+T test2(string name){
+	auto arr = test();
+	
+	return arr[name].get<T>();
+}
+
+
+struct test{
+	test(){}
+
+	int operator()() const{
+		return 2;
 	}
 };
 
-main(){
-	Array<undefined> arr;
+main(){	
+	println(test2<int>("x")+test2<float>("y"));
 	
-	arr["x"] = undefined().get(2);
-	arr["y"] = undefined().get("2.25");
-	
-	print(arr["x"].get<int>()+arr["y"].get<float>());
+	test t;
+
+	int val = t();
+
+	print(val);
 }
