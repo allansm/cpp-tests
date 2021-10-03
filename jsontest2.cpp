@@ -11,6 +11,8 @@ using namespace std;
 Util util = Util();
 Files files = Files();
 
+class JsonHandle{
+	public:
 bool x(string txt,char cha){
 	if(txt[0] == cha && txt[txt.size()-1] == cha){
 		return true;
@@ -172,10 +174,12 @@ string toString(Array<undefined> json){
 	
 	return tmp;
 }
+};
 
 using Json = Array<undefined>;
 
 main(){
+	/*
 	string json = files.readFile("../test.json");
 		
 	Json tmp = getJson(json);
@@ -200,4 +204,9 @@ main(){
 				
 	print("\nresult:");	
 	println(values["x"].get<int>() + values["y"].get<float>());
+	*/
+	
+	auto js = JsonHandle().getJson(files.readFile("../test.json"));
+
+	print(JsonHandle().toString(js));
 }
