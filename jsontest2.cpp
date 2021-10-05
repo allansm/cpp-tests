@@ -1,18 +1,28 @@
 #include <cpp-lib/json.hpp>
 
-main(){
-	
+main(){	
+	Files files = Files();
+
 	string json = files.readFile("../test.json");
 	
-	test t = test(json);
-	test values = test(t.get<string>("values"));	
-	println(t.data);
+	Json t = Json(json);
+	Json values = Json(t.get<string>("values"));	
+	println(t.data+"\n");
 
 	println(values.get<int>("x")+values.get<float>("y"));	
 	
-	println(values.toString());
+	println("\n"+values.toString());
+	
+	println("");
 
-	println(t.get<string>("letters",0));
-	println(t.get<string>("letters",1));
-	println(t.get<string>("letters",2));
+	print_r(t.array<string>("letters"));
+	
+	println("");
+
+	auto numbers = t.array<int>("numbers");
+
+	string txt = t.get<string>("numbers",1)+"+"+t.get<string>("numbers",4);
+
+	txt += "="+to<string>(numbers[1]+numbers[4]); 
+	println(txt);	
 }
