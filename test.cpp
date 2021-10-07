@@ -1,11 +1,12 @@
 #include <cpp-lib/io.hpp>
+#include <cpp-lib/json.hpp>
 
 using namespace std;
 
 main(){
-	int n = input<int>("n:");
-	string text = input<string>("text:");
-	println(n);
+	auto tmp = Json("{'a':[1,2,3]}").array<int>("a");
 
-	println(text);
+	print_r(tmp);
+
+	print(tmp[0]);
 }
