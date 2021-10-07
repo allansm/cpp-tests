@@ -5,15 +5,24 @@
 Util util = Util();
 
 main(){
-	string tmp = util.exec("curl -s https://api.mangadex.org/manga?title="+util.input("title:"));
+	//string tmp = util.exec("curl -s https://api.mangadex.org/manga?title="+util.input("title:"));
 	
 	//tmp = Util().replace(tmp,"\\u","");	
-	string son = "{'a':'b','c':'d','e':[{'msg':'hello',['1','2']},{'a':['3','4']}],'f':[1,2],'g':{'h':'i'}}";
+	string son = "{'a':'b','c':'d','e':[{'msg':'hello',numbers:['1','2']},{'a':['3','4']}],'f':[1,2],'g':{'h':'i'}}";
 	
-	Json t = Json(tmp);
-	println(t.get<string>("data",0));
+	/*Json t = Json(tmp);
+	Json t2 = Json(t.get<string>("data",0));
 	
-	//Json t2 = Json(son);
+	println(t2.get<string>("id"));
 
-	//println(t2.get<int>("f",0)+t2.get<int>("f",1));
+	println(t2.get<string>("type"));
+
+	println(t2.object("attributes").array("tags",0).object("attributes").get<string>("name"));
+	*/
+
+	Json j  = Json(son);
+	
+	string n1 = j.array("e",0).get<string>("numbers",0);
+	string n2 = j.array("e",0).get<string>("numbers",1); 
+	println(to<int>(n1)+to<int>(n2));
 }
