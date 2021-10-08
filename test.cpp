@@ -51,12 +51,15 @@ main(){
 
 	print(tmp[0]+tmp[2]);*/
 
-	auto test = Json("{'a' : 'b' , 'b' : 'hello world'}");
+	auto test = Json("{'a' : 'b' , 'b' : 'hello world','c':2}");
 	
 	println(removeSpaces(test.data));
 
-	print_r(test.fields);
-	println(test.obj["b"].data);
-	
-	println(unknown("hello world").get<string>());
+	//println(test.data);
+	println(test.base["b"].get());
+	string tes = "hello world";	
+	println(unknown(tes).get());
+
+	int n = unknown(2).get<int>();
+	println(unknown(2).get<int>()+unknown(2.25).get<float>());
 }
