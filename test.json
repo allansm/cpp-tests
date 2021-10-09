@@ -1,0 +1,39 @@
+{
+
+	"msg" : 
+		"hello world"
+	,
+	"letters":[
+		"a",
+		"b",
+		"c"
+	],
+
+	"user":{
+		"name":"allan",
+		"username":"allansm"
+	},
+
+	"values":[{
+		"x":2,
+		"y":2.25
+	},{
+		"x":5,
+		"y":1.5
+	}
+	],
+
+	"values2":{
+		"x":1,
+		"y":1.5
+	},
+
+	"numbers":[
+		1 ,
+		2 ,
+		3 ,
+		4 ,
+		5
+	]
+
+}
