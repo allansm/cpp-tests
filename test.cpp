@@ -1,23 +1,16 @@
 #include <cpp-lib/io.hpp>
-#include <cpp-lib/util.hpp>
-#include <cpp-lib/files.hpp>
-#include <cpp-lib/parser.hpp>
+#include <cpp-lib/win.hpp>
 
 using namespace std;
 
 main(){
-	int val = input<int>("n:");	
-	
-	string str = input("file or array:");
-	
-	println(to<string>(val)+"+2 = "+to<string>(val+2));
-	println(str);
+	auto all = Win().getAll();
 
-	if(Util().has(str,";")){
-		print_r(Util().explode(str,";"));
-	}
+	print_r(Win().getNames(all));
 
-	if(Util().has(str,".")){
-		println(Files().readFile(str));
+	for(string s : Win().getNames(all)){
+		if(Win().isFocused(s)){
+			println("focused:"+s);
+		}
 	}
 }
