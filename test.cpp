@@ -3,14 +3,15 @@
 
 using namespace std;
 
-main(){
-	auto all = Win().getAll();
+main(){	
+	/*DEVMODE desiredMode = { 0 };
+	desiredMode.dmSize = sizeof(DEVMODE);
+	desiredMode.dmPelsWidth = 1366;
+	desiredMode.dmPelsHeight = 768;
+	desiredMode.dmFields = DM_PELSHEIGHT | DM_PELSWIDTH;
+	LONG res = ChangeDisplaySettings(&desiredMode, CDS_UPDATEREGISTRY | CDS_GLOBAL | CDS_RESET);*/
 
-	print_r(Win().getNames(all));
-
-	for(string s : Win().getNames(all)){
-		if(Win().isFocused(s)){
-			println("focused:"+s);
-		}
-	}
+	Win().changeResolution(1024,768);
+	input("");
+	Win().changeResolution(1366,768);
 }
