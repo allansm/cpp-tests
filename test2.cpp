@@ -1,5 +1,20 @@
 #include <cpp-lib/io.hpp>
 #include <cpp-lib/path.hpp>
+//#include <sys/stat.h>
+//using namespace std;
+/*void test(std::string path){
+	struct stat s;
+	if(stat(path.c_str(),&s) == 0){
+		if(s.st_mode & S_IFDIR){
+			print("isdir");
+		}else if(s.st_mode & S_IFREG){
+			print("isfile");
+
+		}else{
+			print("dunno");
+		}
+	}else{}
+}*/
 
 main(){
 	std::string cwd = getcwd();
@@ -18,7 +33,18 @@ main(){
 
 	print_r(ls("."));
 
-	chdir(cwd);
+	chdir("e:/");
+	
+	bool flag = true;
+	while(flag){
+		flag = false;
+		println(getcwd());
 
-	system("notepad test2.cpp");
+		for(auto s : ls(".")){
+			if(isDir(s) && s != "." && s != ".."){
+				chdir(s);
+				flag = true;
+			}
+		}
+	}
 }
