@@ -1,43 +1,53 @@
 #include <kiss_sdl.h>
-void button_event(kiss_button *button, SDL_Event *e, int *draw,int *quit){
-	if (kiss_button_event(button, e, draw)) *quit = 1;
-}
-int main(int argc, char **argv){
-	SDL_Renderer *renderer;
-	SDL_Event e;
-	kiss_array objects;
-	kiss_window window;
-	kiss_label label = {0};
-	kiss_button button = {0};
-	char message[KISS_MAX_LENGTH];
-	int draw, quit;
-	quit = 0;
-	draw = 1;
-	kiss_array_new(&objects);
-	renderer = kiss_init("Hello kiss_sdl", &objects, 320, 120);
-	if (!renderer) return 1;
-	kiss_window_new(&window, NULL, 0, 0, 0, kiss_screen_width,kiss_screen_height);
-	strcpy(message, "Hello World!");
-	//kiss_label_new(&label, &window, message,window.rect.w / 2 - strlen(message) *kiss_textfont.advance / 2,window.rect.h / 2 – (kiss_textfont.fontheight +2 * kiss_normal.h) / 2);
-	label.textcolor.r = 255;
-	//kiss_button_new(&button, &window, "OK",window.rect.w / 2 – kiss_normal.w / 2, label.rect.y +kiss_textfont.fontheight + kiss_normal.h);
-	window.visible = 1;
-	while (!quit) {
-		SDL_Delay(10);
-		while (SDL_PollEvent(&e)) {
-			if (e.type == SDL_QUIT) 
-				quit = 1;
-			kiss_window_event(&window, &e, &draw);
-			button_event(&button, &e, &draw, &quit);
-		}
-		if (!draw) continue;
-		SDL_RenderClear(renderer);
-		kiss_window_draw(&window, renderer);
-		kiss_label_draw(&label, renderer);
-		kiss_button_draw(&button, renderer);
-		SDL_RenderPresent(renderer);
-		draw = 0;
+
+static void buttonEvent(kiss_button *button, SDL_Event *e, int *draw){
+	if (kiss_button_event(button, e, draw)) {
+		*draw = 1;
+		system("notepad");	
 	}
-	kiss_clean(&objects);
+}
+
+int main(int argc,char **argv){
+	bool quit;
+	kiss_window window;
+	int draw;
+	draw = 1;
+	SDL_Renderer *renderer;
+	kiss_array objects, a1, a2;
+	kiss_window wi;
+	kiss_window_new(&wi, NULL, 1, 0, 0, kiss_screen_width,kiss_screen_height);
+	renderer = kiss_init("", &objects, 640, 480);
+	kiss_button button_ok1 = {0};
+	kiss_button_new(&button_ok1, &wi, "OK", 0,0);
+
+	if (!renderer) return 1;
+	
+	wi.visible = 1;	
+	
+	while(!quit){
+		SDL_Event e;
+		while(SDL_PollEvent(&e)){  
+			switch(e.type){	
+				case SDL_KEYDOWN:				
+					break;
+				case SDL_KEYUP:
+					break;
+
+				case SDL_QUIT:
+					quit = true;
+					break; 
+			}
+			buttonEvent(&button_ok1,&e,&draw);
+		}
+
+	if(!draw) continue;
+	kiss_window_draw(&wi, renderer);
+	kiss_button_draw(&button_ok1, renderer);
+	
+	SDL_RenderPresent(renderer);
+	draw =0;
+
+	}
+
 	return 0;
 }
