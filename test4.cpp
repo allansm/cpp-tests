@@ -1,15 +1,19 @@
 #include <cpp-lib/parser.hpp>
-#include <iostream>
+#include <cpp-lib/io.hpp>
 
 using namespace std;
+
 main(){	
-	auto x = unknown(10);
+	auto x = unknown(10);	
 
-	int n = x+2;
-
-	x = unknown(n);
+	x = x+2;
+	x = x+1;			
 	
-	string res = x;
-	res = "res:"+res;
-	cout << res;
-}
+	x = (string) "result:"+x.data;
+
+	println(x.data);
+
+	x = (string) "allansm u.u";
+
+	println(x.data);
+}	
