@@ -9,11 +9,17 @@ main(){
 	x = x+2;
 	x = x+1;			
 	
-	x = (string) "result:"+x.data;
+	int n = x;
+
+	x = "result:"+x.data;
 
 	println(x.data);
 
-	x = (string) "allansm u.u";
+	x = "allansm u.u";
+	
+	println((string)x);
 
-	println(x.data);
+	x = n;	
+	
+	println(x+2.5);	
 }	
