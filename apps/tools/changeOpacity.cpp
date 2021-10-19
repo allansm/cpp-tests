@@ -1,6 +1,6 @@
-#include <class/io.h>
-#include <optimizedclass/win.h>
-#include <optimizedclass/util.h>
+#include <cpp-lib/io.hpp>
+#include <cpp-lib/win.hpp>
+#include <cpp-lib/util.hpp>
 #include <sstream>
 
 int getPercent(char *argv[]){
@@ -20,7 +20,7 @@ main(int argc,char *argv[]){
 
 	for(HWND win : Win().getAll()){
 		if(Win().getAppname(win) == argv[1]){
-			Util().println("changed: "+Win().getAppname(win));
+			println("changed: "+Win().getAppname(win));
 			Win().changeOpacity(win,percent);
 		}
 	}
