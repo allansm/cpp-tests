@@ -1,8 +1,16 @@
 #include <download.h>
-#include <iostream>
-main(){
-	GoString str = {"http://www.google.com/"};
-	auto html = download(str);
+#include <cpp-lib/parser.hpp>
+#include <cpp-lib/io.hpp>
+#include <cpp-lib/json.hpp>
 
-	std::cout << html.p;
+using namespace std;
+
+void out(){
+	string tmp = "http://worldtimeapi.org/api/timezone/America/Sao_Paulo";
+	auto html = download(to<char*>(tmp));
+	print(html);
+}
+
+main(){	
+	out();
 }

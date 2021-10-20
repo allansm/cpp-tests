@@ -3,10 +3,11 @@ package main
 import "C"
 import "net/http"
 import "io/ioutil"
+import "fmt"
 
 //export download
-func download(url string) string{
-	resp, err := http.Get(url)
+func download(url *C.char) *C.char{
+	resp, err := http.Get(C.GoString(url))
 
 	defer resp.Body.Close()
 
@@ -16,7 +17,16 @@ func download(url string) string{
 
 	if(err == err){}
 
-	return str
+	return C.CString(str)
+}
+
+//export test
+func test(txt string){
+	fmt.Println(txt)
+}
+//export test2
+func test2() string{
+	return "go text";
 }
 
 
