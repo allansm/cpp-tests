@@ -7,8 +7,12 @@ using namespace std;
 
 void out(){
 	string tmp = "http://worldtimeapi.org/api/timezone/America/Sao_Paulo";
-	auto html = download(to<char*>(tmp));
-	print(html);
+	string html = download(tmp);
+	Json json = Json(html);
+
+	for(auto s:json.fields){
+		println(s+":"+json.get(s));
+	}
 }
 
 main(){	

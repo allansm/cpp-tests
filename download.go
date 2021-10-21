@@ -3,7 +3,6 @@ package main
 import "C"
 import "net/http"
 import "io/ioutil"
-import "fmt"
 
 //export download
 func download(url *C.char) *C.char{
@@ -19,16 +18,6 @@ func download(url *C.char) *C.char{
 
 	return C.CString(str)
 }
-
-//export test
-func test(txt string){
-	fmt.Println(txt)
-}
-//export test2
-func test2() string{
-	return "go text";
-}
-
 
 func main(){}
 
