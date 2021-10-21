@@ -1,17 +1,25 @@
-#include <cpp-lib/util.h>
+#include <cpp-lib/util.hpp>
+#include <cpp-lib/io.hpp>
+#include <cpp-lib/time.hpp>
 
 main(int argc,char *argv[]){
+	string tmp = Time().getCurrent();
+
 	while(true){
 		string headers = Util().exec("curl -s -I www.google.com");
 	
 		if(Util().has(headers,"200") && Util().has(headers,"OK")){
-			Util().println("connection ok");
+			println("connection ok");
 			break;
 		}else{
-			system("cls");
-			Util().println("has no connection");
+			Util().clear();
+			println("has no connection");
 		}
+
+		Time().sleep(100);
 	}
+	
+	println(tmp+" >> "+Time().getCurrent());
 
 	system(argv[1]);
 }
