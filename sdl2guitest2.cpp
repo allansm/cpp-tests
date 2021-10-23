@@ -17,7 +17,7 @@ int main(int argc,char **argv){
 	int draw;
 	draw = 1;
 	SDL_Renderer *renderer;
-	kiss_array objects, a1, a2;
+	kiss_array objects;//, a1, a2;
 	kiss_window wi;
 	kiss_window_new(&wi, NULL, 1, 0, 0, kiss_screen_width,kiss_screen_height);
 	renderer = kiss_init("", &objects, 200, 40);
@@ -25,14 +25,17 @@ int main(int argc,char **argv){
 	kiss_button_new(&button_ok1, &wi, "OK", 110,2);
 
 	kiss_entry entry = {0};
-	kiss_entry_new(&entry, &wi, 1, "allansm", 0,0,100);
+	kiss_entry_new(&entry, &wi, 0, "allansm", 0,0,100);
+	
+	//entry.textwidth = 255;
+	std::cout << entry.textwidth << std::endl;
 
 	if (!renderer) return 1;
-	kiss_array_new(&a1);
+	/*kiss_array_new(&a1);
 	kiss_array_append(&objects, ARRAY_TYPE, &a1);
 	kiss_array_new(&a2);
 	kiss_array_append(&objects, ARRAY_TYPE, &a2);
-	
+	*/
 	wi.visible = 1;	
 	
 	while(!quit){
@@ -66,8 +69,10 @@ int main(int argc,char **argv){
 			draw = 0;
 		}
 
-		txt = entry.text;
+		txt = entry.text;	
+		wi.focus = 1;
 	}
+
 	kiss_clean(&objects);
 	return 0;
 }
