@@ -33,23 +33,28 @@ void clearCanvas(SDL_Window* win){
 	SDL_FillRect(screenSurface, NULL, SDL_MapRGB(screenSurface->format, 0xFF, 0xFF, 0xFF));	
 }
 
-void redsquare(SDL_Window* win){
-	auto screenSurface = getCanvas(win);
+void redsquare(aaa damm){
+	//auto screenSurface = getCanvas(win);
 	SDL_Rect rect = {x, y, 100, 100};
-	SDL_FillRect(screenSurface, &rect, SDL_MapRGB(screenSurface->format, red, 0x00, 0x00));
+	//SDL_FillRect(screenSurface, &rect, SDL_MapRGB(screenSurface->format, red, 0x00, 0x00));
+	SDL_SetRenderDrawColor(damm.r, red, 0, 0, 1);
+	SDL_RenderFillRect(damm.r,&rect);
 }
 
-void draw(aaa damm){
+void rend(aaa damm){
 	if(damm.draw){
 		SDL_RenderClear(damm.r);
 		kiss_window_draw(&wi,damm.r);
 		kiss_button_draw(&button_ok1, damm.r);
-		redsquare(damm.w);
-
+		redsquare(damm);
 		SDL_RenderPresent(damm.r);
 		damm.draw = 0;
 
 	}
+}
+
+void draw(aaa damm){
+//	redsquare(damm.w);
 }
 
 
@@ -125,11 +130,8 @@ void events(SDL_Event e){
 
 void loop(aaa damm){
 	bool quit = false;
-	while(!quit){
-		//clearCanvas(damm.w);
-		
-		//SDL_UpdateWindowSurface(damm.w);
-
+	SDL_Delay(100);
+	while(!quit){	
 		SDL_Event e;
 		while(SDL_PollEvent(&e)){
 		      	if(e.type == SDL_QUIT){
@@ -139,7 +141,11 @@ void loop(aaa damm){
 			events(e);		
 		}
 
-		draw(damm);
+		//clearCanvas(damm.w);
+		//draw(damm);
+		
+		rend(damm);
+		//SDL_UpdateWindowSurface(damm.w);
 	}	
 }
 
@@ -147,5 +153,6 @@ int main(int argc,char **argv){
 	damm = init(800,600);
 	kiss_window_new(&wi, NULL, 1, 0, 0, kiss_screen_width,kiss_screen_height);
 	kiss_button_new(&button_ok1, &wi, "test", 110,300);
+	wi.visible = 1;
 	loop(damm);
 }
