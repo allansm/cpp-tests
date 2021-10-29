@@ -67,14 +67,32 @@ obj loadObj(std::string fn){
 }
 
 obj torus = loadObj("torus.obj");
+obj cube = loadObj("cube.obj");
 
 void display(){
-	glClear (GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);	
+	glClear (GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);		
+	
+	glScalef(0.5f, 0.5f, 0.5f);
 	torus.show();
-	glTranslatef(0,0.5,0);
-	torus.show();
+	glScalef(2.0f, 2.0f, 2.0f);
+	
+	glTranslatef(0,0.5,0);	
+	torus.show();	
 	glTranslatef(0,-0.5,0);
-	glFlush();
+	
+	glScalef(0.1f,0.1f,0.1f);
+	glTranslatef(7,5.2,0);
+	cube.show();
+	glTranslatef(-7,-5.2,0);
+	glScalef(10.0f,10.0f,10.0f);
+	
+	glScalef(0.1f,0.1f,0.1f);
+	glTranslatef(-7,5.2,0);
+	cube.show();
+	glTranslatef(7,-5.2,0);
+	glScalef(10.0f,10.0f,10.0f);
+	
+	glFlush();	
 }
 
 int x=1,y=0,z=0;
