@@ -1,0 +1,5 @@
+<obj name="test" n="0">
+	<x>10</x>
+	<y>2</y>
+	<msg>helloworld</msg>
+</obj>
