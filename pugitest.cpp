@@ -4,8 +4,8 @@
 #include <cpp-lib/util.hpp>
 #include <cpp-lib/parser.hpp>
 
+pugi::xml_document _x_m_l;
 struct XmlNode{
-	pugi::xml_document doc;
 	pugi::xml_node data;
 	std::string name;
 	undefined value;
@@ -16,9 +16,9 @@ struct XmlNode{
 		this->name = data.name();
 	}
 
-	XmlNode(std::string fn){
-		this->doc.load_file(fn.c_str());
-		this->data = this->doc.root();
+	XmlNode(std::string fn){	
+		_x_m_l.load_file(fn.c_str());
+		this->data = _x_m_l.root();
 		this->value = unknown(data.child_value());	
 		this->name = data.name();
 	}
@@ -27,6 +27,22 @@ struct XmlNode{
 		return XmlNode(this->data.child(name.c_str()));
 	}	
 
+	
+	
+	vector<XmlNode> nodes(){
+		vector<XmlNode> tmp;
+		
+		for(auto n : this->data){
+			tmp.push_back(XmlNode(n));
+		}
+
+		return tmp;
+	}
+	
+	undefined var(std::string name){
+		return unknown(this->data.attribute(name.c_str()).value());
+	}
+	
 	XmlNode operator[](const int& i){
 		int c = 0;
 		for(auto n : this->data){
@@ -38,21 +54,37 @@ struct XmlNode{
 		return this->data;
 	}
 	
-	vector<XmlNode> nodes(){
-		vector<XmlNode> tmp;
-		
-		for(auto n : this->data){
-			tmp.push_back(XmlNode(n));
-		}
+	template <typename T>
+	undefined operator+(const T&a){
+		auto tmp = this->value;
+		tmp = unknown(tmp.get<T>()+a);
 
 		return tmp;
 	}
+	
+	template <typename T>
+	T operator+=(const T&a){
+		auto tmp = this->value;
+		tmp = unknown(tmp.get<T>()+a);
 
-	undefined var(std::string name){
-		return unknown(this->data.attribute(name.c_str()).value());
+		return tmp;
+	}
+		
+
+	/*template <typename T>
+	T operator+=(const T& b,const XmlNode& a){
+		auto tmp = this->value;
+		tmp = unknown(b+a.value.get<T>());
+
+		return tmp.get<T>();
+	}*/
+
+	template <typename T>
+	operator T(){
+		return this->value;
 	}
 
-	operator int(){
+	/*operator int(){
 		return this->value;
 	}
 
@@ -66,7 +98,7 @@ struct XmlNode{
 
 	operator bool(){
 		return this->value;
-	}
+	}*/
 };
 
 #define useNode
@@ -88,8 +120,9 @@ main(){
 	println(name+" ");
 	println(n1);		
 	
-	auto nodes = n[1].nodes();
-	for(std::string nd : nodes){
-		println(nd);
-	}
+
+	node n2 = node("test.xml");
+	float res = n[0].get("x");
+	res +=(float)n[1].get("x");
+	println(res);	
 }
