@@ -25,24 +25,12 @@ struct XmlNode{
 	
 	XmlNode get(std::string name){
 		return XmlNode(this->data.child(name.c_str()));
-	}
-
-	/*XmlNode get(std::string name,int index){
-		int i = 0;
-		for(auto n : this->data.child(name.c_str())){
-			if(i++ == index){
-				return XmlNode(n);
-			}
-		}
-
-		return this->get(name);
-	}*/
+	}	
 
 	XmlNode operator[](const int& i){
 		int c = 0;
 		for(auto n : this->data){
 			if(c++ == i){
-				//println(n.name());
 				return XmlNode(n);
 			}
 		}
@@ -50,7 +38,6 @@ struct XmlNode{
 		return this->data;
 	}
 	
-	//template <typename T>
 	vector<XmlNode> nodes(){
 		vector<XmlNode> tmp;
 		
@@ -99,19 +86,10 @@ main(){
 	println(x+y);
 
 	println(name+" ");
-	println(n1);
+	println(n1);		
 	
-	
-	//float fx = n[1].get("x");
-	//auto test = n.get("obj").data;
-	//println(test[1].child_value("x"));
-	//float fx = node().get("x");
-	//println(fx);
-	/*for(auto nd : n[1].nodes()){
-		//std::string value = x;
-		//println(x.name+" "+value);
-		std::string nm = nd.data.name();
-		std::string vl = nd;
-		println(nm+" "+vl);
-	}*/	
+	auto nodes = n[1].nodes();
+	for(std::string nd : nodes){
+		println(nd);
+	}
 }
