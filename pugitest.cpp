@@ -1,32 +1,64 @@
 #include <pugixml.hpp>
+
 #include <cpp-lib/io.hpp>
 #include <cpp-lib/util.hpp>
 #include <cpp-lib/parser.hpp>
 
-using Xml = pugi::xml_document;
-using XmlNode = pugi::xml_node;
-
-/*std::string iXml(std::string pattern,Xml doc){
-	
-}*/
-struct node{
+struct XmlNode{
 	pugi::xml_document doc;
 	pugi::xml_node data;
+	std::string name;
 	undefined value;
 	
-	node(pugi::xml_node data){
+	XmlNode(pugi::xml_node data){
 		this->data = data;
 		this->value = unknown(data.child_value());
+		this->name = data.name();
 	}
 
-	node(std::string fn){
+	XmlNode(std::string fn){
 		this->doc.load_file(fn.c_str());
 		this->data = this->doc.root();
 		this->value = unknown(data.child_value());	
+		this->name = data.name();
 	}
 	
-	node get(std::string name){
-		return node(this->data.child(name.c_str()));
+	XmlNode get(std::string name){
+		return XmlNode(this->data.child(name.c_str()));
+	}
+
+	/*XmlNode get(std::string name,int index){
+		int i = 0;
+		for(auto n : this->data.child(name.c_str())){
+			if(i++ == index){
+				return XmlNode(n);
+			}
+		}
+
+		return this->get(name);
+	}*/
+
+	XmlNode operator[](const int& i){
+		int c = 0;
+		for(auto n : this->data){
+			if(c++ == i){
+				//println(n.name());
+				return XmlNode(n);
+			}
+		}
+
+		return this->data;
+	}
+	
+	//template <typename T>
+	vector<XmlNode> nodes(){
+		vector<XmlNode> tmp;
+		
+		for(auto n : this->data){
+			tmp.push_back(XmlNode(n));
+		}
+
+		return tmp;
 	}
 
 	undefined var(std::string name){
@@ -47,32 +79,16 @@ struct node{
 
 	operator bool(){
 		return this->value;
-	}		
-
+	}
 };
-/*struct test{
-	pugi::xml_document doc;
 
-	test(std::string fn){
-		this->doc.load_file(fn.c_str());	
-	}
+#define useNode
 
-	node get(std::string n){
-		return node
-	}
-};*/
+#ifdef useNode
+using node = XmlNode;
+#endif
 
-main(){
-	Xml doc;
-	doc.load_file("test.xml");
-	
-	/*auto obj = doc.child("obj");
-	
-	int x = unknown(obj.child_value("x"));	
-	int y = unknown(obj.child_value("y"));
-	
-	println(x+y);
-	println(obj.child_value("msg"));*/
+main(){		
 	node n = node("test.xml");
 
 	int x = n.get("obj").get("x");
@@ -83,5 +99,19 @@ main(){
 	println(x+y);
 
 	println(name+" ");
-	print(n1);
+	println(n1);
+	
+	
+	//float fx = n[1].get("x");
+	//auto test = n.get("obj").data;
+	//println(test[1].child_value("x"));
+	//float fx = node().get("x");
+	//println(fx);
+	/*for(auto nd : n[1].nodes()){
+		//std::string value = x;
+		//println(x.name+" "+value);
+		std::string nm = nd.data.name();
+		std::string vl = nd;
+		println(nm+" "+vl);
+	}*/	
 }
