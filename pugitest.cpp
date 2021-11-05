@@ -50,16 +50,34 @@ undefined test(std::string name,int i){
 	return root.nodes("obj")[i].get(name); 	
 }
 
-/*vector<node> iterate(std::string name,vector<node> nodes){
+vector<node> iterate(std::string name,vector<node> nodes){
 	vector<node> pass;
+	vector<node> ret;
+	vector<node> allret;
+	vector<node> all;
+	
 	for(node n : nodes){
-		if(n.name = name){
+		if(n.name == name){
 			pass.push_back(n);
 		}
 
-		iterate(name,n.nodes())
+		ret = iterate(name,n.nodes());
+		
+		for(auto n : ret){
+			allret.push_back(n);
+		}
 	}
-}*/
+	
+	for(auto n : pass){
+		all.push_back(n);
+	}
+
+	for(auto n : allret){
+		all.push_back(n);
+	}
+
+	return all;
+}
 
 void test(std::string name){
 	auto doc = XmlDoc("test.xml");
@@ -76,8 +94,17 @@ void test(std::string name){
 }
 
 main(){	
-	float x = test("x",1);
-	int y = test("y",0);	
-	println(x+y);
-	test("x");
+	//float x = test("x",1);
+	//int y = test("y",0);	
+	//println(x+y);
+	//test("x");
+	
+	auto doc = XmlDoc("test.xml");
+	node no = doc;
+
+	auto x = no.find("x");//iterate("msg",no.nodes());
+	for(node n : x){
+		std::string value = (std::string)n.value;
+		println(n.name+" "+value);		
+	}
 }

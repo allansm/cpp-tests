@@ -6,12 +6,20 @@
 <obj>
 	<x>7.2</x>
 	<y>1.9</y>
+	<msg>hello</msg>
 </obj>
 <thing>
 	<otherthing>a</otherthing>
 	<x>121323123123</x>
+	<msg>world</msg>
 </thing>
 <thing>
 	<otherthing>b</otherthing>
 	<x>512313156</x>
+	<msg>o.O</msg>
+	<msg>O.o</msg>
+	<obj></obj>
 </thing>
+
+<msg>outside</msg>
+<x>1581</x>
