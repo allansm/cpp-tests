@@ -7,3 +7,11 @@
 	<x>7.2</x>
 	<y>1.9</y>
 </obj>
+<thing>
+	<otherthing>a</otherthing>
+	<x>121323123123</x>
+</thing>
+<thing>
+	<otherthing>b</otherthing>
+	<x>512313156</x>
+</thing>

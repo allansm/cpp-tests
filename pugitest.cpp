@@ -1,41 +1,11 @@
 #define useNode
 
 #include <cpp-lib/dependent/pugi.hpp>
+#include <cpp-lib/io.hpp>
 
-class XmlDoc{
-	public:
-		pugi::xml_document data;
-
-		XmlDoc(std::string fn){
-			this->data.load_file(fn.c_str());
-		}
-
-		XmlNode root(){
-			return XmlNode(this->data.root());
-		}
-	
-		operator XmlNode(){
-			return this->root();
-		}
-};
-
-/*pugi::xml_node XmlDoc(std::string fn){
-	pugi::xml_document doc;
-	doc.load_file(fn.c_str());
-
-	return doc;
-}*/
-
-/*XmlNode test(std::string fn){
-	return rootNode(fn);
-}*/
-
-
-main(){	
-	//auto doc = XmlDoc("test.xml");
-	//pugi::xml_node tmp = doc.root();	
+void old(){
 	auto d = XmlDoc("test.xml");
-	node n = d;//d.root();//node(d.data.root());
+	node n = d;
 
 	int x = n.get("obj").get("x");
 	int y = n.get("obj").get("y");
@@ -47,8 +17,6 @@ main(){
 	println(name+" ");
 	println(n1);		
 	
-
-	//node n2 = node("test.xml");
 	float x1 = n[0].get("x");
 	float x2 = n[1].get("x");
 
@@ -58,7 +26,7 @@ main(){
 	println(x1+x2);
 	println(y1+y2);
 	
-	for(auto nd : n.nodes()){
+	for(auto nd : n.nodes("thing")){
 		println(nd.name);
 	}
 	
@@ -66,11 +34,50 @@ main(){
 		std::cout << att.name() << ":" << att.value() << std::endl;
 	}
 
-	print<std::string>(n.get("obj")[0]);	
+	println<std::string>(n.get("obj")[0]);
 
-	/*auto test1 = rootNode("test.xml");
-	std::cout << test1.child("obj").name();*/
-	//auto test1 = test("test.xml");
+			
+	std::string a = n.nodes("thing")[0].get("otherthing");
+	std::string b = n.nodes("thing")[1].get("otherthing");
 
-	//println(test1.name);
+	println(a);
+	println(b);
+}
+
+undefined test(std::string name,int i){
+	auto doc = XmlDoc("test.xml");
+	node root = doc;
+	return root.nodes("obj")[i].get(name); 	
+}
+
+/*vector<node> iterate(std::string name,vector<node> nodes){
+	vector<node> pass;
+	for(node n : nodes){
+		if(n.name = name){
+			pass.push_back(n);
+		}
+
+		iterate(name,n.nodes())
+	}
+}*/
+
+void test(std::string name){
+	auto doc = XmlDoc("test.xml");
+	node root = doc;
+	
+	for(node n : root.nodes()){
+		for(node x : n.nodes()){
+			if(x.name == name){
+				std::string val = x;
+				println(x.name+" "+val);
+			}
+		}	
+	}
+}
+
+main(){	
+	float x = test("x",1);
+	int y = test("y",0);	
+	println(x+y);
+	test("x");
 }
