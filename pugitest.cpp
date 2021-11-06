@@ -100,9 +100,11 @@ main(){
 	//test("x");
 	
 	auto doc = XmlDoc("test.xml");
-	node no = doc;
+	//node no = doc;
+	node a = doc["obj"][(std::string)"x"];
+	println<std::string>(a);
 
-	auto x = no.find("x");//iterate("msg",no.nodes());
+	auto x = doc.root.find("x");//iterate("msg",no.nodes());
 	for(node n : x){
 		std::string value = (std::string)n.value;
 		println(n.name+" "+value);		
