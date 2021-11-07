@@ -1,7 +1,7 @@
 #define useNode
 
-#include <cpp-lib/dependent/pugi.hpp>
-#include <cpp-lib/io.hpp>
+#include <cpp-lib/include/dependent/xml.hpp>
+#include <cpp-lib/include/io.hpp>
 
 main(){	
 	auto doc = XmlDoc("test.xml");
