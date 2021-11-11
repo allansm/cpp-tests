@@ -1,7 +1,7 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_mixer.h>
 #include <io.hpp>
-#include <path.hpp>
+#include <path.cpp>
 
 void listen(const char* fn){
 	Mix_OpenAudio(22050, AUDIO_S16SYS, 2, 640);
