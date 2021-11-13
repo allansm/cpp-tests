@@ -4,7 +4,10 @@
 #include <allansm/io.hpp>
 
 int x,y;
-bool stop = false;
+int mx,my;
+
+bool stop = true;
+
 int main(int argc,char ** argv){
 	sdl2 t;
 	
@@ -13,13 +16,17 @@ int main(int argc,char ** argv){
 
 	t.event = [](event e){
 		if(e.type == SDL_MOUSEMOTION){
+			SDL_GetGlobalMouseState(&mx,&my);
 			if(!stop){
-				SDL_GetGlobalMouseState(&x,&y);
+				x = mx;
+				y = my;
 			}	
 		}
     		if(e.type == SDL_MOUSEBUTTONDOWN){	
-			if(stop){
-				stop = false;
+			if(stop){	
+				if(mx >= x-50 && mx <= x+50 && my >= y-50 && my <= y+50){
+					stop = false;		
+				}	
 			}else{
 				stop = true;
 			}
