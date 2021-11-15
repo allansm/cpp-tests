@@ -4,27 +4,55 @@
 #include <allansm/io.hpp>
 
 
-SDL_Texture * loadImage(const char * fn,SDL_Renderer * renderer){	
+SDL_Texture * loadTexture(const char * fn,SDL_Renderer * renderer){	
 	SDL_Surface * image = IMG_Load(fn);
 	SDL_Texture * texture = SDL_CreateTextureFromSurface(renderer, image);
+	
+	SDL_FreeSurface(image);		
 	
 	return texture;
 }
 
 
 SDL_Texture * texture;
-const char* fn;
+int x = 0;
+int y = 0;
+
 int main(int argc,char ** argv){
 	sdl2 t;
-	fn = argv[1];
+	
+	t.start();
+	
+	texture = loadTexture(argv[1],t.render);
+	
+	t.event = [](auto e){
+		if(e.type == SDL_KEYDOWN){
+			switch(e.key.keysym.scancode){
+				case SDL_SCANCODE_LEFT:
+					x-=10;
+					break;
+				case SDL_SCANCODE_RIGHT:
+					x+=10;
+					break;
+				case SDL_SCANCODE_UP:
+					y-=10;
+					break;	
+				case SDL_SCANCODE_DOWN:
+					y+=10;
+					break;
+			}
+		}
+	
+	};
 
-	t.callback = [](window win){
-		SDL_Renderer * renderer = SDL_CreateRenderer(win, -1, 0);
-		SDL_RenderCopy(renderer, loadImage(fn,renderer), NULL, NULL);
-		SDL_RenderPresent(renderer);
+	t.callback = [](auto win){
+		SDL_RenderClear(win->render);
+		SDL_Rect sz = {x,y,100,100};
+		SDL_RenderCopy(win->render, texture, NULL, &sz);
+		SDL_RenderPresent(win->render);	
 	};
 	
-	t.start();	
+	t.loop();	
 
 	return 0;
 }

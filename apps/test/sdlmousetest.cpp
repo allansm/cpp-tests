@@ -33,7 +33,8 @@ int main(int argc,char ** argv){
 		}		
 	};
 
-	t.callback = [](window win){	
+	t.callback = [](auto a){
+		auto win = a->window;	
 		auto screenSurface = SDL_GetWindowSurface(win);
 		SDL_FillRect(screenSurface, NULL, SDL_MapRGB(screenSurface->format, 0xFF, 0xFF, 0xFF));	
 		
@@ -43,6 +44,6 @@ int main(int argc,char ** argv){
 	};
 	
 	t.start();	
-
+	t.loop();
 	return 0;
 }
