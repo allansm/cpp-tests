@@ -8,6 +8,25 @@ void test(int n){
 	glutTimerFunc(1,test,0);
 }
 
+void test2(unsigned char c,int a,int b){
+	glutPostRedisplay();
+	if(c == 'd'){
+		glRotatef(10,0,1,0);
+	}
+
+	if(c == 'a'){
+		glRotatef(-10,0,1,0);
+	}
+	if(c == 'w'){
+		glRotatef(10,1,0,0);
+	}
+
+	if(c == 's'){
+		glRotatef(-10,1,0,0);
+	}
+
+}
+
 main(int argc, char ** argv){
 	auto t = glut(argc,argv);
 		
@@ -29,7 +48,9 @@ main(int argc, char ** argv){
 	};
 
 	t.after = [](){
-		glutTimerFunc(1, test, 0);	
+		glutTimerFunc(1, test, 0);
+		glutKeyboardFunc(test2);
+	
 	};
 
 	t.start();

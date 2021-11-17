@@ -17,7 +17,8 @@ SDL_Texture * loadTexture(const char * fn,SDL_Renderer * renderer){
 SDL_Texture * texture;
 int x = 0;
 int y = 0;
-
+int width = 100;
+int height = 100;
 int main(int argc,char ** argv){
 	sdl2 t;
 	
@@ -42,12 +43,22 @@ int main(int argc,char ** argv){
 					break;
 			}
 		}
+		if(e.type == SDL_MOUSEWHEEL){
+			if(e.wheel.y > 0){
+				width+=10;
+				height+=10;	
+			}
+			if(e.wheel.y < 0){
+				width-=10;
+				height-=10;
+			}
+		}	
 	
 	};
 
 	t.callback = [](auto win){
 		SDL_RenderClear(win->render);
-		SDL_Rect sz = {x,y,100,100};
+		SDL_Rect sz = {x,y,width,height};
 		SDL_RenderCopy(win->render, texture, NULL, &sz);
 		SDL_RenderPresent(win->render);	
 	};
