@@ -1,6 +1,6 @@
-#include <cpp-lib/io.hpp>
-#include <cpp-lib/win.hpp>
-#include <cpp-lib/util.hpp>
+#include <allansm/io.hpp>
+#include <win.cpp>
+#include <util.cpp>
 #include <sstream>
 
 int getPercent(char *argv[]){
