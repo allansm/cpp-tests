@@ -1,5 +1,5 @@
-#include <optimizedclass/win.h>
-#include <optimizedclass/util.h>
+#include <win.cpp>
+#include <util.cpp>
 
 main(int argc,char *argv[]){
 	for(HWND win : Win().getAll()){
