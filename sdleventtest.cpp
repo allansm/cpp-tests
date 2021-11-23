@@ -25,61 +25,106 @@ struct Mouse{
 	}
 };
 
-struct test{
-	SDL_Rect rect;
+struct Rect{
+	int x;
+	int y;
+	int w;
+	int h;
 	
-	test(SDL_Rect rect){
-		this->rect = rect;
+	Mouse * mouse;
+
+	operator SDL_Rect(){
+		SDL_Rect rect = {x,y,w,h};
+		
+		return rect;
 	}
+
+	SDL_Rect rect;
+	void (*onclick)() = [](){};	
 
 	void click(Mouse m,SDL_Event e){
 		if(e.type == SDL_MOUSEBUTTONDOWN){		
-			int x = this->rect.x;
-			int y = this->rect.y;
-			int w = this->rect.w;
-			int h = this->rect.h;
-			println(x);
-			println(y);
-			println(w);
-			println(h);
-			println(m.x);
-			println(m.y);
+			int x = this->x;
+			int y = this->y;
+			int w = this->w;
+			int h = this->h;
+			
 			if(m.x >= x && m.x <= x+w && m.y >= y && m.y <= y+h){
-				println("inside");
-			}else{
-				println("outside");
+				this->onclick();
+			}
+		}
+	}
+
+	void click(int mx,int my,SDL_Event e){
+		if(e.type == SDL_MOUSEBUTTONDOWN){		
+			int x = this->x;
+			int y = this->y;
+			int w = this->w;
+			int h = this->h;
+			
+			if(mx >= x && mx <= x+w && my >= y && my <= y+h){
+				this->onclick();
+			}
+		}	
+	}
+
+	void click(SDL_Event e){
+		if(e.type == SDL_MOUSEBUTTONDOWN){		
+			int x = this->x;
+			int y = this->y;
+			int w = this->w;
+			int h = this->h;
+			Mouse * m = this->mouse;
+
+			if(m->x >= x && m->x <= x+w && m->y >= y && m->y <= y+h){
+				this->onclick();
 			}
 		}
 	}
 };
 
 Mouse mouse;
-test t2 = test({0,0,100,100});
+Rect t2 = {0,0,100,100};
+Rect t3 = {200,0,50,50};
 
 int main(int argc,char ** argv){
 	sdl2 t;
-	//t.width = 1366;
-	//t.height = 768;
+	
+	t.width = 800;
+	t.height = 600;
+
+	t2.mouse = &mouse;
+	t2.onclick = [](){
+		system("dir");
+	};
+	
+	t3.mouse = &mouse;
+	t3.onclick = [](){
+		system("cls");
+	};
 
 	t.start();	
 	
-	t.event = [](auto a){
-		mouse.relativePos(a->window,a->e);
-		t2.click(mouse,a->e);
+	t.onEvent = [](auto a){
+		mouse.relativePos(a->window,a->event);
+		t2.click(a->event);
+		t3.click(mouse.x,mouse.y,a->event);
 	};
 
-	t.callback = [](auto a){
+	t.onUpdate = [](auto a){
 		auto win = a->window;	
 		
 		auto screenSurface = SDL_GetWindowSurface(win);
 		SDL_FillRect(screenSurface, NULL, SDL_MapRGB(screenSurface->format, 0xFF, 0xFF, 0xFF));	
 		
-		SDL_Rect rect = t2.rect;
+		SDL_Rect rect = t2;
 		SDL_FillRect(screenSurface, &rect, SDL_MapRGB(screenSurface->format, 0xFF, 0x00, 0x00));
-		SDL_UpdateWindowSurface(win);
-
-		SDL_Rect rect2 = {mouse.x,mouse.y,1,1};
-		SDL_FillRect(screenSurface, &rect2, SDL_MapRGB(screenSurface->format, 0x00, 0xFF, 0x00));
+		
+		rect = t3;
+		SDL_FillRect(screenSurface, &rect, SDL_MapRGB(screenSurface->format, 0x00, 0x00, 0xFF));
+		
+		rect = {mouse.x,mouse.y,5,5};
+		SDL_FillRect(screenSurface, &rect, SDL_MapRGB(screenSurface->format, 0x00, 0xFF, 0x00));
 		SDL_UpdateWindowSurface(win);	
 	};
 	
