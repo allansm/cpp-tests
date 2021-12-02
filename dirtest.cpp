@@ -1,11 +1,21 @@
-#include <path.cpp>
+//#include <iostream>
+//#include <vector>
+#include <allansm/path.hpp>
 #include <allansm/io.hpp>
 
 std::vector<std::string> test(std::string path){
 	std::vector<std::string> tmp;
 	std::vector<std::vector<std::string>> tmp2;
 	//println(path);
-	auto root = ls(path);
+	//auto current = getcwd();
+	//chdir(path);
+	//path = getcwd();
+	//chdir(current);
+	println(path);
+	auto back = getcwd();
+	chdir(path);
+	auto root = ls(".");
+	//chdir(current);
 	//print_r(root);
 	for(auto n : root){
 		auto current = getcwd();
@@ -32,10 +42,11 @@ std::vector<std::string> test(std::string path){
 			tmp.push_back(x);
 		}
 	}*/
-
+	chdir(back);
 	return tmp;
 }
 
 main(int argc,char ** argv){
 	print_r(test(argv[1]));
+	println(getcwd());
 }
