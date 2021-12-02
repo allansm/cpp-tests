@@ -1,52 +1,66 @@
-//#include <iostream>
-//#include <vector>
 #include <allansm/path.hpp>
 #include <allansm/io.hpp>
 
 std::vector<std::string> test(std::string path){
 	std::vector<std::string> tmp;
 	std::vector<std::vector<std::string>> tmp2;
+	
 	//println(path);
-	//auto current = getcwd();
-	//chdir(path);
-	//path = getcwd();
-	//chdir(current);
-	println(path);
 	auto back = getcwd();
 	chdir(path);
 	auto root = ls(".");
-	//chdir(current);
-	//print_r(root);
+	
 	for(auto n : root){
 		auto current = getcwd();
 		if(isDir(n)){
 			if(n != "." && n != ".."){
-				//auto current = getcwd();
 				chdir(n);
 				auto p = getcwd();
-				//chdir(current);
+				
 				tmp.push_back(p);
 
 				for(auto x : test(p)){
 					tmp.push_back(x);
 				}
 			}
-		}else{
-			//println(">>"+n);
 		}
+
 		chdir(current);
 	}
 
-	/*for(auto n : tmp2){
-		for(auto x : n){
-			tmp.push_back(x);
-		}
-	}*/
 	chdir(back);
+	
 	return tmp;
 }
 
+std::vector<std::string> test2(std::string path){
+	std::vector<std::string> arr;
+	auto current = getcwd();
+	
+	chdir(path);
+	
+	for(auto n : ls(".")){
+		if(isFile(n)){
+			auto tmp = getcwd()+"/";
+			arr.push_back(tmp+n);
+		}
+	}
+
+	for(auto n : test(path)){
+		chdir(n);
+		for(auto x : ls(".")){
+			if(isFile(x)){
+				auto tmp = getcwd()+"/";
+				arr.push_back(tmp+x);
+			}
+		}
+	}
+
+	chdir(current);
+
+	return arr;
+}
+
 main(int argc,char ** argv){
-	print_r(test(argv[1]));
-	println(getcwd());
+	print_r(test2(argv[1]));
 }
