@@ -62,7 +62,7 @@ void chaos(){
 
 int main(){
 	auto t = Time().currentTimeToMs();
-	auto test = GetDC(NULL);//GetDC(Win().getFocused());
+	auto test = GetDC(Win().getFocused());
 	
 	std::vector<COLORREF> px;
 	
@@ -73,20 +73,20 @@ int main(){
 	auto bmp = CreateCompatibleBitmap(test,100,100);
 	SelectObject(dc, bmp);
 	BitBlt(dc, 0, 0, 100, 100, test, 0, 0, SRCCOPY);	
+	
 	ReleaseDC(NULL, test);
-	//LPRECT r;
-	//GetWindowRect(console,r);
-
+	DeleteDC(test);	
+	
 	for(int x = 0;x<=100;x++){
 		for(int y = 0;y<=100;y++){
 			px.push_back(GetPixel(dc,x,y));
 		}
 	}
 	
-	//auto bmp = CreateCompatibleBitmap(test2, r->right - r->left, r->bottom - r->top);
+	ReleaseDC(NULL,dc);
+	DeleteObject(bmp);
+	DeleteDC(dc);	
 	println(Time().elapsedTime(t));
-	//auto console = GetConsoleWindow();
-	//auto test2 = GetDC(console);
 		
 	while(true){
 		int i = 0;
@@ -97,6 +97,6 @@ int main(){
 		}
 	}
 
-		
 	ReleaseDC(console, test2);
+	DeleteDC(test2);
 }
