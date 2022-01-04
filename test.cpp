@@ -1,18 +1,21 @@
 #include <iostream>
 #include <allansm/io.hpp>
+#include <vector>
 
 main(){
 	std::string k = "0123456789ABCDEF";
-	int n = 'h';
+	std::string hex = "68";
+	std::vector<int> n;
 
-	std::string res;
-	while(n > 0){
-		print(n%16);
-		print(" ");
-		println(n/16);
-		res = k[n % 16] + res;
-		n = n/16;
+	for(int i=0;i<hex.size();i++){
+		for(int i2=0;i2<k.size();i2++){
+			if(hex[i] == k[i2]){
+				n.push_back(i2);
+			}
+		}
 	}
 
-	std::cout << res;
+	int res = (n[0]*k.size()) + (n[1]*1);
+
+	print(res);
 }
