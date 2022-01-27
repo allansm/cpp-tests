@@ -6,17 +6,12 @@
 main(int argc,char ** argv){
 
 	for(auto n:Win().getAll()){
+		DWORD pid = 0;
+		GetWindowThreadProcessId(n, &pid);
 
-		if(Win().getAppname(n) == argv[1]){
-			std::string a = argv[2];
-			std::string b = argv[3];
-			
-			int x = unknown(a);
-			int y = unknown(b);
-			
-			Win().resize(n, x, y);
-			
-			println("change");
+		if(pid == 688){
+			print(Win().getAppname(n));
+			break;
 		}
 	}
 }
