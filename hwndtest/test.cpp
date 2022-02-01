@@ -1,17 +1,15 @@
-#include <allansm/win.hpp>
-#include <allansm/io.hpp>
-#include <allansm/parser.hpp>
-#include <allansm/util.hpp>
+#include <allansm/mswindow.hpp>
 
-main(int argc,char ** argv){
+typedef LONG (NTAPI *NtSuspendProcess)(IN HANDLE ProcessHandle);
 
-	for(auto n:Win().getAll()){
-		DWORD pid = 0;
-		GetWindowThreadProcessId(n, &pid);
+main(){
+	auto processId = MsWindow("notepad").pid();
+	
+	HANDLE processHandle = OpenProcess(PROCESS_ALL_ACCESS, FALSE, processId);
 
-		if(pid == 688){
-			print(Win().getAppname(n));
-			break;
-		}
-	}
+	NtSuspendProcess pfnNtSuspendProcess = (NtSuspendProcess)GetProcAddress(
+	GetModuleHandle("ntdll"), "NtSuspendProcess");
+
+	pfnNtSuspendProcess(processHandle);
+	CloseHandle(processHandle);
 }
