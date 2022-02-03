@@ -2,6 +2,7 @@
 #include <allansm/io.hpp>
 #include <allansm/elapse.hpp>
 #include <allansm/util.hpp>
+#include <allansm/time.hpp>
 
 struct Process{
 	string name;
@@ -49,8 +50,10 @@ main(){
 		for(auto n : procs){
 			print(n.name);
 			print(" ");
-			print(n.ms);
+			print(Time().elapsedTime(n.ms/1000));
 			println("");
 		}
+
+		Time().sleep(1100);
 	}
 }
