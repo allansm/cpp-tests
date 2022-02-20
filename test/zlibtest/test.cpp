@@ -1,44 +1,58 @@
+#include <stdio.h>
+#include <string.h>
 #include <zlib.h>
 #include <iostream>
-#include <allansm/io.hpp>
 
-main(){
-	char text[255] = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
-	char compressed[255];
+struct compressed{
+	char * data;
+	uInt size;
+};
 
-	z_stream stream;
-	stream.zalloc = Z_NULL;
-	stream.zfree = Z_NULL;
-	stream.opaque = Z_NULL;
+compressed compress(char * data){
+	char result[strlen(data)+1];
 
-	stream.avail_in = (uInt) strlen(text)+1;
-	stream.next_in = (Bytef *) text;
+	z_stream defstream;
+	defstream.zalloc = Z_NULL;
+	defstream.zfree = Z_NULL;
+	defstream.opaque = Z_NULL;
 
-	stream.avail_out = (uInt) sizeof(compressed);
-	stream.next_out = (Bytef *) compressed;
+	defstream.avail_in = (uInt)strlen(data)+1; 
+	defstream.next_in = (Bytef *)data; 
+	defstream.avail_out = (uInt)sizeof(result); 
+	defstream.next_out = (Bytef *)result; 
 
-	deflateInit(&stream, Z_BEST_COMPRESSION);
-	deflate(&stream, Z_FINISH);
-	deflateEnd(&stream);
+	deflateInit(&defstream, Z_BEST_COMPRESSION);
+	deflate(&defstream, Z_FINISH);
+	deflateEnd(&defstream);
 
-	println(compressed);
-
-	char decompressed[255];
-
-	stream.zalloc = Z_NULL;
-	stream.zfree = Z_NULL;
-	stream.opaque = Z_NULL;
-
-    	stream.avail_in = (uInt) strlen(compressed)+1;
-	stream.next_in = (Bytef *) compressed;
-
-    	stream.avail_out = (uInt) sizeof(decompressed);
-    	stream.next_out = (Bytef *) decompressed;
-     
-    	inflateInit(&stream);
-    	inflate(&stream, Z_NO_FLUSH);
-    	inflateEnd(&stream);
-     	
-	println(decompressed);
+	return {result,(uInt)((char*)defstream.next_out - result)};
 }
 
+std::string decompress(char * data,uInt size){ 
+	char result[999999];	
+
+	z_stream infstream;
+	infstream.zalloc = Z_NULL;
+	infstream.zfree = Z_NULL;
+	infstream.opaque = Z_NULL;
+
+	infstream.avail_in = size;
+	infstream.next_in = (Bytef *)data; 
+	infstream.avail_out = (uInt)sizeof(result); 
+	infstream.next_out = (Bytef *)result; 
+
+
+	inflateInit(&infstream);
+	inflate(&infstream, Z_NO_FLUSH);
+	inflateEnd(&infstream);
+
+	return result;
+}
+
+
+int main(int argc, char* argv[]){
+	auto data = compress((char*)"aaaaabbbbbaaaaa");
+	std::cout << decompress(data.data,data.size);
+
+	return 0;
+}
