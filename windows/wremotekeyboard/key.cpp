@@ -5,6 +5,7 @@ struct Key{
 	int key;
 	int target;
 	bool holding = false;
+	
 	Elapse elapse = Elapse();
 	
 	bool pressing(int n){
@@ -16,12 +17,12 @@ struct Key{
 		this->target = (target==-1)?this->key:target;
 
 		while(true){
-			if(pressing(key) && !holding){
+			if(pressing(this->key) && !holding){
 				holding = true;
 				
 				action(this);
 			
-			}else if(pressing(key) && holding){
+			}else if(pressing(this->key) && holding){
 				elapse = Elapse();
 			
 			}else if(elapse.elapsed() > 30 && holding){
