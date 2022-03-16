@@ -5,15 +5,18 @@
 
 #include <allansm/io.hpp>
 #include <allansm/file.hpp>
+#include <allansm/parser.hpp>
 
 #include <thread>
-
-SOCKET _sock;
 
 struct key_info{
 	int key;
 	int target;
 };
+
+SOCKET _sock;
+std::string _ip;
+int _port;
 
 std::vector<key_info> getKeys(){
 	std::vector<key_info> tmp;
@@ -47,10 +50,8 @@ void keyAction(key_info info){
 	}, info.target);
 }
 
-
-
 void getConnection(){
-	Socket().client("127.0.0.1", 54321, [](auto sock){
+	Socket().client(_ip.c_str(), _port, [](auto sock){
 		_sock = sock;
 		
 		println("connected\n");
@@ -59,18 +60,24 @@ void getConnection(){
 	});
 }
 
-std::vector<key_info> keys;
-
-main(){
+int main(int argc, char** argv){
+	if(argc == 3){
+		_ip = argv[1];
+		_port = to<int>(argv[2]);
+	}else{
+		println("please define ip and port");
+		return 1;
+	}
+	
 	std::thread connection_thread(getConnection);
-
-	keys = getKeys();
 
 	std::vector<std::thread> threads;
 
-	for(auto n : keys){
+	for(auto n : getKeys()){
 		threads.push_back(std::thread(keyAction, n));
 	}
 
 	while(true){}
+
+	return 0;
 }

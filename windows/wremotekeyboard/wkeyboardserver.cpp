@@ -3,10 +3,18 @@
 #include "keyboard.cpp"
 
 #include <allansm/io.hpp>
+#include <allansm/parser.hpp>
 
-main(){
-	println("starting...");
-	Socket().server(54321, [](auto sock){
+main(int argc, char** argv){
+	int port = 54321;
+
+	if(argc == 2){
+		port = to<int>(argv[1]);
+	}
+
+	print("starting on port:");
+	println(port);
+	Socket().server(port, [](auto sock){
 		while(true){
 			std::string recv = Socket().receive(sock, 2);
 			
