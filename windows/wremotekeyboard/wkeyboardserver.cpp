@@ -24,8 +24,10 @@ main(int argc, char** argv){
 				up(recv.at(1));
 			}
 
-			print("receive:");
-			println(recv);
+			print(recv);
+			print(" ");
+
+			Sleep(1);
 		}
 	});
 }
