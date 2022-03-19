@@ -20,10 +20,10 @@ int _port;
 
 const long _DAY = 1000*60*60*24;
 
-std::vector<key_info> getKeys(){
+std::vector<key_info> getKeys(std::string config){
 	std::vector<key_info> tmp;
 	
-	for(auto n:File(".config").lines()){
+	for(auto n:File(config).lines()){
 		tmp.push_back({n.at(0), n.at(2)});
 	}
 
@@ -67,19 +67,25 @@ void getConnection(){
 }
 
 int main(int argc, char** argv){
-	if(argc == 3){
+	std::string config = ".config";
+
+	if(argc >= 3){
 		_ip = argv[1];
 		_port = to<int>(argv[2]);
 	}else{
 		println("please define ip and port");
 		return 1;
 	}
+
+	if(argc == 4){
+		config = argv[3];
+	}
 	
 	std::thread connection_thread(getConnection);
 
 	std::vector<std::thread> threads;
 
-	for(auto n : getKeys()){
+	for(auto n : getKeys(config)){
 		threads.push_back(std::thread(keyAction, n));
 	}
 
