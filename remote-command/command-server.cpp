@@ -3,11 +3,15 @@
 #include <allansm/path.hpp>
 #include <allansm/string.hpp>
 #include <allansm/util.hpp>
+#include <allansm/file.hpp>
+#include <allansm/parser.hpp>
 
 main(){
+	int port = unknown(File(".config").lines()[1]);
+
 	while(true){
 		println("waiting...");
-		Socket().server(54321,[](auto connection){
+		Socket().server(port, [](auto connection){
 				String command = Socket().receive(connection, 1024);
 				
 				if(command.has("cd")){
