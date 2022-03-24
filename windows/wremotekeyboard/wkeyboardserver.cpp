@@ -4,10 +4,15 @@
 
 #include <allansm/io.hpp>
 #include <allansm/parser.hpp>
+#include <allansm/file.hpp>
 
 main(int argc, char** argv){
 	int port = 54321;
+	
+	File config(".config");
 
+	if(config.lines()[1].length() >=4) port = to<int>(config.lines()[1]);
+	
 	if(argc == 2){
 		port = to<int>(argv[1]);
 	}

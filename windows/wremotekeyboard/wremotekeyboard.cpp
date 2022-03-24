@@ -15,8 +15,8 @@ struct key_info{
 };
 
 SOCKET _sock;
-std::string _ip;
-int _port;
+std::string _ip = "";
+int _port = 0;
 
 const long _DAY = 1000*60*60*24;
 
@@ -24,7 +24,7 @@ std::vector<key_info> getKeys(std::string config){
 	std::vector<key_info> tmp;
 	
 	for(auto n:File(config).lines()){
-		tmp.push_back({n.at(0), n.at(2)});
+		if(n.length()) tmp.push_back({n.at(0), n.at(2)});
 	}
 
 	return tmp;
@@ -68,11 +68,19 @@ void getConnection(){
 
 int main(int argc, char** argv){
 	std::string config = ".config";
+	File cfg(".config");
+
+	if(cfg.lines()[0].length() >= 8 && cfg.lines()[1].length() >= 4){
+		_ip = cfg.lines()[0];
+		_port = to<int>(cfg.lines()[1]);
+	}
 
 	if(argc >= 3){
 		_ip = argv[1];
 		_port = to<int>(argv[2]);
-	}else{
+	}
+
+	if(_ip == "" || _port == 0){
 		println("please define ip and port");
 		return 1;
 	}
