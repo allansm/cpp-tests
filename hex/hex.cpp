@@ -5,8 +5,11 @@
 main(int argc, char ** argv){
 	File file = File(argv[1]);
 	
-	int i = 0;
+	int i = 1;
+	int size = 15;
 
+	if(argc == 3) size = atoi(argv[2]);
+	
 	if(file.exists()){
 		std::vector<std::string> hex = Base(file.read(), 16);
 
@@ -15,9 +18,9 @@ main(int argc, char ** argv){
 
 			print(n+" ");
 
-			if(i++ == 15){
+			if(i++ == size){
 				print("\n");
-				i=0;
+				i=1;
 			}
 		}
 	}else{
@@ -28,9 +31,9 @@ main(int argc, char ** argv){
 
 			print(n+" ");
 
-			if(i++ == 15){
+			if(i++ == size){
 				print("\n");
-				i=0;
+				i=1;
 			}
 		}	
 	}
